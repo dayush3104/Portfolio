@@ -3,21 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ayush Dixit | Portfolio</title>
+    <title>Ayush Dixit | Product & Engineering</title>
     <script src="https://kit.fontawesome.com/f8b22a8894.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
             --primary-color: #14b8a6; /* Teal */
+            --primary-glow: rgba(20, 184, 166, 0.4);
             --secondary-color: #f0fdfa; /* Very light teal */
             --bg-color: #0f172a; /* Slate dark */
             --card-bg-color: #1e293b; /* Slate darker */
-            --text-color: #e2e8f0; /* Slate light */
-            --heading-color: #f8fafc; /* White */
+            --text-color: #cbd5e1; /* Slate light */
+            --heading-color: #f1f5f9; /* Slate lighter */
             --border-color: #334155; /* Slate medium */
+            --font-primary: 'Poppins', sans-serif;
+            --font-secondary: 'Inter', sans-serif;
         }
 
         * {
@@ -31,7 +34,7 @@
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: var(--font-secondary);
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.7;
@@ -44,23 +47,20 @@
         }
 
         section {
-            padding: 80px 0;
-            border-bottom: 1px solid var(--border-color);
+            padding: 100px 0;
+            overflow: hidden;
         }
         
-        section:last-of-type {
-            border-bottom: none;
-        }
-
         h1, h2, h3 {
+            font-family: var(--font-primary);
             color: var(--heading-color);
             font-weight: 700;
         }
 
         h2.section-title {
             text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 50px;
+            font-size: 2.8rem;
+            margin-bottom: 60px;
             position: relative;
         }
         
@@ -70,7 +70,7 @@
             height: 4px;
             background-color: var(--primary-color);
             position: absolute;
-            bottom: -10px;
+            bottom: -15px;
             left: 50%;
             transform: translateX(-50%);
             border-radius: 2px;
@@ -85,6 +85,7 @@
             z-index: 1000;
             background: rgba(15, 23, 42, 0.8);
             backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
             padding: 15px 0;
             transition: all 0.3s ease;
         }
@@ -96,8 +97,9 @@
         }
 
         .nav-logo {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: 700;
+            font-family: var(--font-primary);
             color: var(--heading-color);
             text-decoration: none;
         }
@@ -108,33 +110,39 @@
         }
 
         .nav-links li {
-            margin-left: 30px;
+            margin-left: 35px;
         }
 
         .nav-links a {
             color: var(--text-color);
             text-decoration: none;
-            font-weight: 400;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 5px;
             transition: color 0.3s ease;
         }
 
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+        
         .nav-links a:hover {
             color: var(--primary-color);
         }
-        
-        .hamburger {
-            display: none;
-            cursor: pointer;
+
+        .nav-links a:hover::after {
+            width: 100%;
         }
         
-        .hamburger .bar {
-            display: block;
-            width: 25px;
-            height: 3px;
-            margin: 5px auto;
-            background-color: var(--text-color);
-            transition: all 0.3s ease-in-out;
-        }
+        .hamburger { display: none; cursor: pointer; }
+        .hamburger .bar { display: block; width: 25px; height: 3px; margin: 5px auto; background-color: var(--text-color); transition: all 0.3s ease-in-out; }
 
         /* --- Hero Section --- */
         #hero {
@@ -148,170 +156,181 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 40px;
+            gap: 50px;
         }
 
         .hero-text {
             max-width: 60%;
         }
         
-        .hero-text h1 {
-            font-size: 3.5rem;
+        .hero-text .greeting {
+            color: var(--primary-color);
+            font-weight: 600;
             margin-bottom: 10px;
+            font-size: 1.2rem;
         }
 
-        .hero-text h1 span {
-            color: var(--primary-color);
+        .hero-text h1 {
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 15px;
         }
 
         .hero-text .subtitle {
-            font-size: 1.5rem;
-            font-weight: 300;
-            margin-bottom: 20px;
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 25px;
+            color: var(--heading-color);
+            font-family: var(--font-primary);
         }
 
         .typing-effect {
-            border-right: 2px solid var(--primary-color);
-            animation: blink 0.7s infinite;
+            color: var(--primary-color);
+            border-right: 3px solid var(--primary-color);
+            animation: blink 0.75s infinite;
         }
 
-        @keyframes blink {
-            50% { border-color: transparent; }
-        }
+        @keyframes blink { 50% { border-color: transparent; } }
 
         .hero-text p {
             margin-bottom: 30px;
+            max-width: 550px;
+            font-size: 1.1rem;
+        }
+
+        .social-links {
+             display: flex;
+             gap: 25px;
         }
 
         .social-links a {
             color: var(--text-color);
-            font-size: 1.8rem;
-            margin-right: 20px;
+            font-size: 2rem;
             transition: all 0.3s ease;
         }
 
         .social-links a:hover {
             color: var(--primary-color);
-            transform: scale(1.2);
+            transform: translateY(-5px);
+        }
+
+        .hero-image-wrapper {
+            position: relative;
         }
 
         .hero-image {
-            width: 300px;
-            height: 300px;
+            width: 320px;
+            height: 320px;
             border-radius: 50%;
             object-fit: cover;
-            border: 5px solid var(--primary-color);
-            box-shadow: 0 0 30px rgba(20, 184, 166, 0.4);
+            border: 7px solid var(--border-color);
+            box-shadow: 0 0 40px var(--primary-glow);
+            transition: transform 0.3s ease;
         }
 
-        /* --- About Section --- */
-        .about-content {
-            display: flex;
-            align-items: center;
-            gap: 50px;
-        }
-        .about-image {
-            flex-shrink: 0;
-        }
-        .about-image img {
-            width: 320px;
-            height: 400px;
-            object-fit: cover;
-            border-radius: 12px;
-            border: 3px solid var(--border-color);
-        }
-        .about-text h3 {
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-        }
-        .about-text p {
-            margin-bottom: 15px;
+        .hero-image:hover {
+            transform: scale(1.05);
         }
         
         .btn {
             display: inline-block;
             background: var(--primary-color);
-            color: #fff;
-            padding: 12px 25px;
+            color: #0f172a;
+            padding: 14px 30px;
             border-radius: 8px;
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 700;
             transition: all 0.3s ease;
             border: 2px solid var(--primary-color);
+            margin-top: 15px;
         }
         .btn:hover {
             background: transparent;
             color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
-        
+        .btn i {
+            margin-left: 8px;
+            transition: transform 0.3s ease;
+        }
+        .btn:hover i {
+            transform: translateX(5px);
+        }
+
         /* --- General Card & Grid Layout --- */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 30px;
         }
         
         .card {
             background: var(--card-bg-color);
-            padding: 25px;
+            padding: 30px;
             border-radius: 12px;
             border: 1px solid var(--border-color);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
             display: flex;
             flex-direction: column;
+            height: 100%;
         }
         
         .card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
         
         .card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-            color: var(--secondary-color);
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--heading-color);
         }
 
         .card p {
-            font-size: 0.95rem;
-            margin-bottom: 15px;
+            font-size: 1rem;
+            margin-bottom: 20px;
             flex-grow: 1;
         }
         
         .card-footer {
             margin-top: auto;
+            padding-top: 15px;
         }
         
+        .card-links {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
         .card-links a {
-            color: var(--primary-color);
-            font-size: 1.5rem;
-            margin-right: 15px;
-            transition: color 0.3s ease;
+            color: var(--text-color);
+            font-size: 1.8rem;
+            transition: all 0.3s ease;
         }
         
         .card-links a:hover {
-            color: var(--secondary-color);
+            color: var(--primary-color);
+            transform: scale(1.2);
         }
         
-        .tags {
-            margin-top: 15px;
-        }
+        .tags { display: flex; flex-wrap: wrap; gap: 8px; }
         
         .tag {
-            display: inline-block;
-            background: var(--border-color);
-            color: var(--secondary-color);
-            font-size: 0.75rem;
-            padding: 4px 10px;
+            background: #2b3a50;
+            color: var(--primary-color);
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 5px 12px;
             border-radius: 15px;
-            margin-right: 5px;
-            margin-bottom: 5px;
         }
-        
+
         /* --- Experience & Education Timeline --- */
         .timeline {
             position: relative;
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
         }
 
@@ -324,161 +343,166 @@
             bottom: 0;
             left: 50%;
             margin-left: -2px;
+            border-radius: 2px;
         }
 
         .timeline-item {
             padding: 10px 40px;
             position: relative;
-            background-color: inherit;
             width: 50%;
         }
 
         .timeline-item::after {
             content: '';
             position: absolute;
-            width: 20px;
-            height: 20px;
-            right: -10px;
-            background-color: var(--primary-color);
-            border: 4px solid var(--bg-color);
+            width: 24px;
+            height: 24px;
+            right: -12px;
+            background-color: var(--bg-color);
+            border: 4px solid var(--primary-color);
             top: 25px;
             border-radius: 50%;
             z-index: 1;
+            transition: transform 0.3s ease;
+        }
+        
+        .timeline-item:hover::after {
+             transform: scale(1.2);
         }
 
-        .left {
-            left: 0;
-        }
-
-        .right {
-            left: 50%;
-        }
-
-        .left::before {
-            content: " ";
-            height: 0;
-            position: absolute;
-            top: 30px;
-            width: 0;
-            z-index: 1;
-            right: 30px;
-            border: medium solid var(--border-color);
-            border-width: 10px 0 10px 10px;
-            border-color: transparent transparent transparent var(--border-color);
-        }
-
-        .right::before {
-            content: " ";
-            height: 0;
-            position: absolute;
-            top: 30px;
-            width: 0;
-            z-index: 1;
-            left: 30px;
-            border: medium solid var(--border-color);
-            border-width: 10px 10px 10px 0;
-            border-color: transparent var(--border-color) transparent transparent;
-        }
-
-        .right::after {
-            left: -10px;
-        }
+        .left { left: 0; }
+        .right { left: 50%; }
+        .right::after { left: -12px; }
 
         .timeline-content {
-            padding: 20px 30px;
+            padding: 25px;
             background-color: var(--card-bg-color);
             position: relative;
             border-radius: 8px;
             border: 1px solid var(--border-color);
-        }
-
-        .timeline-content h3 {
-            color: var(--primary-color);
-            font-size: 1.2rem;
+            border-left: 5px solid var(--primary-color);
         }
         
-        .timeline-content .date {
-            font-size: 0.9rem;
-            color: var(--text-color);
-            font-style: italic;
-            display: block;
-            margin-top: 5px;
-        }
-        
-        .timeline-content .institution {
-            font-weight: 600;
-        }
+        .timeline-content h3 { color: var(--heading-color); font-size: 1.3rem; }
+        .timeline-content .institution { font-weight: 600; color: var(--primary-color); }
+        .timeline-content .date { font-size: 0.9rem; font-style: italic; display: block; margin: 5px 0 10px; }
+        .timeline-content ul { padding-left: 20px; }
+        .timeline-content ul li { margin-bottom: 8px; }
 
         /* --- Skills --- */
-        #skills .grid {
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        #skills .container {
+            max-width: 1000px;
+        }
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
         }
 
         .skill-card {
             background: var(--card-bg-color);
             padding: 30px;
             border-radius: 12px;
-            text-align: center;
             border: 1px solid var(--border-color);
         }
         
         .skill-card h3 {
-            margin-bottom: 20px;
-            color: var(--secondary-color);
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 1.5rem;
+            color: var(--heading-color);
         }
         
-        .skill-card ul {
-            list-style: none;
-            padding: 0;
+        .skill-category {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .skill-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            width: 80px;
+            text-align: center;
+            transition: transform 0.3s ease;
         }
         
-        .skill-card ul li {
-            margin-bottom: 10px;
+        .skill-item:hover {
+            transform: scale(1.1);
+        }
+
+        .skill-item i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+        }
+        
+        .skill-item span {
+            font-size: 0.9rem;
+            font-weight: 600;
         }
 
         /* --- Achievements --- */
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
         .achievement-item {
             display: flex;
             align-items: flex-start;
             gap: 15px;
             padding: 15px;
             border-radius: 8px;
-            transition: background-color 0.3s;
-        }
-        .achievement-item:hover {
             background-color: var(--card-bg-color);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
         }
+
+        .achievement-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+        }
+
         .achievement-item i {
             color: var(--primary-color);
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             margin-top: 5px;
         }
         
         .achievement-text strong {
-             color: var(--secondary-color);
+             color: var(--heading-color);
+        }
+        .achievement-text span {
+             font-size: 0.9rem;
         }
 
         /* --- Footer --- */
         #contact {
             text-align: center;
-            padding: 60px 0;
+            padding: 80px 0;
+            background-color: #0c1424;
         }
         
-        #contact h2 {
-            margin-bottom: 20px;
-        }
+        #contact h2 { margin-bottom: 20px; }
         
         #contact p {
             margin-bottom: 30px;
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
+            font-size: 1.1rem;
         }
         
         .contact-info {
             display: flex;
             justify-content: center;
-            gap: 30px;
+            gap: 40px;
             margin-bottom: 40px;
             flex-wrap: wrap;
         }
@@ -486,29 +510,22 @@
         .contact-info a {
             color: var(--text-color);
             text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
             transition: color 0.3s;
         }
-        .contact-info a:hover {
-            color: var(--primary-color);
-        }
+        .contact-info a:hover { color: var(--primary-color); }
+        .contact-info i { margin-right: 10px; }
         
-        .contact-info i {
-            margin-right: 8px;
-        }
-        
-        .footer-socials {
-            margin-bottom: 20px;
-        }
-        .footer-socials a {
-            font-size: 2rem;
-        }
+        .footer-socials { margin-bottom: 30px; }
+        .footer-socials a { font-size: 2rem; }
 
         /* Animations */
         .reveal {
             position: relative;
             transform: translateY(100px);
             opacity: 0;
-            transition: 1s all ease;
+            transition: 1s all cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
         .reveal.active {
             transform: translateY(0);
@@ -517,82 +534,30 @@
         
         /* Responsive Design */
         @media (max-width: 992px) {
-            .hero-content {
-                flex-direction: column-reverse;
-                text-align: center;
-            }
-            .hero-text {
-                max-width: 100%;
-            }
-            .social-links {
-                justify-content: center;
-            }
-            .about-content {
-                flex-direction: column;
-                text-align: center;
-            }
+            .hero-content { flex-direction: column-reverse; text-align: center; }
+            .hero-text { max-width: 100%; }
+            .social-links { justify-content: center; }
+            .achievements-grid { grid-template-columns: 1fr; }
         }
         
         @media (max-width: 768px) {
-            .nav-links {
-                position: fixed;
-                left: -100%;
-                top: 70px;
-                background-color: var(--bg-color);
-                flex-direction: column;
-                width: 100%;
-                text-align: center;
-                transition: 0.3s;
-            }
-            .nav-links.active {
-                left: 0;
-            }
-            .nav-links li {
-                margin: 15px 0;
-            }
-            .hamburger {
-                display: block;
-            }
-            .hamburger.active .bar:nth-child(2) {
-                opacity: 0;
-            }
-            .hamburger.active .bar:nth-child(1) {
-                transform: translateY(8px) rotate(45deg);
-            }
-            .hamburger.active .bar:nth-child(3) {
-                transform: translateY(-8px) rotate(-45deg);
-            }
+            h2.section-title { font-size: 2.2rem; }
+            .hero-text h1 { font-size: 2.8rem; }
+            .hero-text .subtitle { font-size: 1.4rem; }
+            .grid { grid-template-columns: 1fr; }
+
+            .nav-links { position: fixed; left: -100%; top: 67px; background-color: var(--bg-color); flex-direction: column; width: 100%; text-align: center; transition: 0.3s; padding: 20px 0; border-bottom: 1px solid var(--border-color); }
+            .nav-links.active { left: 0; }
+            .nav-links li { margin: 15px 0; }
+            .hamburger { display: block; }
+            .hamburger.active .bar:nth-child(2) { opacity: 0; }
+            .hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+            .hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
             
-            h2.section-title {
-                font-size: 2rem;
-            }
-            .hero-text h1 {
-                font-size: 2.5rem;
-            }
-            .hero-text .subtitle {
-                font-size: 1.2rem;
-            }
-            
-            .timeline::after {
-                left: 20px;
-            }
-            .timeline-item {
-                width: 100%;
-                padding-left: 60px;
-                padding-right: 15px;
-            }
-            .timeline-item::before {
-                left: 50px;
-                border: medium solid var(--border-color);
-                border-width: 10px 10px 10px 0;
-                border-color: transparent var(--border-color) transparent transparent;
-            }
-            .left::after, .right::after {
-                left: 10px;
-            }
-            .right {
-                left: 0%;
-            }
+            .timeline::after { left: 20px; }
+            .timeline-item { width: 100%; padding-left: 60px; padding-right: 15px; }
+            .timeline-item::after { left: 8px; }
+            .right { left: 0%; }
         }
     </style>
 </head>
@@ -602,11 +567,11 @@
         <div class="container">
             <a href="#" class="nav-logo">Ayush Dixit</a>
             <ul class="nav-links">
-                <li><a href="#about">About</a></li>
                 <li><a href="#experience">Experience</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#skills">Skills</a></li>
                 <li><a href="#achievements">Achievements</a></li>
+                <li><a href="#leadership">Leadership</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
             <div class="hamburger">
@@ -621,35 +586,21 @@
         <section id="hero">
             <div class="container">
                 <div class="hero-content">
-                    <div class="hero-text">
-                        <h3>Hello, I'm</h3>
-                        <h1>Ayush <span>Dixit</span></h1>
-                        <h3 class="subtitle">A <span class="typing-effect"></span></h3>
-                        <p>Final-year Civil Engineering student at IIT Kanpur with a passion for building impactful products at the intersection of technology and user needs. Let's build something amazing together.</p>
+                    <div class="hero-text reveal">
+                        <div class="greeting">HELLO, I'M AYUSH DIXIT.</div>
+                        <h1>Innovating at the intersection of Tech & Product.</h1>
+                        <h3 class="subtitle">I'm a <span class="typing-effect"></span></h3>
+                        <p>A final-year Civil Engineering student at IIT Kanpur, I thrive on solving complex problems and building impactful, user-centric products. From architecting AI pipelines to leading large-scale campus initiatives, I combine analytical rigor with creative strategy to deliver measurable results. Let's build something amazing together.</p>
                         <div class="social-links">
                             <a href="https://www.linkedin.com/in/ayush-dixit-6b284125b/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
                             <a href="https://github.com/dayush3104" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
                             <a href="mailto:dayush22@iitk.ac.in" aria-label="Email"><i class="fas fa-envelope"></i></a>
                             <a href="https://bento.me/ayushdixit31" target="_blank" aria-label="Portfolio"><i class="fas fa-globe"></i></a>
                         </div>
+                        <a href="#projects" class="btn">View My Work <i class="fas fa-arrow-right"></i></a>
                     </div>
-                    <img src="https://i.ibb.co/6P26N7P/WhatsApp-Image-2025-08-28-at-11-38-58-5ccc86ea.jpg" alt="Ayush Dixit" class="hero-image">
-                </div>
-            </div>
-        </section>
-
-        <section id="about" class="reveal">
-            <div class="container">
-                <h2 class="section-title">About Me</h2>
-                <div class="about-content">
-                    <div class="about-image">
-                        <img src="https://i.ibb.co/HhN56G7/WhatsApp-Image-2025-02-01-at-16-26-13-10e4ab53.jpg" alt="Ayush Dixit at an event">
-                    </div>
-                    <div class="about-text">
-                        <h3>Civil Engineer, Product Enthusiast & Problem Solver</h3>
-                        <p>I am a final-year undergraduate at the Indian Institute of Technology, Kanpur, majoring in Civil Engineering. My academic journey has been complemented by a deep dive into the world of technology, product management, and data science.</p>
-                        <p>My experience ranges from interning at the Founder's Office at Masai, where I engineered AI pipelines and growth strategies, to a research project with Samsung R&D on high-fidelity spatial audio. I am driven by a curiosity to understand user needs and a desire to craft elegant, data-informed solutions. I excel in leadership roles, having managed large-scale events and mentored teams at IIT Kanpur.</p>
-                        <a href="#contact" class="btn">Get In Touch</a>
+                    <div class="hero-image-wrapper reveal">
+                        <img src="https://i.ibb.co/6P26N7P/WhatsApp-Image-2025-08-28-at-11-38-58-5ccc86ea.jpg" alt="Ayush Dixit" class="hero-image">
                     </div>
                 </div>
             </div>
@@ -657,38 +608,32 @@
 
         <section id="experience" class="reveal">
             <div class="container">
-                <h2 class="section-title">Experience & Education</h2>
+                <h2 class="section-title">Experience & Research</h2>
                 <div class="timeline">
                     <div class="timeline-item left reveal">
                         <div class="timeline-content">
-                            <h3>Founder's Office Intern</h3>
+                            <h3>Product & Strategy Intern</h3>
                             <span class="institution">Masai, Bengaluru</span>
                             <span class="date">May 2025 - July 2025</span>
-                            <p>Engineered AI pipelines for sentiment analysis and market intelligence. Activated influencer marketing campaigns, boosting YouTube impressions by 65%, and collaborated on global product features.</p>
+                            <ul>
+                                <li>Engineered an AI pipeline using LLMs and NLP for sentiment analysis, improving data throughput by 70%.</li>
+                                <li>Activated 25+ influencer campaigns, driving 2M+ impressions and 120K+ engagements.</li>
+                                <li>Collaborated on the design of Masai's Global Website & AI Counsellor, generating 50+ qualified international leads.</li>
+                                <li>Honored with Masai's Best Team Award for outstanding performance and impact.</li>
+                            </ul>
                         </div>
                     </div>
                     <div class="timeline-item right reveal">
                         <div class="timeline-content">
-                            <h3>B.Tech - Civil Engineering</h3>
-                            <span class="institution">Indian Institute of Technology, Kanpur</span>
-                            <span class="date">2022 - Present</span>
-                            <p>Pursuing undergraduate studies with a focus on core civil engineering principles, complemented by extensive coursework and projects in machine learning, data science, and product management.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-item left reveal">
-                        <div class="timeline-content">
                             <h3>Undergraduate Researcher</h3>
-                            <span class="institution">Project with Samsung R&D</span>
+                            <span class="institution">IIT Kanpur (in collaboration with Samsung R&D)</span>
                             <span class="date">Jan 2025 - May 2025</span>
-                            <p>Developed a 50-hour high-fidelity spatial audio dataset for ML models in Samsung Smart Glasses. Architected a MATLAB simulation environment, cutting prototyping costs by ~40%.</p>
-                        </div>
-                    </div>
-                     <div class="timeline-item right reveal">
-                        <div class="timeline-content">
-                            <h3>Class XII (CBSE)</h3>
-                            <span class="institution">Apala School Of Education, Nohar</span>
-                            <span class="date">2021 | 95.40%</span>
-                            <p>Completed higher secondary education with a strong foundation in science and mathematics.</p>
+                            <ul>
+                                <li>Architected a MATLAB simulation framework to model a 4-microphone array for Samsung Smart Glasses.</li>
+                                <li>Generated a 50-hour high-fidelity spatial audio dataset to train ML models for speech enhancement and noise cancellation.</li>
+                                <li>Slashed prototyping costs by 40% and doubled testing velocity by deploying a reusable, simulation-first pipeline.</li>
+                                <li>Recognized with an 'A' Grade for delivering research of the highest academic standard.</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -697,13 +642,22 @@
 
         <section id="projects" class="reveal">
             <div class="container">
-                <h2 class="section-title">Projects</h2>
+                <h2 class="section-title">Product Experience</h2>
                 <div class="grid">
                     <div class="card reveal">
-                        <h3>Nothing AtmosCore - Product Design</h3>
-                        <p>Conceptualized a modular, sustainable charging ecosystem to tackle battery anxiety and e-waste, introducing gamified charging interactions to enhance user experience.</p>
+                        <h3>Zomato - AI Discovery Improvement</h3>
+                        <p>Engineered an AI discovery framework to combat choice overload. Formulated a PRD and roadmap prioritizing conversational search and predictive personalization, projecting a 4x conversion lift and a 25-35% AOV increase.</p>
                         <div class="card-footer">
-                             <div class="card-links">
+                             <div class="tags">
+                                <span class="tag">Product Management</span><span class="tag">AI/ML</span><span class="tag">UX Research</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card reveal">
+                        <h3>Nothing AtmosCore - Product Design</h3>
+                        <p>Conceptualized a modular, sustainable charging ecosystem to tackle battery anxiety and e-waste. Introduced gamified charging interactions to create an engaging user experience and enhance brand loyalty.</p>
+                        <div class="card-footer">
+                            <div class="card-links">
                                 <a href="https://drive.google.com/file/d/1zyWj3RICBoxv7VrmUDtOpdChH1hKXL-h/view?usp=drive_link" target="_blank" aria-label="View Document"><i class="fas fa-file-alt"></i></a>
                             </div>
                             <div class="tags">
@@ -712,23 +666,10 @@
                         </div>
                     </div>
                     <div class="card reveal">
-                        <h3>CredTech - Explainable Credit Intelligence</h3>
-                        <p>Engineered an end-to-end credit risk platform using LightGBM and NLP (FinBERT) to generate daily credit scores. Implemented explainable AI with SHAP to reduce model opacity.</p>
-                        <div class="card-footer">
-                             <div class="card-links">
-                                <a href="https://github.com/dayush3104/CredTech-Explainable-Credit-Intelligence-Platform" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                                <a href="https://dayush3104-credtech-explainable-credit-intelli-dashboard-rhy8rw.streamlit.app/" target="_blank" aria-label="Live Demo"><i class="fas fa-external-link-alt"></i></a>
-                            </div>
-                             <div class="tags">
-                                <span class="tag">FinTech</span><span class="tag">Machine Learning</span><span class="tag">XAI</span><span class="tag">Streamlit</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card reveal">
                         <h3>MindCare – Digital Mental Health Platform</h3>
-                        <p>Designed a trust-first, hybrid digital mental health platform for the Indian market. Built a working prototype with journaling, AI nudges, and a therapist dashboard to address affordability and privacy gaps.</p>
+                        <p>Designed and prototyped a trust-first, hybrid digital mental health platform for the Indian market. The solution features journaling, AI nudges, and a therapist dashboard to address affordability and privacy gaps.</p>
                         <div class="card-footer">
-                             <div class="card-links">
+                            <div class="card-links">
                                 <a href="https://drive.google.com/file/d/1LkBpQFLuiVwwCT3RsYSK5q/view?usp=sharing" target="_blank" aria-label="View Document"><i class="fas fa-file-alt"></i></a>
                                 <a href="https://trusty-mind-path.lovable.app" target="_blank" aria-label="Live Demo"><i class="fas fa-external-link-alt"></i></a>
                             </div>
@@ -737,36 +678,45 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tech-projects" class="reveal" style="background-color: #0c1424;">
+            <div class="container">
+                <h2 class="section-title">Technical Projects</h2>
+                <div class="grid">
                     <div class="card reveal">
-                        <h3>Land Cover Classification</h3>
-                        <p>Developed Random Forest classifiers with 96.8% accuracy for land cover mapping using Sentinel-2 imagery. Architected an end-to-end geospatial platform with a user-friendly Gradio interface.</p>
+                        <h3>CredTech - Explainable Credit Intelligence</h3>
+                        <p>Engineered an end-to-end credit risk platform generating daily credit scores for NSE blue-chips. Used LightGBM and NLP (FinBERT) and implemented explainable AI with SHAP to reduce model opacity. (Top 8 Finalist)</p>
+                        <div class="card-footer">
+                            <div class="card-links">
+                                <a href="https://github.com/dayush3104/CredTech-Explainable-Credit-Intelligence-Platform" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                                <a href="https://dayush3104-credtech-explainable-credit-intelli-dashboard-rhy8rw.streamlit.app/" target="_blank" aria-label="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                            <div class="tags">
+                                <span class="tag">FinTech</span><span class="tag">Machine Learning</span><span class="tag">XAI</span><span class="tag">Streamlit</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card reveal">
+                        <h3>Automated Land Cover Classification</h3>
+                        <p>Architected an end-to-end geospatial platform using Random Forest classifiers to achieve 96.8% accuracy in land cover mapping from Sentinel-2 imagery. Deployed an intuitive Gradio interface for zero-code execution.</p>
                         <div class="card-footer">
                             <div class="card-links">
                                 <a href="https://github.com/dayush3104/Land-Cover-Classification-and-Accuracy-Analysis" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
                             </div>
                             <div class="tags">
-                                <span class="tag">Geospatial AI</span><span class="tag">Python</span><span class="tag">Remote Sensing</span><span class="tag">Gradio</span>
+                                <span class="tag">Geospatial AI</span><span class="tag">Python</span><span class="tag">Remote Sensing</span>
                             </div>
                         </div>
                     </div>
                     <div class="card reveal">
                         <h3>ML-PUF Secure Hardware Authentication</h3>
-                        <p>Designed ML models for Physically Unclonable Function (PUF) response prediction, achieving 100% classification accuracy with kernelized learning for secure hardware authentication.</p>
-                         <div class="card-footer">
+                        <p>Designed and trained ML models for Physically Unclonable Function (PUF) response prediction, achieving 100% classification accuracy with kernelized learning for secure and low-latency hardware authentication.</p>
+                        <div class="card-footer">
                             <div class="tags">
                                 <span class="tag">Cybersecurity</span><span class="tag">Machine Learning</span><span class="tag">Hardware</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card reveal">
-                        <h3>Product Management System - Web Dev</h3>
-                        <p>Built a full-stack product management system leveraging JavaScript and Node.js with a dynamic, responsive interface. Integrated MongoDB for efficient and robust data handling.</p>
-                        <div class="card-footer">
-                             <div class="card-links">
-                                <a href="https://github.com/dayush3104/Product-Management-System" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                            </div>
-                             <div class="tags">
-                                <span class="tag">Full-Stack</span><span class="tag">Node.js</span><span class="tag">MongoDB</span><span class="tag">JavaScript</span>
                             </div>
                         </div>
                     </div>
@@ -774,39 +724,67 @@
             </div>
         </section>
 
-        <section id="skills" class="reveal">
+        <section id="core-projects" class="reveal">
             <div class="container">
-                <h2 class="section-title">Skills</h2>
+                <h2 class="section-title">Core Engineering Projects</h2>
                 <div class="grid">
+                     <div class="card reveal">
+                        <h3>Optimization Modeling for Resource Management</h3>
+                        <p>Formulated 5+ optimization models in LINGO for irrigation scheduling, improving reservoir operation efficiency by 15%. Integrated 10+ years of hydrological data to boost simulation accuracy by 20%.</p>
+                        <div class="card-footer">
+                            <div class="tags"><span class="tag">Civil Engg.</span><span class="tag">Optimization</span><span class="tag">LINGO</span><span class="tag">Hydrology</span></div>
+                        </div>
+                    </div>
+                    <div class="card reveal">
+                        <h3>Geospatial Survey and Mapping using QGIS</h3>
+                        <p>Executed field surveys using Total Station and GNSS with 1:10,000 precision. Processed 400+ geospatial data points and generated georeferenced maps in QGIS, enhancing drainage planning accuracy by 20%.</p>
+                        <div class="card-footer">
+                            <div class="tags"><span class="tag">Geoinformatics</span><span class="tag">QGIS</span><span class="tag">Surveying</span></div>
+                        </div>
+                    </div>
+                     <div class="card reveal">
+                        <h3>Automated Solar Tracker System</h3>
+                        <p>Designed and built a dual-axis solar tracker using light sensors and an Arduino microcontroller. The system automatically aligns photovoltaic panels with the sun's trajectory to maximize energy efficiency.</p>
+                        <div class="card-footer">
+                             <div class="tags"><span class="tag">Mechatronics</span><span class="tag">Arduino</span><span class="tag">Renewable Energy</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="reveal" style="background-color: #0c1424;">
+            <div class="container">
+                <h2 class="section-title">Technical Skills</h2>
+                <div class="skills-grid">
                     <div class="skill-card reveal">
-                        <h3>Programming & Tech</h3>
-                        <ul>
-                            <li>C/C++, Python, JavaScript, MATLAB</li>
-                            <li>SQL, MongoDB, HTML, CSS, LaTeX</li>
-                            <li>Node.js, Express.js</li>
-                            <li>NumPy, Pandas, ScikitLearn</li>
-                            <li>GitHub, Jupyter, Google Colab</li>
-                        </ul>
+                        <h3>Programming & Data</h3>
+                        <div class="skill-category">
+                            <div class="skill-item"><i class="fab fa-python"></i><span>Python</span></div>
+                            <div class="skill-item"><i class="fab fa-cuttlefish"></i><span>C/C++</span></div>
+                            <div class="skill-item"><i class="fab fa-js-square"></i><span>JavaScript</span></div>
+                            <div class="skill-item"><i class="fas fa-database"></i><span>SQL</span></div>
+                            <div class="skill-item"><i class="fas fa-leaf"></i><span>MongoDB</span></div>
+                             <div class="skill-item"><i class="fab fa-node-js"></i><span>Node.js</span></div>
+                        </div>
                     </div>
                     <div class="skill-card reveal">
-                        <h3>Tools & Software</h3>
-                        <ul>
-                            <li><strong>Analytics:</strong> Google Analytics, Tableau, Power BI</li>
-                            <li><strong>Research:</strong> SimilarWeb, SEMrush, Ahrefs</li>
-                            <li><strong>Social Listening:</strong> Hootsuite, Brandwatch</li>
-                            <li><strong>Design/Eng:</strong> QGIS, AutoCAD, Fusion 360</li>
-                            <li><strong>Productivity:</strong> MS Office, Canva</li>
-                        </ul>
+                        <h3>Libraries & Frameworks</h3>
+                        <div class="skill-category">
+                            <div class="skill-item"><i class="fas fa-chart-line"></i><span>NumPy</span></div>
+                            <div class="skill-item"><i class="fas fa-table"></i><span>Pandas</span></div>
+                            <div class="skill-item"><i class="fas fa-brain"></i><span>Scikit-Learn</span></div>
+                            <div class="skill-item"><i class="fab fa-react"></i><span>Express.js</span></div>
+                        </div>
                     </div>
                     <div class="skill-card reveal">
-                        <h3>Soft Skills</h3>
-                        <ul>
-                            <li>Problem Solving & Critical Thinking</li>
-                            <li>Product Management & Strategy</li>
-                            <li>Leadership & Teamwork</li>
-                            <li>Public Speaking & Storytelling</li>
-                            <li>Adaptability & Resilience</li>
-                        </ul>
+                        <h3>Tools & Platforms</h3>
+                         <div class="skill-category">
+                            <div class="skill-item"><i class="fas fa-chart-bar"></i><span>Tableau</span></div>
+                            <div class="skill-item"><i class="fab fa-git-alt"></i><span>Git & GitHub</span></div>
+                            <div class="skill-item"><i class="fas fa-map-marked-alt"></i><span>QGIS</span></div>
+                            <div class="skill-item"><i class="fas fa-cube"></i><span>AutoCAD</span></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -815,26 +793,38 @@
         <section id="achievements" class="reveal">
             <div class="container">
                 <h2 class="section-title">Scholastic Achievements</h2>
-                <div class="achievements-list">
+                <div class="achievements-grid">
                     <div class="achievement-item reveal">
                         <i class="fas fa-trophy"></i>
                         <div class="achievement-text"><strong>JEE Advanced 2022:</strong> Achieved AIR 5893 among 1.65 Lakh candidates.</div>
                     </div>
-                    <div class="achievement-item reveal">
-                        <i class="fas fa-trophy"></i>
-                        <div class="achievement-text"><strong>Amazon ML Summer School:</strong> Shortlisted among Top 3,000 of 50K+ applicants.</div>
-                    </div>
                      <div class="achievement-item reveal">
                         <i class="fas fa-trophy"></i>
-                        <div class="achievement-text"><strong>TATA Imagination Challenge:</strong> Recognized as a National Semi-Finalist among 3.1 Lakh candidates.</div>
+                        <div class="achievement-text"><strong>JEE Mains 2022:</strong> Secured AIR 6132 out of 10.3 Lakh aspirants nationwide.</div>
                     </div>
                     <div class="achievement-item reveal">
-                        <i class="fas fa-trophy"></i>
-                        <div class="achievement-text"><strong>CredTech Hackathon:</strong> Secured a Top 8 Nationwide rank, hosted by DeepRoot Investments & Pclub, IITK.</div>
+                        <i class="fas fa-award"></i>
+                        <div class="achievement-text"><strong>Amazon ML Summer School:</strong> Shortlisted among Top 3,000 of 50K+ applicants.</div>
                     </div>
                     <div class="achievement-item reveal">
-                        <i class="fas fa-trophy"></i>
-                        <div class="achievement-text"><strong>Neural Sprint Competition (IIM Rohtak):</strong> Achieved All India Rank 4.</div>
+                        <i class="fas fa-award"></i>
+                        <div class="achievement-text"><strong>TATA Imagination Challenge:</strong> National Semi-Finalist among 3.1 Lakh candidates.</div>
+                    </div>
+                    <div class="achievement-item reveal">
+                        <i class="fas fa-award"></i>
+                        <div class="achievement-text"><strong>Flipkart Grid 7.0 Challenge:</strong> National Semi-Finalist from a pool of 4 Lakh candidates.</div>
+                    </div>
+                    <div class="achievement-item reveal">
+                        <i class="fas fa-medal"></i>
+                        <div class="achievement-text"><strong>CredTech Hackathon (IITK):</strong> Secured a Top 8 Nationwide rank.</div>
+                    </div>
+                    <div class="achievement-item reveal">
+                        <i class="fas fa-medal"></i>
+                        <div class="achievement-text"><strong>Neural Sprint (IIM Rohtak):</strong> Achieved All India Rank 4.</div>
+                    </div>
+                    <div class="achievement-item reveal">
+                        <i class="fas fa-medal"></i>
+                        <div class="achievement-text"><strong>Accenture Strategy Connect:</strong> Shortlisted in Top 300 from 9K+ teams.</div>
                     </div>
                 </div>
             </div>
@@ -842,25 +832,28 @@
         
         <section id="leadership" class="reveal">
             <div class="container">
-                <h2 class="section-title">Leadership</h2>
+                <h2 class="section-title">Leadership & Initiatives</h2>
                  <div class="grid">
                     <div class="card reveal">
                         <h3>Core Team Member, Operations</h3>
-                        <p><strong>Institute Counselling Service, IIT Kanpur (Mar'24-Apr'25)</strong><br>Spearheaded a 7-day orientation for 1250+ freshers, led a team of 400+ guides and mentors, and managed a budget of ₹35L+. Received a Certificate of Appreciation for outstanding service.</p>
+                        <p><strong>Institute Counselling Service, IIT Kanpur (2024-25)</strong><br>Spearheaded a 10-day orientation for 1250+ freshers, leading a team of 350+ mentors. Managed a ₹35L+ budget for mental health initiatives impacting 10K+ students. Secured ₹12L+ in sponsorships and received a Certificate of Appreciation for outstanding service.</p>
                     </div>
                     <div class="card reveal">
                         <h3>Secretary, Dance Vertical</h3>
-                         <p><strong>Antaragni, IIT Kanpur (Aug'23-Oct'23)</strong><br>Led a team of 20+ volunteers to organize six national-level dance events, drawing 500+ participants. Secured sponsorships and achieved a footfall of over 50,000 attendees.</p>
+                        <p><strong>Antaragni, IIT Kanpur (2023)</strong><br>Led a team of 20+ volunteers to organize six national-level dance events, drawing 500+ participants from across India. Secured sponsors and media partners, contributing to a festival footfall of over 50,000 attendees.</p>
                     </div>
-                 </div>
+                     <div class="card reveal">
+                        <h3>Mentorship & Community</h3>
+                        <p><strong>Student Guide & Academic Mentor</strong><br>Mentored 10+ junior students academically and emotionally. Conducted remedial mathematics classes for a batch of 1200+ students. Served as an IITK Student Representative at the JEE Open House 2024, addressing over 5,000 students and parents.</p>
+                    </div>
+                </div>
             </div>
         </section>
-
 
         <footer id="contact">
             <div class="container">
                 <h2 class="section-title">Get In Touch</h2>
-                <p>I'm always open to discussing new projects, creative ideas, or opportunities to be part of an amazing team. Feel free to reach out!</p>
+                <p>I'm always open to discussing new projects, creative ideas, or opportunities to be part of an amazing team. Whether you have a question or just want to say hi, I'll try my best to get back to you!</p>
                 <div class="contact-info">
                     <a href="mailto:dayush22@iitk.ac.in"><i class="fas fa-envelope"></i> dayush22@iitk.ac.in</a>
                     <a href="tel:+918503878119"><i class="fas fa-phone"></i> +91-8503878119</a>
@@ -918,7 +911,9 @@
         }
 
         document.addEventListener("DOMContentLoaded", function() { 
-            setTimeout(type, 500);
+            if(typingElement) {
+                setTimeout(type, 500);
+            }
         });
 
         // Scroll Reveal Animation
@@ -928,19 +923,19 @@
             for (let i = 0; i < reveals.length; i++) {
                 const windowHeight = window.innerHeight;
                 const elementTop = reveals[i].getBoundingClientRect().top;
-                const elementVisible = 150;
+                const elementVisible = 100; // A bit smaller for earlier reveal
 
                 if (elementTop < windowHeight - elementVisible) {
                     reveals[i].classList.add("active");
                 } else {
-                    // Optional: remove active class to re-animate on scroll up
+                    // Optional: remove to re-animate on scroll up
                     // reveals[i].classList.remove("active");
                 }
             }
         }
 
         window.addEventListener("scroll", reveal);
-        // Initial check
+        // Initial check on load
         reveal();
     </script>
 </body>
