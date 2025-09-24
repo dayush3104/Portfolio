@@ -25,8 +25,6 @@
     --border-color: rgba(0, 0, 0, 0.1);
     --sky-top-day: #87CEEB;
     --sky-bottom-day: #f0f8ff;
-    --sky-top-night: #0c1445;
-    --sky-bottom-night: #2d2d57;
 }
 *{box-sizing:border-box}
 html,body{
@@ -40,7 +38,6 @@ html,body{
 }
 canvas{display:block;width:100vw;height:100vh}
 
-/* NEW: Welcome Overlay */
 #welcome-overlay {
     position: fixed;
     top: 0;
@@ -54,7 +51,7 @@ canvas{display:block;width:100vw;height:100vh}
     z-index: 100;
     color: white;
     text-align: center;
-    visibility: hidden; /* Initially hidden */
+    visibility: hidden; 
 }
 #welcome-text {
     font-family: 'Righteous', cursive;
@@ -63,8 +60,6 @@ canvas{display:block;width:100vw;height:100vh}
     text-shadow: 0 0 15px rgba(255, 255, 255, 0.5), 0 0 30px var(--accent);
 }
 
-
-/* UI Panels */
 .ui-panel{
     position:absolute;
     background:var(--panel);
@@ -108,6 +103,7 @@ canvas{display:block;width:100vw;height:100vh}
     color: var(--muted);
     font-weight:600;
     transition: all 0.25s ease-in-out;
+    text-decoration: none;
 }
 .nav-btn i{
     width:22px;
@@ -135,12 +131,6 @@ canvas{display:block;width:100vw;height:100vh}
     border-radius:12px;
     font-weight:600;
     z-index:40
-}
-#hud .speed{
-    font-size:1.4rem;
-    font-weight: 700;
-    letter-spacing:1px;
-    color: var(--accent);
 }
 #interaction-prompt{
     position:absolute;
@@ -174,7 +164,6 @@ canvas{display:block;width:100vw;height:100vh}
     opacity: 1;
 }
 #info-panel h2{margin:0 0 10px 0;color:var(--accent);font-size:1.6rem}
-/* NEW: Profile picture styling */
 #profile-pic {
     width: 100px;
     height: 100px;
@@ -191,19 +180,18 @@ canvas{display:block;width:100vw;height:100vh}
     padding:14px;
     border-radius:10px;
     border: 1px solid var(--border-color);
-    clear: both; /* Fix for float issue */
+    clear: both;
 }
 #info-content summary{cursor:pointer;font-weight:700;outline: none;}
 .close-btn{position:absolute;right:14px;top:12px;cursor:pointer;color:#aaa;font-size:26px;z-index:51; transition: transform 0.2s;}
 .close-btn:hover { transform: scale(1.2); }
 
-/* NEW: Contact links in About panel */
 .contact-links {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
     margin-top: 15px;
-    clear: both; /* To handle the float from the profile pic */
+    clear: both; 
 }
 .contact-link {
     display: flex;
@@ -232,7 +220,6 @@ canvas{display:block;width:100vw;height:100vh}
     font-size: 0.9rem;
 }
 
-/* NEW: Links for projects, research, etc. */
 .item-links {
     display: flex;
     gap: 10px;
@@ -263,13 +250,56 @@ canvas{display:block;width:100vw;height:100vh}
     font-size: 1.1rem;
 }
 
-#mobile-controls { display: none; } /* Hide mobile controls by default */
+#mobile-controls, #mobile-nav-toggle, #mobile-nav-overlay { display: none; } 
 
-/* --- MOBILE RESPONSIVENESS --- */
+#driver-chat-container {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 45;
+    transition: opacity 0.5s;
+}
+.chat-bubble {
+    background: var(--panel);
+    backdrop-filter: blur(10px);
+    padding: 12px 18px;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    font-weight: 600;
+    color: var(--text-dark);
+    max-width: 300px;
+    text-align: center;
+}
+#speech-btn {
+    background: var(--accent);
+    color: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+#speech-btn:hover {
+    transform: scale(1.1);
+}
+#speech-btn.listening {
+    animation: pulse 1.5s infinite;
+}
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 99, 71, 0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(255, 99, 71, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 99, 71, 0); }
+}
+
 @media (max-width:820px){
-    #welcome-text { font-size: 3rem; }
+    #welcome-text { font-size: 2.5rem; }
 
-    /* Info panel becomes a full-screen overlay */
     #info-panel{
         left: 0;
         top: 0;
@@ -279,7 +309,7 @@ canvas{display:block;width:100vw;height:100vh}
         border-radius: 0;
         border-left: none;
         transform: translateY(-110%);
-        padding: 45px 15px 15px 15px;
+        padding: 55px 15px 15px 15px;
     }
     #info-panel.visible { 
         transform: translateY(0); 
@@ -287,53 +317,76 @@ canvas{display:block;width:100vw;height:100vh}
     .close-btn {
         top: 15px;
         right: 15px;
+        font-size: 32px;
     }
 
-    /* Bottom nav bar for mobile */
-    #nav-menu{
-        flex-direction: row;
-        left:0;
-        right:0;
-        bottom:0;
-        top:auto;
+    #nav-menu { display: none; }
+    
+    #mobile-nav-toggle {
+        display: flex;
+        position: fixed;
+        top: 15px;
+        right: 15px;
+        z-index: 60;
+        width: 50px;
+        height: 50px;
         justify-content: center;
-        border-radius: 14px 14px 0 0;
-        padding: 8px;
-        overflow-x: auto;
-        -ms-overflow-style: none;  /* IE and Edge */
-        scrollbar-width: none;  /* Firefox */
-    }
-    #nav-menu::-webkit-scrollbar {
-        display: none; /* Chrome, Safari, Opera */
-    }
-    .nav-btn{
-        padding:8px 12px;
-        flex-shrink: 0; /* Prevent buttons from shrinking */
-    }
-    .nav-btn span {
-        display: none; /* Hide text on mobile buttons, icons remain */
+        align-items: center;
+        background: var(--panel);
+        border-radius: 50%;
+        font-size: 1.5rem;
+        color: var(--accent);
+        border: 2px solid white;
     }
 
-    /* Hide desktop HUD and reposition interaction prompt */
-    #hud{
-       display: none;
+    #mobile-nav-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.7);
+        z-index: 55;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 15px;
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in-out;
     }
+    #mobile-nav-overlay.active {
+        transform: translateX(0);
+    }
+    #mobile-nav-overlay .nav-btn {
+        background: transparent;
+        color: white;
+        font-size: 1.5rem;
+        padding: 15px 25px;
+        width: 80%;
+        justify-content: center;
+    }
+     #mobile-nav-overlay .nav-btn i {
+        color: white;
+     }
+
+    #hud, #driver-chat-container { display: none; }
+
     #interaction-prompt {
-        bottom: 90px;
+        bottom: 150px;
         font-size: 1rem;
     }
-
-    /* --- ON-SCREEN MOBILE CONTROLS --- */
+    
     #mobile-controls {
         position: fixed;
-        bottom: 15px;
+        bottom: 20px;
         left: 15px;
         right: 15px;
         display: flex;
         justify-content: space-between;
         align-items: flex-end;
-        z-index: 60;
-        pointer-events: none; /* Let clicks pass through the container */
+        z-index: 48;
+        pointer-events: none; 
     }
 
     .mc-dpad {
@@ -381,22 +434,32 @@ canvas{display:block;width:100vw;height:100vh}
 </head>
 <body>
 
-<!-- NEW: Welcome Overlay -->
 <div id="welcome-overlay">
     <div id="welcome-text">Welcome to Ayush's World</div>
 </div>
 
 <div id="loader" class="ui-panel">Building Your World...</div>
 <div id="nav-menu" class="ui-panel"></div>
+
+<button id="mobile-nav-toggle"><i class="fa-solid fa-bars"></i></button>
+<div id="mobile-nav-overlay"></div>
+
 <div id="hud" class="ui-panel">
-    <div class="small">Controls: <span style="font-weight:700; color: var(--accent);">W A S D</span> • <span style="font-weight:700; color: var(--accent);">E</span> to interact</div>
+    <div class="small">Controls: <span style="font-weight:700; color: var(--accent);">↑ ← ↓ →</span> • <span style="font-weight:700; color: var(--accent);">E</span> to interact</div>
 </div>
 <div id="interaction-prompt" class="ui-panel"></div>
 <div id="info-panel" class="ui-panel">
     <span class="close-btn" title="Close">&times;</span>
     <div id="info-content"></div>
 </div>
-<!-- NEW: Mobile Controls -->
+
+<!-- VIRTUAL DRIVER CHAT UI -->
+<div id="driver-chat-container">
+    <div class="chat-bubble" id="chat-bubble-text">Hi, I'm Stormy! Click a button or the mic to start our tour.</div>
+    <button id="speech-btn"><i class="fa-solid fa-microphone"></i></button>
+</div>
+
+<!-- MOBILE CONTROLS -->
 <div id="mobile-controls">
     <div class="mc-dpad">
         <button id="mc-up" class="mc-btn"><i class="fa-solid fa-arrow-up"></i></button>
@@ -425,7 +488,6 @@ import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 const gsapGlobal = window.gsap || null;
 const textureLoader = new THREE.TextureLoader();
 
-/* ----- UPDATED: Resume Data with Achievements, Profile Pic, and Skills with Logos ----- */
 const portfolioData = {
     "About": { 
         name: "AYUSH DIXIT", 
@@ -435,38 +497,81 @@ const portfolioData = {
         linkedin: "https://www.linkedin.com/in/ayush-dixit-6b284125b/", 
         github: "https://github.com/dayush3104", 
         website: "https://ayush-dixit-portfolio.netlify.app/",
-        // IMPORTANT: Add your profile picture URL here
-        profilePicUrl: "Photo.jpg"
+        profilePicUrl: "https://avatars.githubusercontent.com/u/125717326?v=4"
     },
     "Education": [{degree:"B.Tech.", institution:"Indian Institute of Technology Kanpur", year:"2022-Present", performance:"7.9/10.0"}, {degree:"Class XII (CBSE)", institution:"Apala School of Education, Nohar", year:"2021", performance:"95.4%"}, {degree:"Class X (CBSE)", institution:"Apala School of Education, Nohar", year:"2019", performance:"97.0%"}],
-    "Work Experience": [{role:"Founder's Office Intern — Masai | Bengaluru", duration:"May'25 - Jul'25", description:"Honored with Masai's Best Team Award 2025.", points:["Programmed AI pipelines integrating PRAW & LLM APIs; automated sentiment analysis across 1,500+ discussions (90% reduction in manual monitoring).","Built analytics workflows in Python, SQL, Tableau & Google Data Studio; boosted YT impressions by 65% & CTR by 50%."]}, {role:"Core Team Member — Counselling Service, IIT Kanpur", duration:"Apr'24 - Apr'25", description:"Received Certificate Of Appreciation.", points:["Organized 10-day Orientation for 1250+ freshers, managed 15L+ budget.","Directed programs on Mental Health; impacted 10K+ students."]}],
-    // NEW: Research Experience Section
+    "Work Experience": [{role:"Founder's Office Intern — Masai | Bengaluru", duration:"May'25 - Jul'25", description:"Honored with <strong>Masai's Best Team Award 2025</strong>.", points:["Programmed AI pipelines integrating PRAW & LLM APIs; automated sentiment analysis across 1,500+ discussions (<strong>90% reduction</strong> in manual monitoring).","Built analytics workflows in Python, SQL, Tableau & Google Data Studio; boosted YT impressions by <strong>65%</strong> & CTR by <strong>50%</strong>."]}, {role:"Core Team Member — Counselling Service, IIT Kanpur", duration:"Apr'24 - Apr'25", description:"Received <strong>Certificate Of Appreciation</strong>.", points:["Organized 10-day Orientation for <strong>1250+ freshers</strong>, managed <strong>15L+ budget</strong>.","Directed programs on Mental Health; impacted <strong>10K+ students</strong>."]}],
     "Research Experience": [
         {
             role: "High-Fidelity Spatial Audio Modeling",
             duration: "Jan'25 - Apr'25",
-            description: "Research Intern under Prof. Rajesh M. Hegde, in collaboration with <strong>Samsung R&D</strong>. Received 'A' Grade.",
+            description: "Research Intern under Prof. Rajesh M. Hegde, in collaboration with <strong>Samsung R&D</strong>. Received <strong>'A' Grade</strong>.",
             points: [
-                "Engineered a 50+ hour, 4-Channel Spatial Audio Dataset (57 scenarios) with RIR Simulation and Convolution, validated via quantitative SNR metrics.",
+                "Engineered a <strong>50+ hour</strong>, 4-Channel Spatial Audio Dataset (57 scenarios) with RIR Simulation and Convolution, validated via quantitative SNR metrics.",
                 "Automated room acoustics modeling, convolving resampled signals into Multi-Channel Reverberant Audio for Samsung R&D datasets.",
-                "Enhanced dataset integrity by resolving gain/loudness calibration issues, integrating Zero-padding, and ensuring 100% reproducibility with Python cross-validation.",
-                "Built MATLAB simulation pipelines, reducing preprocessing time by 80% and minimizing hardware prototyping costs by 40%."
+                "Enhanced dataset integrity by resolving gain/loudness calibration issues, integrating Zero-padding, and ensuring <strong>100% reproducibility</strong> with Python cross-validation.",
+                "Built MATLAB simulation pipelines, reducing preprocessing time by <strong>80%</strong> and minimizing hardware prototyping costs by <strong>40%</strong>."
             ],
             links: { github: "https://github.com/dayush3104/High-Fidelity-Spatial-Audio-Modeling-for-Samsung-Smart-Glasses" }
         }
     ],
-    "Projects": [{name:"CredTech — Credit Intelligence Platform", date:"Aug'25", description:"Top-8 Nationwide; Certificate of Excellence.", points:["Engineered credit risk intelligence integrating market returns, macro indices & news sentiment.","Improved predictive accuracy by 15–20% using LightGBM & time-series features."], links:{ github:"https://github.com/dayush3104/CredTech-Explainable-Credit-Intelligence-Platform", live:"https://dayush3104-credtech-explainable-credit-intelli-dashboard-rhy8rw.streamlit.app/"}}, {name:"High-Fidelity Spatial Audio Modeling", date:"Jan'25 - Apr'25", description:"Research with Samsung R&D. 'A' grade.", points:["Built 50+ hours, 4-channel spatial audio dataset with RIR simulation & convolution.","Automated room acoustics pipelines in MATLAB & Python."], links:{ github:"https://github.com/dayush3104/High-Fidelity-Spatial-Audio-Modeling-for-Samsung-Smart-Glasses" }}, {name:"Remote Sensing Classification Engine", date:"Feb'25 - Mar'25", description:"Course project (Prof. Onkar Dikshit).", points:["Gradio app using Sentinel-2; reduced annotation time by 60%.","Achieved 96.8% accuracy with optimized Random Forest."], links:{ github:"https://github.com/dayush3104/Land-Cover-Classification-and-Accuracy-Analysis" }}, {name:"Dynamic Inventory Platform", date:"Sep'24 - Oct'24", description:"MERN personal project.", points:["Built REST API with Node.js & MongoDB and a React SPA.","Token-based auth and component-driven React UI."], links:{ github:"https://github.com/dayush3104/Product-Management-System" }}],
-    // NEW: Hackathon Section
+    "Product & Strategy": [
+        {
+            name: "Kids Brand - Go-To Market Strategy",
+            date: "Mar'25",
+            description: "Self-Project focused on designing an end-to-end GTM plan for a kids-focused brand on Indian e-commerce platforms.",
+            points: [
+                "Built a <strong>marketplace evaluation framework</strong> using 5 criteria to prioritize Amazon, Flipkart, Meesho, and FirstCry.",
+                "Designed a <strong>phased launch roadmap</strong> incorporating influencer campaigns, press releases, and targeted digital ads to maximize brand visibility.",
+                "Projected a <strong>25–40% sales uplift</strong> in the first launch cycle by leveraging platform-specific promotional campaigns."
+            ],
+            links: { live: "https://drive.google.com/file/d/1fSmQ5LKgDX_cdGhZh6cxOheFK3N5OhGJ/view?usp=drive_link" }
+        },
+        {
+            name: "Nothing AtmosCore - Product Design",
+            date: "Aug'25",
+            description: "Nothing Incubator project to conceptualize a modular and sustainable charging ecosystem.",
+            points: [
+                "Designed <strong>AtmosCore hub with stackable magnetic blocks</strong> (Qi/USB-C, battery, solar) to replace multiple chargers.",
+                "Introduced <strong>gamified charging interactions</strong> (glyph lights, retro mini-games) to convert passive charging into an engaging ritual.",
+                "Delivered a product vision that <strong>cuts accessory waste</strong> by enabling upgrades over replacements, aligning with circular design principles."
+            ],
+            links: { live: "https://drive.google.com/file/d/1zyWj3RICBoxv7VrmUDtOpdChH1hKXL-h/view?usp=drive_link" }
+        },
+        {
+            name: "MindCare – Digital Mental Health Platform",
+            date: "Aug'25",
+            description: "Self-Project designing a trust-first, hybrid digital mental health platform for the Indian market.",
+            points: [
+                "Conducted <strong>ecosystem mapping and user research</strong> to prioritize must-haves via RICE scoring.",
+                "Built and deployed a working <strong>prototype</strong> with journaling, AI nudges, and a therapist risk-alert dashboard.",
+                "Validated prototype demonstrating potential to cut therapy costs by <strong>40–60%</strong> via hybrid access models."
+            ],
+            links: { live: "https://trusty-mind-path.lovable.app", doc: "https://drive.google.com/file/d/1pA7MCMH7i4tv89vJ-451V10v5jrcnd35/view?usp=sharing" }
+        },
+        {
+            name: "Zomato - Product Enhancement",
+            date: "Aug'25",
+            description: "Project with AcceleratorX & Product Club, IITK to address choice overload in Zomato using PM frameworks.",
+            points: [
+                "Applied MoSCoW framework for feature prioritization, highlighting must-haves like conversational search and AI-summarized reviews.",
+                "Authored a PRD with wireframes and success metrics, defining product scope and feature specifications.",
+                "Created structured user personas and journey maps, informing recommendations projected to improve conversion rate by <strong>4x</strong>."
+            ],
+            links: { doc: "https://drive.google.com/file/d/1lD2yMrKl8hHM6kJd8aERmHV-iSrM3fZP/view?usp=sharing" }
+        }
+    ],
+    "Projects": [{name:"CredTech — Credit Intelligence Platform", date:"Aug'25", description:"<strong>Top-8 Nationwide; Certificate of Excellence</strong>.", points:["Engineered credit risk intelligence integrating market returns, macro indices & news sentiment.","Improved predictive accuracy by <strong>15–20%</strong> using LightGBM & time-series features."], links:{ github:"https://github.com/dayush3104/CredTech-Explainable-Credit-Intelligence-Platform", live:"https://dayush3104-credtech-explainable-credit-intelli-dashboard-rhy8rw.streamlit.app/"}}, {name:"Remote Sensing Classification Engine", date:"Feb'25 - Mar'25", description:"Course project (Prof. Onkar Dikshit).", points:["Gradio app using Sentinel-2; reduced annotation time by <strong>60%</strong>.","Achieved <strong>96.8% accuracy</strong> with optimized Random Forest."], links:{ github:"https://github.com/dayush3104/Land-Cover-Classification-and-Accuracy-Analysis" }}, {name:"Dynamic Inventory Platform", date:"Sep'24 - Oct'24", description:"MERN personal project.", points:["Built REST API with Node.js & MongoDB and a React SPA.","Token-based auth and component-driven React UI."], links:{ github:"https://github.com/dayush3104/Product-Management-System" }}],
     "Hackathons": [
         {
             name: "CredTech - Credit Intelligence Platform",
             date: "Aug'25",
             description: "Hosted by Deeproot Investments & Programming Club, IITK. Ranked in <strong>Top-8 Nationwide</strong> & awarded with <strong>Certificate of Excellence</strong>.",
             points: [
-                "Engineered a Credit Risk Intelligence platform integrating market returns, macro indices, and news sentiment, generating issuer-level scores.",
-                "Boosted predictive accuracy by 15–20% via advanced time-series features and optimized LightGBM models.",
-                "Applied Explainable AI with SHAP to generate feature attributions for 100K+ predictions, reducing black-box opacity by 70%.",
-                "Deployed a Sentiment Analysis Pipeline (FinBERT, VADER) on 5K+ financial articles, surfaced via a Streamlit Dashboard."
+                "Engineered a Credit Risk Intelligence platform integrating market returns, macro indices, and news sentiment.",
+                "Boosted predictive accuracy by <strong>15–20%</strong> via advanced time-series features and optimized LightGBM models.",
+                "Applied Explainable AI with SHAP, reducing black-box opacity by <strong>70%</strong>.",
+                "Deployed a Sentiment Analysis Pipeline (FinBERT, VADER) on <strong>5K+</strong> financial articles, surfaced via a Streamlit Dashboard."
             ],
             links: { 
                 github: "https://github.com/dayush3104/CredTech-Explainable-Credit-Intelligence-Platform",
@@ -499,7 +604,6 @@ const portfolioData = {
             { name: "Node.js", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original.svg" },
         ]
     },
-    // NEW: Detailed Achievements section
     "Achievements": [ 
         { text: "Achieved <strong>All India Rank 5893</strong> in JEE Advanced 2022, among 1.65 Lakh candidates.", year: "2022" },
         { text: "Secured <strong>All India Rank 6132</strong> in JEE Mains 2022, among 10.3 Lakh aspirants.", year: "2022" },
@@ -513,13 +617,17 @@ const portfolioData = {
 };
 
 /* ----- Scene Variables ----- */
-let scene, camera, renderer, clock, car = null;
-let ambientLight, dirLight, sun;
+let scene, camera, renderer, clock, car = null, stormy = null;
 const interactiveZones = [];
 let canInteractWith = null;
 let isAutoDriving = false;
 let keys = { w:false, a:false, s:false, d:false };
 let roadLineTexture;
+let synth = window.speechSynthesis;
+let audioEnabled = false;
+let recognition;
+let selectedVoice = null;
+
 
 const dom = { 
     loader: document.getElementById('loader'), 
@@ -530,13 +638,17 @@ const dom = {
     closeBtn: document.querySelector('.close-btn'),
     welcomeOverlay: document.getElementById('welcome-overlay'),
     welcomeText: document.getElementById('welcome-text'),
-    // NEW: Mobile Controls
     mobileControls: document.getElementById('mobile-controls'),
     mcUp: document.getElementById('mc-up'),
     mcDown: document.getElementById('mc-down'),
     mcLeft: document.getElementById('mc-left'),
     mcRight: document.getElementById('mc-right'),
-    mcInteract: document.getElementById('mc-interact')
+    mcInteract: document.getElementById('mc-interact'),
+    driverChatContainer: document.getElementById('driver-chat-container'),
+    chatBubbleText: document.getElementById('chat-bubble-text'),
+    speechBtn: document.getElementById('speech-btn'),
+    mobileNavToggle: document.getElementById('mobile-nav-toggle'),
+    mobileNavOverlay: document.getElementById('mobile-nav-overlay')
 };
 
 init();
@@ -561,11 +673,10 @@ function init(){
     setupCartoonWorld();
     createCartoonCar();
     createStoppagesAndNav();
-    createSkillsPark(); // REPLACES createSkillBillboards
+    createSkillsPark();
     setupUI();
     setupEvents();
     
-    // Animate everything after a short delay
     setTimeout(() => {
         dom.loader.style.display = 'none';
         createWelcomeAnimation();
@@ -573,7 +684,6 @@ function init(){
     }, 500);
 }
 
-// NEW: GSAP Welcome Animation
 function createWelcomeAnimation() {
     dom.welcomeOverlay.style.visibility = 'visible';
     const tl = gsapGlobal.timeline({
@@ -586,9 +696,9 @@ function createWelcomeAnimation() {
 }
 
 function setupLights(){
-    ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
     scene.add(ambientLight);
-    dirLight = new THREE.DirectionalLight(0xffffff, 1.5);
+    const dirLight = new THREE.DirectionalLight(0xffffff, 1.5);
     dirLight.position.set(200, 250, 200);
     dirLight.castShadow = true;
     dirLight.shadow.mapSize.width = 2048;
@@ -601,14 +711,12 @@ function setupLights(){
 }
 
 function setupCartoonWorld() {
-    // Ground
     const groundMat = new THREE.MeshLambertMaterial({ color: 0x5cb85c });
     const ground = new THREE.Mesh(new THREE.PlaneGeometry(3000, 3000), groundMat);
     ground.rotation.x = -Math.PI / 2;
     ground.receiveShadow = true;
     scene.add(ground);
 
-    // Road
     const roadMat = new THREE.MeshLambertMaterial({ color: 0x4c4c4c });
     const road = new THREE.Mesh(new THREE.PlaneGeometry(25, 3000), roadMat);
     road.rotation.x = -Math.PI / 2;
@@ -616,7 +724,6 @@ function setupCartoonWorld() {
     road.receiveShadow = true;
     scene.add(road);
 
-    // Animated Road Lines
     roadLineTexture = textureLoader.load('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAGCAYAAAACEPQxAAAAAXNSR0IArs4c6QAAABJJREFUCB1j+P//PwM26OanA5gAAPN9Av9N0QqLAAAAAElFTkSuQmCC');
     roadLineTexture.wrapS = THREE.RepeatWrapping;
     roadLineTexture.wrapT = THREE.RepeatWrapping;
@@ -627,13 +734,10 @@ function setupCartoonWorld() {
     line.position.y = 0.02;
     scene.add(line);
 
-    // Sun
-    const sunMat = new THREE.MeshBasicMaterial({ color: 0xffdd33, toneMapped: false });
-    sun = new THREE.Mesh(new THREE.SphereGeometry(50, 32, 32), sunMat);
+    const sun = new THREE.Mesh(new THREE.SphereGeometry(50, 32, 32), new THREE.MeshBasicMaterial({ color: 0xffdd33, toneMapped: false }));
     sun.position.set(-800, 400, -800);
     scene.add(sun);
     
-    // Clouds
     const cloudMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
     for(let i=0; i<30; i++) {
         const cloud = new THREE.Group();
@@ -647,14 +751,13 @@ function setupCartoonWorld() {
         scene.add(cloud);
     }
     
-    // Trees and Rocks
     const trunkMat = new THREE.MeshLambertMaterial({ color: 0x8B4513 });
     const leafMat = new THREE.MeshLambertMaterial({ color: 0x228B22 });
     const rockMat = new THREE.MeshLambertMaterial({ color: 0x8d8d8d });
     for(let i=0; i<150; i++) {
-        const px = (Math.random() > 0.5 ? 1 : -1) * (20 + Math.random() * 200);
+        const px = (Math.random() > 0.5 ? 1 : -1) * (30 + Math.random() * 200);
         const pz = (Math.random() - 0.5) * 3000;
-        if(Math.random() > 0.3) { // Create a tree
+        if(Math.random() > 0.3) { 
             const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.7, 5, 8), trunkMat);
             trunk.castShadow = true;
             const leaves = new THREE.Mesh(new THREE.SphereGeometry(4 + Math.random() * 2, 8, 6), leafMat);
@@ -662,7 +765,7 @@ function setupCartoonWorld() {
             trunk.position.set(px, 2.5, pz);
             leaves.position.set(px, 7, pz);
             scene.add(trunk, leaves);
-        } else { // Create a rock
+        } else { 
             const rock = new THREE.Mesh(new THREE.DodecahedronGeometry(1.5 + Math.random() * 2, 0), rockMat);
             rock.castShadow = true;
             rock.position.set(px, 1, pz);
@@ -674,7 +777,7 @@ function setupCartoonWorld() {
 
 function createCartoonCar(){
     car = new THREE.Group();
-    car.position.set(0, 0.7, 50); // Lowered slightly for bounce
+    car.position.set(0, 0.7, 50);
 
     const carBodyMat = new THREE.MeshLambertMaterial({ color: 0xef4444 });
     const windowsMat = new THREE.MeshLambertMaterial({ color: 0xa1e0ff });
@@ -698,11 +801,20 @@ function createCartoonCar(){
     wheels[3].position.set(1.6, 0, -2);
     wheels.forEach(w => { w.rotation.z = Math.PI / 2; w.castShadow = true; car.add(w); });
 
-    car.add(body, cabin);
+    stormy = new THREE.Group();
+    const headMat = new THREE.MeshLambertMaterial({ color: 0xffdbac });
+    const shirtMat = new THREE.MeshLambertMaterial({ color: 0x3a86ff });
+    const head = new THREE.Mesh(new THREE.SphereGeometry(0.4, 16, 16), headMat);
+    head.position.y = 2.4;
+    const driverBody = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.3, 1.2, 8), shirtMat);
+    driverBody.position.y = 1.5;
+    stormy.add(head, driverBody);
+    stormy.position.z = -1.2;
+    
+    car.add(body, cabin, stormy);
     scene.add(car);
 }
 
-// REPLACES createSkillBillboards
 function createSkillsPark() {
     const parkCenter = new THREE.Vector3(-80, 0, 150);
     const parkPlatformMat = new THREE.MeshLambertMaterial({ color: 0x78a082 });
@@ -712,7 +824,6 @@ function createSkillsPark() {
     parkPlatform.receiveShadow = true;
     scene.add(parkPlatform);
 
-    // Add a central monument
     const monumentMat = new THREE.MeshLambertMaterial({ color: 0xffffff });
     const monument = new THREE.Mesh(new THREE.CylinderGeometry(2, 5, 15, 8), monumentMat);
     monument.position.copy(parkCenter).y = 7.5;
@@ -720,15 +831,12 @@ function createSkillsPark() {
     scene.add(monument);
     gsapGlobal.to(monument.rotation, { y: Math.PI * 2, duration: 25, repeat: -1, ease: 'none' });
 
-
     let angle = 0;
     let radius = 15;
     const skills = portfolioData.Skills;
 
     for (const category in skills) {
-        // Create a title for the category
         create3DText(category, parkCenter.clone().add(new THREE.Vector3(0, 12, -radius - 12)));
-
         skills[category].forEach(skill => {
             const logoMaterial = new THREE.MeshBasicMaterial({
                 map: textureLoader.load(skill.logo),
@@ -741,9 +849,8 @@ function createSkillsPark() {
                 5,
                 parkCenter.z + Math.cos(angle) * radius
             );
-            logoMesh.userData.isBillboard = true; // Flag for animation loop
+            logoMesh.userData.isBillboard = true; 
             
-            // Animate the logo
             gsapGlobal.to(logoMesh.position, { 
                 y: 6, 
                 duration: 2 + Math.random() * 1.5, 
@@ -755,41 +862,36 @@ function createSkillsPark() {
             scene.add(logoMesh);
             angle += Math.PI / (skills[category].length / 2);
         });
-        radius += 20; // Increase radius for the next category
-        angle = 0; // Reset angle
+        radius += 20;
+        angle = 0;
     }
 }
 
 function create3DText(text, position) {
     const fontLoader = new FontLoader();
     fontLoader.load('https://cdn.jsdelivr.net/npm/three@0.160.0/examples/fonts/helvetiker_bold.typeface.json', (font) => {
-        const textGeo = new TextGeometry(text, {
-            font: font,
-            size: 4,
-            height: 0.5,
-        });
+        const textGeo = new TextGeometry(text, { font: font, size: 4, height: 0.5 });
         const textMat = new THREE.MeshLambertMaterial({ color: 0xffffff });
         const textMesh = new THREE.Mesh(textGeo, textMat);
         textMesh.geometry.center();
         textMesh.position.copy(position);
         textMesh.castShadow = true;
         scene.add(textMesh);
-        // Animate the text
         gsapGlobal.to(textMesh.rotation, { y: Math.PI * 2, duration: 40, repeat: -1, ease: 'none' });
     });
 }
 
-
 function createStoppagesAndNav() {
     const sections = [
-        { name: "About", pos: new THREE.Vector3(30, 0, -600), icon: "fa-solid fa-user-tie" },
-        { name: "Work Experience", pos: new THREE.Vector3(-30, 0, -400), icon: "fa-solid fa-briefcase" },
-        { name: "Research Experience", pos: new THREE.Vector3(30, 0, -200), icon: "fa-solid fa-flask" },
-        { name: "Projects", pos: new THREE.Vector3(-30, 0, 0), icon: "fa-solid fa-rocket" },
-        { name: "Hackathons", pos: new THREE.Vector3(30, 0, 200), icon: "fa-solid fa-laptop-code" },
-        { name: "Skills", pos: new THREE.Vector3(-80, 0, 350), icon: "fa-solid fa-star" },
-        { name: "Education", pos: new THREE.Vector3(-30, 0, 450), icon: "fa-solid fa-graduation-cap" },
-        { name: "Achievements", pos: new THREE.Vector3(30, 0, 600), icon: "fa-solid fa-trophy" }
+        { name: "About", pos: new THREE.Vector3(30, 0, -750), icon: "fa-solid fa-user-tie" },
+        { name: "Work Experience", pos: new THREE.Vector3(-30, 0, -550), icon: "fa-solid fa-briefcase" },
+        { name: "Research Experience", pos: new THREE.Vector3(30, 0, -350), icon: "fa-solid fa-flask" },
+        { name: "Product & Strategy", pos: new THREE.Vector3(-40, 0, -150), icon: "fa-solid fa-lightbulb" },
+        { name: "Projects", pos: new THREE.Vector3(30, 0, 50), icon: "fa-solid fa-rocket" },
+        { name: "Hackathons", pos: new THREE.Vector3(-30, 0, 250), icon: "fa-solid fa-laptop-code" },
+        { name: "Skills", pos: new THREE.Vector3(-80, 0, 150), icon: "fa-solid fa-star" },
+        { name: "Education", pos: new THREE.Vector3(-30, 0, 600), icon: "fa-solid fa-graduation-cap" },
+        { name: "Achievements", pos: new THREE.Vector3(30, 0, 750), icon: "fa-solid fa-trophy" }
     ];
 
     sections.forEach(s => {
@@ -803,7 +905,6 @@ function createStoppage(name, position) {
     g.name = name;
     g.position.copy(position);
 
-    // NEW: If the name is "Skills", we only create an invisible nav target, no visible object.
     if (name === 'Skills') {
         scene.add(g);
         interactiveZones.push(g);
@@ -816,7 +917,6 @@ function createStoppage(name, position) {
     g.add(base);
 
     let themedObject;
-    // ... (rest of the switch statement is unchanged, just added Achievements case)
     switch(name) {
         case "About":
             themedObject = new THREE.Mesh(new THREE.OctahedronGeometry(5, 0), new THREE.MeshLambertMaterial({color: 0x4285F4}));
@@ -838,20 +938,22 @@ function createStoppage(name, position) {
             themedObject = new THREE.Mesh(new THREE.TorusKnotGeometry(4, 1, 100, 16), new THREE.MeshLambertMaterial({color: 0xFFD700}));
             themedObject.position.y = 6;
             break;
-        // NEW Cases for new sections
         case "Research Experience":
-            themedObject = new THREE.Mesh(new THREE.IcosahedronGeometry(5, 0), new THREE.MeshLambertMaterial({ color: 0x9c27b0 })); // Purple color
+            themedObject = new THREE.Mesh(new THREE.IcosahedronGeometry(5, 0), new THREE.MeshLambertMaterial({ color: 0x9c27b0 }));
             themedObject.position.y = 5;
             break;
         case "Hackathons":
-            themedObject = new THREE.Mesh(new THREE.DodecahedronGeometry(5, 0), new THREE.MeshLambertMaterial({ color: 0x00bcd4 })); // Cyan color
+            themedObject = new THREE.Mesh(new THREE.DodecahedronGeometry(5, 0), new THREE.MeshLambertMaterial({ color: 0x00bcd4 }));
+            themedObject.position.y = 5;
+            break;
+        case "Product & Strategy":
+            themedObject = new THREE.Mesh(new THREE.TorusGeometry(4, 1.5, 16, 100), new THREE.MeshLambertMaterial({ color: '#ff5722' }));
             themedObject.position.y = 5;
             break;
     }
     themedObject.castShadow = true;
     g.add(themedObject);
     gsapGlobal.to(themedObject.rotation, { y: Math.PI * 2, x: Math.PI * 2, duration: 15, repeat: -1, ease: 'none' });
-    
     
     const ring = new THREE.Mesh(new THREE.TorusGeometry(8, 0.3, 16, 100), new THREE.MeshBasicMaterial({ color: 0xff6347 }));
     ring.rotation.x = Math.PI / 2;
@@ -865,23 +967,51 @@ function createStoppage(name, position) {
 
 
 function createNavButton(section){
-    const btn = document.createElement('button'); btn.className='nav-btn';
+    const btn = document.createElement('a'); // Use anchor for semantics
+    btn.className='nav-btn';
     btn.innerHTML = `<i class="${section.icon}"></i><span>${section.name}</span>`;
-    btn.onclick = ()=> navTo(section.name);
+    btn.onclick = (e)=> {
+        e.preventDefault();
+        enableAudio();
+        navTo(section.name);
+        if(window.innerWidth < 820) {
+            dom.mobileNavOverlay.classList.remove('active');
+        }
+    };
+
     dom.navMenu.appendChild(btn);
+    // Clone for mobile menu
+    dom.mobileNavOverlay.appendChild(btn.cloneNode(true)).onclick = btn.onclick;
 }
 
 function navTo(sectionName){
-    if(!car) return;
-    isAutoDriving = true; keys = { w:false,a:false,s:false,d:false };
-    const zone = interactiveZones.find(z => z.name === sectionName); if(!zone) return;
-    document.querySelectorAll('#nav-menu .nav-btn').forEach(b => b.classList.toggle('active', b.textContent.trim().includes(sectionName)));
+    if(!car || isAutoDriving) return;
+    const zone = interactiveZones.find(z => z.name.toLowerCase() === sectionName.toLowerCase());
+    if (!zone) {
+        const msg = "Sorry, I couldn't find that spot. Try another!";
+        dom.chatBubbleText.textContent = msg;
+        speak(msg);
+        setTimeout(() => dom.chatBubbleText.textContent = "Where to next?", 2000);
+        return;
+    }
+
+    isAutoDriving = true; 
+    keys = { w:false, a:false, s:false, d:false };
+    
+    const message = `On my way to ${zone.name}!`;
+    dom.chatBubbleText.textContent = message;
+    speak(message);
+    dom.driverChatContainer.style.opacity = '0.5';
+
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.textContent.trim() === zone.name));
     
     const targetPos = zone.position.clone();
     
-    // For regular stoppages, stop in front. For Skills, go to the exact nav point.
-    if (sectionName !== 'Skills') {
-        targetPos.add(new THREE.Vector3(0, 0, 25));
+    if (zone.name === 'Skills') {
+        targetPos.x = -50; 
+        targetPos.z = 150; 
+    } else {
+        targetPos.add(new THREE.Vector3(0, 0, 30)); // Stop slightly further
     }
      
     const lookAtPos = zone.position.clone();
@@ -892,14 +1022,88 @@ function navTo(sectionName){
     const distance = car.position.distanceTo(targetPos);
     
     if(gsapGlobal){
-        gsapGlobal.timeline({ onComplete: ()=> { isAutoDriving=false; displayInfo(sectionName); document.querySelectorAll('#nav-menu .nav-btn').forEach(b => b.classList.remove('active')); } })
-        .to(car.position, { x: targetPos.x, y: car.position.y, z: targetPos.z, duration: Math.max(1, distance/50), ease:'power2.inOut' })
+        gsapGlobal.timeline({ 
+            onComplete: () => { 
+                isAutoDriving=false; 
+                displayInfo(zone.name); 
+                document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+                const arrivalMessageText = "We've arrived! Where to next?";
+                const arrivalMessageAudio = "We've arrived!";
+                dom.chatBubbleText.textContent = arrivalMessageText;
+                speak(arrivalMessageAudio);
+                dom.driverChatContainer.style.opacity = '1';
+            } 
+        })
+        .to(car.position, { x: targetPos.x, y: car.position.y, z: targetPos.z, duration: Math.max(2, distance/50), ease:'power2.inOut' })
         .to(car.quaternion, { x: targetQuat.x, y: targetQuat.y, z: targetQuat.z, w: targetQuat.w, duration:1.5, ease:'power2.inOut' }, "<");
     }
 }
 
 function setupUI(){
-    dom.infoContent.innerHTML = `<h2>Welcome to my Portfolio Adventure!</h2><p class="small">Use the nav menu or drive the car to explore different areas. Get close to an island and press <strong>E</strong> to learn more about my skills, projects, and experience.</p>`;
+    dom.infoContent.innerHTML = `<h2>Welcome to my Portfolio Adventure!</h2><p class="small">Use the nav menu, drive with the arrow keys, or tell my driver Stormy where to go!</p>`;
+}
+
+function enableAudio() {
+    if (audioEnabled || !synth) return;
+    const initialUtterance = new SpeechSynthesisUtterance(" "); // Speak empty string to init
+    synth.speak(initialUtterance);
+    audioEnabled = true;
+}
+
+function findVoice() {
+    const voices = synth.getVoices();
+    const preferredVoices = ["Google US English", "Samantha", "Microsoft Zira Desktop - English (United States)"];
+    selectedVoice = voices.find(voice => preferredVoices.includes(voice.name)) || voices.find(voice => voice.lang === 'en-US') || voices[0];
+}
+
+function speak(text) {
+    if (!audioEnabled || !synth) return;
+    if (synth.speaking) synth.cancel();
+    
+    const utterance = new SpeechSynthesisUtterance(text);
+    if (selectedVoice) {
+        utterance.voice = selectedVoice;
+    }
+    utterance.pitch = 1; 
+    utterance.rate = 1; 
+    synth.speak(utterance);
+}
+
+function setupSpeechRecognition() {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+        dom.speechBtn.style.display = 'none';
+        return;
+    }
+    recognition = new SpeechRecognition();
+    recognition.continuous = false;
+    recognition.lang = 'en-US';
+    recognition.interimResults = false;
+
+    recognition.onstart = () => {
+        dom.speechBtn.classList.add('listening');
+        dom.chatBubbleText.textContent = "Listening...";
+    };
+
+    recognition.onresult = (event) => {
+        let transcript = event.results[0][0].transcript.trim().toLowerCase();
+        
+        if (transcript.includes('product and strategy') || transcript.includes('product strategy')) {
+            transcript = 'product & strategy';
+        }
+
+        dom.chatBubbleText.textContent = `I heard: "${transcript}". Let's go!`;
+        navTo(transcript);
+    };
+
+    recognition.onerror = (event) => {
+        dom.chatBubbleText.textContent = "Couldn't hear that. Please try again!";
+        console.error("Speech recognition error", event.error);
+    };
+    
+    recognition.onend = () => {
+        dom.speechBtn.classList.remove('listening');
+    };
 }
 
 function setupEvents(){
@@ -909,24 +1113,49 @@ function setupEvents(){
         renderer.setSize(window.innerWidth, window.innerHeight); 
     });
 
+    synth.onvoiceschanged = findVoice;
+    
+    const initialInteraction = () => {
+        enableAudio();
+        window.removeEventListener('click', initialInteraction);
+        window.removeEventListener('touchstart', initialInteraction);
+    };
+    window.addEventListener('click', initialInteraction);
+    window.addEventListener('touchstart', initialInteraction);
+
     const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
     if (isTouchDevice) {
         setupMobileControls();
     } else {
+        setupSpeechRecognition();
+        dom.speechBtn.addEventListener('click', () => {
+            if (isAutoDriving) return;
+            recognition.start();
+        });
+
         window.addEventListener('keydown', (e) => {
             if(isAutoDriving) return;
-            const k = e.key.toLowerCase();
-            if(['w','a','s','d'].includes(k)) keys[k]=true;
-            if((e.key==='e' || e.key==='E') && canInteractWith) displayInfo(canInteractWith.name);
+            
+            const keyMap = { 'arrowup': 'w', 'arrowdown': 's', 'arrowleft': 'a', 'arrowright': 'd' };
+            const mappedKey = keyMap[e.key.toLowerCase()] || e.key.toLowerCase();
+
+            if (['w', 'a', 's', 'd'].includes(mappedKey)) keys[mappedKey] = true;
+            if ((e.key === 'e' || e.key === 'E') && canInteractWith) displayInfo(canInteractWith.name);
         });
-        window.addEventListener('keyup', (e) => { const k = e.key.toLowerCase(); if(['w','a','s','d'].includes(k)) keys[k]=false; });
+        window.addEventListener('keyup', (e) => {
+            const keyMap = { 'arrowup': 'w', 'arrowdown': 's', 'arrowleft': 'a', 'arrowright': 'd' };
+            const mappedKey = keyMap[e.key.toLowerCase()] || e.key.toLowerCase();
+            if (['w', 'a', 's', 'd'].includes(mappedKey)) keys[mappedKey] = false;
+        });
     }
 
     dom.closeBtn.addEventListener('click', ()=> { dom.infoPanel.classList.remove('visible'); });
+    dom.mobileNavToggle.addEventListener('click', () => {
+        dom.mobileNavOverlay.classList.toggle('active');
+    });
 }
 
-// NEW: Function to handle mobile touch controls
 function setupMobileControls() {
     dom.mobileControls.style.display = 'flex';
 
@@ -938,22 +1167,13 @@ function setupMobileControls() {
     ];
 
     buttonMap.forEach(item => {
-        item.btn.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            if(isAutoDriving) return;
-            keys[item.key] = true;
-        }, { passive: false });
-        item.btn.addEventListener('touchend', (e) => {
-            e.preventDefault();
-            keys[item.key] = false;
-        }, { passive: false });
+        item.btn.addEventListener('touchstart', (e) => { e.preventDefault(); if(!isAutoDriving) keys[item.key] = true; }, { passive: false });
+        item.btn.addEventListener('touchend', (e) => { e.preventDefault(); keys[item.key] = false; }, { passive: false });
     });
 
     dom.mcInteract.addEventListener('touchstart', (e) => {
         e.preventDefault();
-        if (canInteractWith) {
-            displayInfo(canInteractWith.name);
-        }
+        if (canInteractWith) displayInfo(canInteractWith.name);
     }, { passive: false });
 }
 
@@ -972,7 +1192,6 @@ function displayInfo(name){
         html += `    <a href="${data.github}" class="contact-link" target="_blank"><i class="fa-brands fa-github"></i><span>GitHub</span></a>`;
         html += `</div>`;
     } else if(Array.isArray(data)){
-        // UPDATED: Handle new achievements format
         if (name === 'Achievements') {
             data.forEach(item => {
                 html += `<details><summary>${item.text}</summary>`;
@@ -987,7 +1206,6 @@ function displayInfo(name){
                 if(item.performance) html += `<p><strong>Performance:</strong> ${item.performance}</p>`;
                 if(item.points) html += `<ul>${item.points.map(p=>`<li>${p}</li>`).join('')}</ul>`;
                 
-                // UPDATED: Link generation
                 if (item.links) {
                     html += `<div class="item-links">`;
                     if (item.links.github) {
@@ -995,6 +1213,9 @@ function displayInfo(name){
                     }
                     if (item.links.live) {
                         html += `<a href="${item.links.live}" target="_blank" class="item-link-btn"><i class="fa-solid fa-external-link-alt"></i> Live Demo</a>`;
+                    }
+                    if (item.links.doc) {
+                        html += `<a href="${item.links.doc}" target="_blank" class="item-link-btn"><i class="fa-solid fa-file-alt"></i> View Doc</a>`;
                     }
                     html += `</div>`;
                 }
@@ -1016,7 +1237,6 @@ function checkInteractions(){
     if(!car) return;
     let closest = null, minD = 35;
     interactiveZones.forEach(z => {
-        // Don't show interaction prompt for the invisible 'Skills' nav point
         if (z.name === 'Skills' && car.position.distanceTo(z.position) < 30) {
             return;
         }
@@ -1047,15 +1267,14 @@ function updateCar(dt){
         else car.userData.speed = Math.min(0, car.userData.speed + decel*dt);
     }
 
-    if(keys.a) car.userData.turn = Math.min(1.2, car.userData.turn + 3*dt);
-    else if(keys.d) car.userData.turn = Math.max(-1.2, car.userData.turn - 3*dt);
+    if(keys.a) car.userData.turn = Math.min(1.2, car.userData.turn + 3*dt); // Turn left
+    else if(keys.d) car.userData.turn = Math.max(-1.2, car.userData.turn - 3*dt); // Turn right
     else car.userData.turn *= (1 - dt * 4);
 
     const speedFactor = Math.abs(car.userData.speed)/max;
     car.rotation.y += car.userData.turn * dt * speedFactor * 0.7;
     car.translateZ(-car.userData.speed * dt * 0.05);
 
-    // NEW: Car bounce for more dynamic feel
     const bounceFrequency = 15;
     const bounceAmplitude = 0.05;
     if (Math.abs(car.userData.speed) > 5) {
@@ -1063,17 +1282,20 @@ function updateCar(dt){
     }
 
 
-    car.children.filter(c => c.geometry.type === 'CylinderGeometry').forEach(w => {
+    car.children.filter(c => c.geometry && c.geometry.type === 'CylinderGeometry').forEach(w => {
         w.rotation.x -= (car.userData.speed * dt * 0.03);
     });
     
     if(roadLineTexture) roadLineTexture.offset.y -= (car.userData.speed * dt * 0.001);
+    
+    if (stormy) {
+        stormy.rotation.y = THREE.MathUtils.lerp(stormy.rotation.y, car.userData.turn * -0.5, 0.1);
+    }
 }
 
 function updateCamera(){
     if(!car) return;
 
-    // NEW: Adaptive camera for mobile
     const isMobile = window.innerWidth < 820;
     const offsetDistance = isMobile ? 18 : 12;
     const offsetHeight = isMobile ? 7 : 4;
@@ -1093,7 +1315,6 @@ function animate(){
     updateCamera();
     checkInteractions();
 
-    // Make skill logos always face the camera
     scene.children.forEach(child => {
         if (child.userData.isBillboard) {
             child.quaternion.copy(camera.quaternion);
@@ -1105,4 +1326,5 @@ function animate(){
 </script>
 </body>
 </html>
+
 
