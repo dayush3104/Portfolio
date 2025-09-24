@@ -263,6 +263,8 @@ canvas{display:block;width:100vw;height:100vh}
     font-size: 1.1rem;
 }
 
+#mobile-controls { display: none; } /* Hide mobile controls by default */
+
 /* --- MOBILE RESPONSIVENESS --- */
 @media (max-width:820px){
     #welcome-text { font-size: 3rem; }
@@ -312,19 +314,66 @@ canvas{display:block;width:100vw;height:100vh}
         display: none; /* Hide text on mobile buttons, icons remain */
     }
 
-    /* HUD positioned above the nav bar */
+    /* Hide desktop HUD and reposition interaction prompt */
     #hud{
-        left: 50%;
-        transform: translateX(-50%);
-        bottom: 80px; 
-        width: auto;
-        white-space: nowrap;
+       display: none;
     }
-    
-    /* Interaction prompt positioned higher up */
     #interaction-prompt {
-        bottom: 150px;
+        bottom: 90px;
         font-size: 1rem;
+    }
+
+    /* --- ON-SCREEN MOBILE CONTROLS --- */
+    #mobile-controls {
+        position: fixed;
+        bottom: 15px;
+        left: 15px;
+        right: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        z-index: 60;
+        pointer-events: none; /* Let clicks pass through the container */
+    }
+
+    .mc-dpad {
+        position: relative;
+        width: 120px;
+        height: 120px;
+    }
+
+    .mc-btn {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        background: rgba(255, 255, 255, 0.5);
+        border: 2px solid white;
+        border-radius: 50%;
+        color: var(--text-dark);
+        font-size: 1.5rem;
+        font-weight: bold;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        user-select: none;
+        pointer-events: all;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .mc-btn:active {
+        background: var(--accent);
+        color: white;
+    }
+
+    #mc-up { top: 0; left: 50%; transform: translateX(-50%); }
+    #mc-left { top: 50%; left: 0; transform: translateY(-50%); }
+    #mc-down { bottom: 0; left: 50%; transform: translateX(-50%); }
+    #mc-right { top: 50%; right: 0; transform: translateY(-50%); }
+
+    #mc-interact {
+        position: relative;
+        width: 70px;
+        height: 70px;
     }
 }
 .small{font-size:0.9rem;color:var(--muted)}
@@ -346,6 +395,16 @@ canvas{display:block;width:100vw;height:100vh}
 <div id="info-panel" class="ui-panel">
     <span class="close-btn" title="Close">&times;</span>
     <div id="info-content"></div>
+</div>
+<!-- NEW: Mobile Controls -->
+<div id="mobile-controls">
+    <div class="mc-dpad">
+        <button id="mc-up" class="mc-btn"><i class="fa-solid fa-arrow-up"></i></button>
+        <button id="mc-left" class="mc-btn"><i class="fa-solid fa-arrow-left"></i></button>
+        <button id="mc-down" class="mc-btn"><i class="fa-solid fa-arrow-down"></i></button>
+        <button id="mc-right" class="mc-btn"><i class="fa-solid fa-arrow-right"></i></button>
+    </div>
+    <button id="mc-interact" class="mc-btn">E</button>
 </div>
 
 <!-- three.js import map -->
@@ -377,7 +436,7 @@ const portfolioData = {
         github: "https://github.com/dayush3104", 
         website: "https://ayush-dixit-portfolio.netlify.app/",
         // IMPORTANT: Add your profile picture URL here
-        profilePicUrl: "Photo.jpg"
+        profilePicUrl: "https://avatars.githubusercontent.com/u/125717326?v=4"
     },
     "Education": [{degree:"B.Tech.", institution:"Indian Institute of Technology Kanpur", year:"2022-Present", performance:"7.9/10.0"}, {degree:"Class XII (CBSE)", institution:"Apala School of Education, Nohar", year:"2021", performance:"95.4%"}, {degree:"Class X (CBSE)", institution:"Apala School of Education, Nohar", year:"2019", performance:"97.0%"}],
     "Work Experience": [{role:"Founder's Office Intern — Masai | Bengaluru", duration:"May'25 - Jul'25", description:"Honored with Masai's Best Team Award 2025.", points:["Programmed AI pipelines integrating PRAW & LLM APIs; automated sentiment analysis across 1,500+ discussions (90% reduction in manual monitoring).","Built analytics workflows in Python, SQL, Tableau & Google Data Studio; boosted YT impressions by 65% & CTR by 50%."]}, {role:"Core Team Member — Counselling Service, IIT Kanpur", duration:"Apr'24 - Apr'25", description:"Received Certificate Of Appreciation.", points:["Organized 10-day Orientation for 1250+ freshers, managed 15L+ budget.","Directed programs on Mental Health; impacted 10K+ students."]}],
@@ -470,7 +529,14 @@ const dom = {
     interactionPrompt: document.getElementById('interaction-prompt'), 
     closeBtn: document.querySelector('.close-btn'),
     welcomeOverlay: document.getElementById('welcome-overlay'),
-    welcomeText: document.getElementById('welcome-text')
+    welcomeText: document.getElementById('welcome-text'),
+    // NEW: Mobile Controls
+    mobileControls: document.getElementById('mobile-controls'),
+    mcUp: document.getElementById('mc-up'),
+    mcDown: document.getElementById('mc-down'),
+    mcLeft: document.getElementById('mc-left'),
+    mcRight: document.getElementById('mc-right'),
+    mcInteract: document.getElementById('mc-interact')
 };
 
 init();
@@ -842,15 +908,53 @@ function setupEvents(){
         camera.updateProjectionMatrix(); 
         renderer.setSize(window.innerWidth, window.innerHeight); 
     });
-    window.addEventListener('keydown', (e) => {
-        if(isAutoDriving) return;
-        const k = e.key.toLowerCase();
-        if(['w','a','s','d'].includes(k)) keys[k]=true;
-        if((e.key==='e' || e.key==='E') && canInteractWith) displayInfo(canInteractWith.name);
-    });
-    window.addEventListener('keyup', (e) => { const k = e.key.toLowerCase(); if(['w','a','s','d'].includes(k)) keys[k]=false; });
+
+    const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
+    if (isTouchDevice) {
+        setupMobileControls();
+    } else {
+        window.addEventListener('keydown', (e) => {
+            if(isAutoDriving) return;
+            const k = e.key.toLowerCase();
+            if(['w','a','s','d'].includes(k)) keys[k]=true;
+            if((e.key==='e' || e.key==='E') && canInteractWith) displayInfo(canInteractWith.name);
+        });
+        window.addEventListener('keyup', (e) => { const k = e.key.toLowerCase(); if(['w','a','s','d'].includes(k)) keys[k]=false; });
+    }
 
     dom.closeBtn.addEventListener('click', ()=> { dom.infoPanel.classList.remove('visible'); });
+}
+
+// NEW: Function to handle mobile touch controls
+function setupMobileControls() {
+    dom.mobileControls.style.display = 'flex';
+
+    const buttonMap = [
+        { btn: dom.mcUp, key: 'w' },
+        { btn: dom.mcDown, key: 's' },
+        { btn: dom.mcLeft, key: 'a' },
+        { btn: dom.mcRight, key: 'd' },
+    ];
+
+    buttonMap.forEach(item => {
+        item.btn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            if(isAutoDriving) return;
+            keys[item.key] = true;
+        }, { passive: false });
+        item.btn.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            keys[item.key] = false;
+        }, { passive: false });
+    });
+
+    dom.mcInteract.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        if (canInteractWith) {
+            displayInfo(canInteractWith.name);
+        }
+    }, { passive: false });
 }
 
 function displayInfo(name){
