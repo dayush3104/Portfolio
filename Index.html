@@ -666,14 +666,13 @@ const portfolioData = {
     "Education": [
         {degree:"B.Tech.", institution:"Indian Institute of Technology Kanpur", year:"2022-Present", performance:"7.9/10.0"},
         {degree:"Class XII (CBSE)", institution:"Apala School of Education, Nohar", year:"2021", performance:"95.4%"},
-        {degree:"Class X (CBSE)", institution:"Apala School ofEducation, Nohar", year:"2019", performance:"97.0%"}
+        {degree:"Class X (CBSE)", institution:"Apala School of Education, Nohar", year:"2019", performance:"97.0%"}
     ],
     "Work Experience": [{role:"Founder's Office Intern - Masai | Bengaluru", duration:"May'25 - Jul'25", description:"Honored with <strong>Masai's Best Team Award 2025</strong>.", points:["Programmed AI pipelines integrating PRAW & LLM APIs; automated sentiment analysis across 1,500+ discussions (<strong>90% reduction</strong> in manual monitoring).","Built analytics workflows in Python, SQL, Tableau & Google Data Studio; boosted YT impressions by <strong>65%</strong> & CTR by <strong>50%</strong>."]}, {role:"Core Team Member - Counselling Service, IIT Kanpur", duration:"Apr'24 - Apr'25", description:"Received <strong>Certificate Of Appreciation</strong>.", points:["Organized 10-day Orientation for <strong>1250+ freshers</strong>, managed <strong>15L+ budget</strong>.","Directed programs on Mental Health; impacted <strong>10K+ students</strong>."]}],
     "Research Experience": [
         {
             role: "High-Fidelity Spatial Audio Modeling",
             duration: "Jan'25 - Apr'25",
-            /* --- FIX: Combined description strings --- */
             description: "Undergraduate Researcher | Mentor: Prof. Rajesh M. Hegde<br>Project in collaboration with <strong>Samsung R&D</strong><br>Awarded <strong>'A' Grade</strong> for research of Highest Academic Standard",
             points: [
                 "Engineered a <strong>50+ hour</strong>, 4-Channel Spatial Audio Dataset (57 scenarios) with RIR Simulation and Convolution, validated via quantitative SNR metrics.",
@@ -867,7 +866,8 @@ const portfolioData = {
             { name: "VS Code", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/vscode/vscode-original.svg" },
             { name: "GitHub", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/github/github-original.svg" },
             { name: "MongoDB", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original.svg" },
-            { name: "QGIS", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/QGIS_logo_new.svg/1200px-QGIS_logo_new.svg.png" }
+            /* --- FIX: Updated QGIS logo URL --- */
+            { name: "QGIS", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/qgis/qgis-original.svg" }
         ],
         "Libraries & Frameworks": [
             { name: "TensorFlow", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/tensorflow/tensorflow-original.svg" },
@@ -878,6 +878,14 @@ const portfolioData = {
         ]
     },
     "Achievements": [
+        /* --- NEW ACHIEVEMENT ADDED HERE --- */
+        {
+            text: "Bank of Baroda Hackathon 2025",
+            details: "Emerged as one of the <strong>Winners</strong>, awarded a Merit certificate & <strong>₹1 Lakh<strong> cash prize.",
+            logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsSW3oDZzYy2LjBhZcckdsc2uehKJdBDxCiQ&s", // BoB Logo
+            githubLogo: "https://upload.wikimedia.org/wikipedia/en/thumb/9/9a/Bank_of_Baroda_logo.svg/1200px-Bank_of_Baroda_logo.svg.png" // Using same logo as fallback
+        },
+        /* --- END OF NEW ACHIEVEMENT --- */
         { text: "JEE Advanced 2022", details: "<strong>All India Rank 5893</strong> among 1.65 Lakh candidates.", logo: "https://home.iitk.ac.in/~kamalkk/index/logo_black.png", githubLogo: "https://raw.githubusercontent.com/user/repo/main/jee-adv-logo.png" },
         { text: "JEE Mains 2022", details: "<strong>All India Rank 6132</strong> among 10.3 Lakh aspirants.", logo: "https://home.iitk.ac.in/~kamalkk/index/logo_black.png", githubLogo: "https://raw.githubusercontent.com/user/repo/main/jee-main-logo.png" },
         { text: "TATA Imagination Challenge", details: "Recognized as a <strong>National Semi-Finalist</strong> among 3.1 Lakh candidates.", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Tata_logo.svg/523px-Tata_logo.svg.png", githubLogo: "https://raw.githubusercontent.com/user/repo/main/tata-logo.png" },
