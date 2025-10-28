@@ -29,7 +29,7 @@
     --sky-bottom-day: #f0f8ff;
     --theme-green: #34A853;
     --theme-blue: #4285F4;
-    --theme-sandy: #d2c292; 
+    --theme-sandy: #d2c292;
 }
 *{box-sizing:border-box}
 html,body{
@@ -56,7 +56,7 @@ canvas{display:block;width:100vw;height:100vh}
     z-index: 100;
     color: white;
     text-align: center;
-    visibility: hidden; 
+    visibility: hidden;
 }
 #welcome-text {
     font-family: 'Righteous', cursive;
@@ -206,7 +206,7 @@ canvas{display:block;width:100vw;height:100vh}
     grid-template-columns: 1fr 1fr;
     gap: 10px;
     margin-top: 15px;
-    clear: both; 
+    clear: both;
 }
 .contact-link {
     display: flex;
@@ -285,7 +285,7 @@ canvas{display:block;width:100vw;height:100vh}
 }
 
 
-#mobile-controls, #mobile-nav-bar { display: none; } 
+#mobile-controls, #mobile-nav-bar { display: none; }
 
 #driver-chat-container {
     position: absolute;
@@ -473,8 +473,8 @@ canvas{display:block;width:100vw;height:100vh}
         transform: translateY(110%);
         padding: 45px 15px 80px 15px; /* Add padding to bottom */
     }
-    #info-panel.visible { 
-        transform: translateY(0); 
+    #info-panel.visible {
+        transform: translateY(0);
     }
     .close-btn {
         top: 15px;
@@ -482,8 +482,9 @@ canvas{display:block;width:100vw;height:100vh}
         font-size: 32px;
     }
 
-    #nav-menu { display: none; } 
-    
+    #nav-menu { display: none; }
+
+    /* --- UPDATED MOBILE NAV BAR (for Horizontal Scrolling) --- */
     #mobile-nav-bar {
         display: flex;
         position: fixed;
@@ -492,23 +493,32 @@ canvas{display:block;width:100vw;height:100vh}
         width: 100%;
         background: var(--panel);
         backdrop-filter: blur(10px);
-        padding: 5px;
-        justify-content: space-around;
+        padding: 5px 0; /* Changed */
+        justify-content: flex-start; /* Changed */
         align-items: center;
         z-index: 60;
         border-top: 1px solid var(--border-color);
+        overflow-x: auto; /* Added */
+        white-space: nowrap; /* Added */
     }
-    
+
     #mobile-nav-bar .nav-btn {
         flex-direction: column;
         gap: 4px;
-        padding: 5px;
+        padding: 5px 8px; /* Changed */
         font-size: 0.7rem;
         background: transparent;
         border: none;
-        width: 60px;
+        width: 70px; /* Changed */
         color: var(--muted);
+        display: inline-flex; /* Added */
+        flex-shrink: 0; /* Added */
+        text-align: center;
+        white-space: normal; /* Allow text to wrap within the button */
+        height: 55px; /* Give a fixed height */
     }
+    /* --- END OF UPDATES --- */
+
      #mobile-nav-bar .nav-btn.active {
         color: var(--accent);
         background: transparent;
@@ -519,6 +529,8 @@ canvas{display:block;width:100vw;height:100vh}
        }
     #mobile-nav-bar .nav-btn span {
         display: block;
+        font-size: 0.65rem; /* Slightly smaller font for two lines */
+        line-height: 1.2;
     }
 
 
@@ -528,7 +540,7 @@ canvas{display:block;width:100vw;height:100vh}
         bottom: 150px;
         font-size: 1rem;
     }
-    
+
     #mobile-controls {
         position: fixed;
         bottom: 80px;
@@ -538,7 +550,7 @@ canvas{display:block;width:100vw;height:100vh}
         justify-content: space-between;
         align-items: flex-end;
         z-index: 48;
-        pointer-events: none; 
+        pointer-events: none;
     }
 
     .mc-dpad {
@@ -641,41 +653,37 @@ const gsapGlobal = window.gsap || null;
 const textureLoader = new THREE.TextureLoader();
 
 const portfolioData = {
-    "About": { 
-        name: "AYUSH DIXIT", 
-        title: "Final Year Undergraduate • Department of Civil Engineering • IIT Kanpur", 
-        email: "dayush22@iitk.ac.in", 
-        phone: "+91-8503878119", 
-        linkedin: "https://www.linkedin.com/in/ayush-dixit-6b284125b/", 
-        github: "https://github.com/dayush3104", 
+    "About": {
+        name: "AYUSH DIXIT",
+        title: "Final Year Undergraduate • Department of Civil Engineering • IIT Kanpur",
+        email: "dayush22@iitk.ac.in",
+        phone: "+91-8503878119",
+        linkedin: "https://www.linkedin.com/in/ayush-dixit-6b284125b/",
+        github: "https://github.com/dayush3104",
         website: "https://ayush-dixit-portfolio.netlify.app/",
         profilePicUrl: "Photo.jpg"
     },
     "Education": [
-        {degree:"B.Tech.", institution:"Indian Institute of Technology Kanpur", year:"2022-Present", performance:"7.9/10.0"}, 
-        {degree:"Class XII (CBSE)", institution:"Apala School of Education, Nohar", year:"2021", performance:"95.4%"}, 
-        {degree:"Class X (CBSE)", institution:"Apala School of Education, Nohar", year:"2019", performance:"97.0%"}
+        {degree:"B.Tech.", institution:"Indian Institute of Technology Kanpur", year:"2022-Present", performance:"7.9/10.0"},
+        {degree:"Class XII (CBSE)", institution:"Apala School of Education, Nohar", year:"2021", performance:"95.4%"},
+        {degree:"Class X (CBSE)", institution:"Apala School ofEducation, Nohar", year:"2019", performance:"97.0%"}
     ],
     "Work Experience": [{role:"Founder's Office Intern - Masai | Bengaluru", duration:"May'25 - Jul'25", description:"Honored with <strong>Masai's Best Team Award 2025</strong>.", points:["Programmed AI pipelines integrating PRAW & LLM APIs; automated sentiment analysis across 1,500+ discussions (<strong>90% reduction</strong> in manual monitoring).","Built analytics workflows in Python, SQL, Tableau & Google Data Studio; boosted YT impressions by <strong>65%</strong> & CTR by <strong>50%</strong>."]}, {role:"Core Team Member - Counselling Service, IIT Kanpur", duration:"Apr'24 - Apr'25", description:"Received <strong>Certificate Of Appreciation</strong>.", points:["Organized 10-day Orientation for <strong>1250+ freshers</strong>, managed <strong>15L+ budget</strong>.","Directed programs on Mental Health; impacted <strong>10K+ students</strong>."]}],
     "Research Experience": [
-    {
-        role: "High-Fidelity Spatial Audio Modeling",
-        duration: "Jan'25 - Apr'25",
-        description: "Undergraduate Researcher | Mentor: Prof. Rajesh M. Hegde",
-        highlights: [
-            "Project in collaboration with <strong>Samsung R&D</strong>",
-            "Awarded <strong>'A' Grade</strong> for research of Highest Academic Standard"
-        ],
-        points: [
-            "Engineered a <strong>50+ hour</strong>, 4-Channel Spatial Audio Dataset (57 scenarios) with RIR Simulation and Convolution, validated via quantitative SNR metrics.",
-            "Automated room acoustics modeling, convolving resampled signals into Multi-Channel Reverberant Audio for Samsung R&D datasets.",
-            "Enhanced dataset integrity by resolving gain/loudness calibration issues, integrating Zero-padding, and ensuring <strong>100% reproducibility</strong> with Python cross-validation.",
-            "Built MATLAB simulation pipelines, reducing preprocessing time by <strong>80%</strong> and minimizing hardware prototyping costs by <strong>40%</strong>."
-        ],
-        links: { github: "https://github.com/dayush3104/High-Fidelity-Spatial-Audio-Modeling-for-Samsung-Smart-Glasses" }
-    }
-],
-
+        {
+            role: "High-Fidelity Spatial Audio Modeling",
+            duration: "Jan'25 - Apr'25",
+            /* --- FIX: Combined description strings --- */
+            description: "Undergraduate Researcher | Mentor: Prof. Rajesh M. Hegde<br>Project in collaboration with <strong>Samsung R&D</strong><br>Awarded <strong>'A' Grade</strong> for research of Highest Academic Standard",
+            points: [
+                "Engineered a <strong>50+ hour</strong>, 4-Channel Spatial Audio Dataset (57 scenarios) with RIR Simulation and Convolution, validated via quantitative SNR metrics.",
+                "Automated room acoustics modeling, convolving resampled signals into Multi-Channel Reverberant Audio for Samsung R&D datasets.",
+                "Enhanced dataset integrity by resolving gain/loudness calibration issues, integrating Zero-padding, and ensuring <strong>100% reproducibility</strong> with Python cross-validation.",
+                "Built MATLAB simulation pipelines, reducing preprocessing time by <strong>80%</strong> and minimizing hardware prototyping costs by <strong>40%</strong>."
+            ],
+            links: { github: "https://github.com/dayush3104/High-Fidelity-Spatial-Audio-Modeling-for-Samsung-Smart-Glasses" }
+        }
+    ],
     "Product & Strategy": [
         {
             name: "Kids Brand - Go-To Market Strategy",
@@ -761,7 +769,7 @@ const portfolioData = {
         "Environment & Sustainability": {
             theme: "green",
             projects: [
-                { 
+                {
                     name: "Resource Management Strategies",
                     description: "Research & Literature Review | Mentor: Prof. Anubha Goel",
                     points: [
@@ -776,7 +784,7 @@ const portfolioData = {
         "Hydrology": {
             theme: "blue",
             projects: [
-                { 
+                {
                     name: "Optimization Modeling for Resource Management",
                     description: "Course Project | Mentor: Prof. Tushar Apurv",
                     points: [
@@ -790,7 +798,7 @@ const portfolioData = {
         "Geoinformatics": {
             theme: "sandy",
             projects: [
-                { 
+                {
                     name: "Geospatial Survey and Mapping using QGIS",
                     description: "Course Project | Mentor: Prof. Salil Goel",
                     points: [
@@ -799,7 +807,7 @@ const portfolioData = {
                         "Delivered <strong>5+ georeferenced maps</strong> with optimized contours, lifting drainage design accuracy by <strong>20%</strong>."
                     ]
                 },
-                { 
+                {
                     name: "Land Cover Classification & Accuracy Analysis",
                     description: "Course Project | Mentor: Prof. Onkar Dikshit",
                     points: [
@@ -814,6 +822,21 @@ const portfolioData = {
     },
     "Hackathons": [
         {
+            name: "KavachX - Zero Trust Security Platform",
+            date: "Sep'25",
+            description: "Emerged as <strong>one of the Winners</strong> at the Bank of Baroda Hackathon 2025. <br> Awarded Merit Certificate & <strong>cash prize of ₹1 Lakh</strong> by the CTO.",
+            points: [
+                "Built a <strong>Zero Trust</strong> security framework in <strong>JavaScript & Firebase</strong>, modeling user behavior (typing cadence, mouse dynamics) via a 'Digital DNA' engine.",
+                "Developed a <strong>3-Layered adaptive security model</strong> to defeat Deepfakes (<strong>Gemini API</strong>), and validate Audio Liveness (<strong>Azure SDK, Meyda.js, MFCC</strong>), routing threats to a Sandbox.",
+                "Formulated a <strong>B2B SaaS</strong> Go-To-Market strategy and financial model, projecting a <strong>286% ROI</strong> by preventing <strong>₹45 Cr</strong> in fraud and creating <strong>₹39.8 Cr</strong> in operational value."
+            ],
+            links: {
+                github: "https://github.com/dayush3104/Bank-Of-Baroda-Hackathon",
+                live: "https://bob-kavachx.netlify.app/",
+                doc: "https://drive.google.com/file/d/1rRGYAFagKCA8s35vzxDo-prd04PqKnVf/view?usp=sharing"
+            }
+        },
+        {
             name: "CredTech - Credit Intelligence Platform",
             date: "Aug'25",
             description: "Hosted by Deeproot Investments & Programming Club, IITK. <br> Ranked in <strong>Top-8 Nationwide</strong> & awarded with <strong>Certificate of Excellence</strong>.",
@@ -823,7 +846,7 @@ const portfolioData = {
                 "Applied Explainable AI with SHAP, reducing black-box opacity by <strong>70%</strong>.",
                 "Deployed a Sentiment Analysis Pipeline (FinBERT, VADER) on <strong>5K+</strong> financial articles, surfaced via a Streamlit Dashboard."
             ],
-            links: { 
+            links: {
                 github: "https://github.com/dayush3104/CredTech-Explainable-Credit-Intelligence-Platform",
                 live: "https://dayush3104-credtech-explainable-credit-intelli-dashboard-rhy8rw.streamlit.app/"
             }
@@ -854,7 +877,7 @@ const portfolioData = {
             { name: "Node.js", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original.svg" },
         ]
     },
-    "Achievements": [ 
+    "Achievements": [
         { text: "JEE Advanced 2022", details: "<strong>All India Rank 5893</strong> among 1.65 Lakh candidates.", logo: "https://home.iitk.ac.in/~kamalkk/index/logo_black.png", githubLogo: "https://raw.githubusercontent.com/user/repo/main/jee-adv-logo.png" },
         { text: "JEE Mains 2022", details: "<strong>All India Rank 6132</strong> among 10.3 Lakh aspirants.", logo: "https://home.iitk.ac.in/~kamalkk/index/logo_black.png", githubLogo: "https://raw.githubusercontent.com/user/repo/main/jee-main-logo.png" },
         { text: "TATA Imagination Challenge", details: "Recognized as a <strong>National Semi-Finalist</strong> among 3.1 Lakh candidates.", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Tata_logo.svg/523px-Tata_logo.svg.png", githubLogo: "https://raw.githubusercontent.com/user/repo/main/tata-logo.png" },
@@ -862,7 +885,8 @@ const portfolioData = {
         { text: "Amazon ML Summer School", details: "Distinguished among the <strong>Top 3,000</strong> of 50K+ applicants to join Amazon MLSS.", logo: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg", githubLogo: "https://raw.githubusercontent.com/user/repo/main/amazon-logo.png" },
         { text: "Neural Sprint Competition", details: "Achieved <strong>All India Rank 4</strong>, organized by IIM Rohtak.", logo: "https://www.iimrohtak.ac.in/assets/images/Indian_Institute_of_Management_Rohtak_logo.jpg", githubLogo: "https://raw.githubusercontent.com/user/repo/main/iim-rohtak-logo.png"},
         { text: "Accenture Strategy Connect", details: "Shortlisted among <strong>Top 300</strong> of 9K+ teams for Round 2.", logo: "https://upload.wikimedia.org/wikipedia/commons/c/cd/Accenture.svg", githubLogo: "https://raw.githubusercontent.com/user/repo/main/accenture-logo.png" },
-        { text: "CredTech Hackathon", details: "Secured a <strong>Nationwide Top 8 Rank</strong>, hosted by DeepRoot Investments \& Pclub, IITK.", logo: "https://pclub.in/images/pclub.png", githubLogo: "https://raw.githubusercontent.com/user/repo/main/accenture-logo.png" }  ]
+        { text: "CredTech Hackathon", details: "Secured a <strong>Nationwide Top 8 Rank</strong>, hosted by DeepRoot Investments \& Pclub, IITK.", logo: "https://pclub.in/images/pclub.png", githubLogo: "https://raw.githubusercontent.com/user/repo/main/accenture-logo.png" }
+    ]
 };
 
 /* ----- Scene Variables ----- */
@@ -876,12 +900,12 @@ let musicPlayer = null;
 let isMusicPlaying = false;
 
 
-const dom = { 
-    loader: document.getElementById('loader'), 
-    navMenu: document.getElementById('nav-menu'), 
-    infoPanel: document.getElementById('info-panel'), 
-    infoContent: document.getElementById('info-content'), 
-    interactionPrompt: document.getElementById('interaction-prompt'), 
+const dom = {
+    loader: document.getElementById('loader'),
+    navMenu: document.getElementById('nav-menu'),
+    infoPanel: document.getElementById('info-panel'),
+    infoContent: document.getElementById('info-content'),
+    interactionPrompt: document.getElementById('interaction-prompt'),
     closeBtn: document.querySelector('.close-btn'),
     welcomeOverlay: document.getElementById('welcome-overlay'),
     welcomeText: document.getElementById('welcome-text'),
@@ -901,46 +925,69 @@ const dom = {
 init();
 
 function init(){
-    scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x87CEEB);
-    scene.fog = new THREE.Fog(0x87CEEB, 200, 1000);
-    clock = new THREE.Clock();
+    try { // Add try...catch for better error reporting
+        console.log("Script starting initialization..."); // Add log
 
-    camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 2000);
-    camera.position.set(0, 5, 15);
+        scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x87CEEB);
+        scene.fog = new THREE.Fog(0x87CEEB, 200, 1000);
+        clock = new THREE.Clock();
 
-    renderer = new THREE.WebGLRenderer({antialias:true});
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
-    renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    document.body.appendChild(renderer.domElement);
-    
-    setupLights();
-    setupCartoonWorld();
-    createCartoonCar();
-    createStoppagesAndNav();
-    createSkillsPark();
-    setupUI();
-    setupEvents();
-    setupSpeechRecognition();
-    
-    setTimeout(() => {
-        dom.loader.style.display = 'none';
+        camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 2000);
+        camera.position.set(0, 5, 15);
+
+        renderer = new THREE.WebGLRenderer({antialias:true});
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        document.body.appendChild(renderer.domElement);
+
+        setupLights();
+        setupCartoonWorld();
+        createCartoonCar();
+        createStoppagesAndNav();
+        createSkillsPark();
+        setupUI();
+        setupEvents();
+        setupSpeechRecognition();
+
+        console.log("Initialization setup complete. Hiding loader..."); // Add log
+
+        // Using setTimeout only for the welcome animation, not for hiding loader
+        if (dom.loader) dom.loader.style.display = 'none'; // Hide loader immediately after setup
         createWelcomeAnimation();
-        animate();
-    }, 500);
+        animate(); // Start animation loop
+        console.log("Animation loop started."); // Add log
+
+    } catch (error) {
+        console.error("CRITICAL ERROR during initialization:", error);
+        // Optionally display an error message to the user on the page
+        if (dom.loader) { // Check if loader element exists before using it
+             dom.loader.textContent = "Error loading portfolio. Please check console.";
+             dom.loader.style.color = "red";
+             dom.loader.style.display = 'block'; // Ensure loader is visible to show error
+        }
+    }
 }
 
+
 function createWelcomeAnimation() {
+    // Check if gsapGlobal and overlay elements exist
+    if (!gsapGlobal || !dom.welcomeOverlay || !dom.welcomeText) {
+         console.error("GSAP or Welcome Overlay elements not found. Skipping animation.");
+         if (dom.welcomeOverlay) dom.welcomeOverlay.style.display = 'none'; // Hide overlay immediately if animation can't run
+         return;
+    }
     dom.welcomeOverlay.style.visibility = 'visible';
     const tl = gsapGlobal.timeline({
         onComplete: () => {
-            dom.welcomeOverlay.style.display = 'none';
+             if (dom.welcomeOverlay) dom.welcomeOverlay.style.display = 'none';
         }
     });
-    tl.from(dom.welcomeText, { duration: 1.5, y: -50, opacity: 0, ease: "bounce.out" })
-      .to(dom.welcomeText, { duration: 1.5, opacity: 0, ease: "power1.in" }, "+=1.5");
+    /* --- UPDATED ANIMATION TIMING --- */
+    tl.from(dom.welcomeText, { duration: 1.0, y: -50, opacity: 0, ease: "bounce.out" })
+      .to(dom.welcomeText, { duration: 0.8, opacity: 0, ease: "power1.in" }, "+=0.7");
 }
 
 function setupLights(){
@@ -985,7 +1032,7 @@ function setupCartoonWorld() {
     const sun = new THREE.Mesh(new THREE.SphereGeometry(50, 32, 32), new THREE.MeshBasicMaterial({ color: 0xffdd33, toneMapped: false }));
     sun.position.set(-800, 400, -800);
     scene.add(sun);
-    
+
     const cloudMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
     for(let i=0; i<30; i++) {
         const cloud = new THREE.Group();
@@ -998,14 +1045,14 @@ function setupCartoonWorld() {
         cloud.position.set((Math.random() - 0.5) * 2000, 150 + Math.random() * 50, (Math.random() - 0.5) * 2000);
         scene.add(cloud);
     }
-    
+
     const trunkMat = new THREE.MeshLambertMaterial({ color: 0x8B4513 });
     const leafMat = new THREE.MeshLambertMaterial({ color: 0x228B22 });
     const rockMat = new THREE.MeshLambertMaterial({ color: 0x8d8d8d });
     for(let i=0; i<150; i++) {
         const px = (Math.random() > 0.5 ? 1 : -1) * (30 + Math.random() * 200);
         const pz = (Math.random() - 0.5) * 3000;
-        if(Math.random() > 0.3) { 
+        if(Math.random() > 0.3) {
             const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.7, 5, 8), trunkMat);
             trunk.castShadow = true;
             const leaves = new THREE.Mesh(new THREE.SphereGeometry(4 + Math.random() * 2, 8, 6), leafMat);
@@ -1013,7 +1060,7 @@ function setupCartoonWorld() {
             trunk.position.set(px, 2.5, pz);
             leaves.position.set(px, 7, pz);
             scene.add(trunk, leaves);
-        } else { 
+        } else {
             const rock = new THREE.Mesh(new THREE.DodecahedronGeometry(1.5 + Math.random() * 2, 0), rockMat);
             rock.castShadow = true;
             rock.position.set(px, 1, pz);
@@ -1048,7 +1095,7 @@ function createCartoonCar(){
     wheels[2].position.set(-1.6, 0, -2);
     wheels[3].position.set(1.6, 0, -2);
     wheels.forEach(w => { w.rotation.z = Math.PI / 2; w.castShadow = true; car.add(w); });
-    
+
     car.add(body, cabin);
     scene.add(car);
 }
@@ -1067,17 +1114,41 @@ function createSkillsPark() {
     monument.position.copy(parkCenter).y = 7.5;
     monument.castShadow = true;
     scene.add(monument);
-    gsapGlobal.to(monument.rotation, { y: Math.PI * 2, duration: 25, repeat: -1, ease: 'none' });
+    // Check if gsapGlobal exists before using
+    if (gsapGlobal) {
+        gsapGlobal.to(monument.rotation, { y: Math.PI * 2, duration: 25, repeat: -1, ease: 'none' });
+    } else {
+        console.warn("GSAP not loaded, cannot animate skills monument rotation.");
+    }
+
 
     let angle = 0;
     let radius = 15;
     const skills = portfolioData.Skills;
+     // Check if Skills data exists
+     if (!skills || typeof skills !== 'object') {
+         console.error("Skills data is missing or invalid in portfolioData.");
+         return;
+     }
 
     for (const category in skills) {
+         // Check if category exists and is an array
+         if (!skills.hasOwnProperty(category) || !Array.isArray(skills[category])) {
+             console.warn(`Invalid or missing data for skill category: ${category}`);
+             continue; // Skip this category
+         }
         create3DText(category, parkCenter.clone().add(new THREE.Vector3(0, 12, -radius - 12)));
         skills[category].forEach(skill => {
+             // Check if skill object and logo property exist
+             if (!skill || typeof skill !== 'object' || !skill.logo) {
+                 console.warn(`Invalid skill object or missing logo in category ${category}:`, skill);
+                 return; // Skip this skill
+             }
             const logoMaterial = new THREE.MeshBasicMaterial({
-                map: textureLoader.load(skill.logo),
+                map: textureLoader.load(skill.logo, undefined, undefined, (err) => { // Added error callback
+                     console.error(`Failed to load skill logo: ${skill.name} from ${skill.logo}`, err);
+                     // Optionally load a fallback image here
+                }),
                 transparent: true,
                 alphaTest: 0.5
             });
@@ -1087,15 +1158,19 @@ function createSkillsPark() {
                 5,
                 parkCenter.z + Math.cos(angle) * radius
             );
-            logoMesh.userData.isBillboard = true; 
-            
-            gsapGlobal.to(logoMesh.position, { 
-                y: 6, 
-                duration: 2 + Math.random() * 1.5, 
-                yoyo: true, 
-                repeat: -1, 
-                ease: 'sine.inOut' 
-            });
+            logoMesh.userData.isBillboard = true;
+
+            if (gsapGlobal) {
+                gsapGlobal.to(logoMesh.position, {
+                    y: 6,
+                    duration: 2 + Math.random() * 1.5,
+                    yoyo: true,
+                    repeat: -1,
+                    ease: 'sine.inOut'
+                });
+             } else {
+                console.warn("GSAP not loaded, cannot animate skill logos.");
+             }
 
             scene.add(logoMesh);
             angle += Math.PI / (skills[category].length / 2);
@@ -1107,15 +1182,28 @@ function createSkillsPark() {
 
 function create3DText(text, position) {
     const fontLoader = new FontLoader();
-    fontLoader.load('https://cdn.jsdelivr.net/npm/three@0.160.0/examples/fonts/helvetiker_bold.typeface.json', (font) => {
-        const textGeo = new TextGeometry(text, { font: font, size: 4, height: 0.5 });
-        const textMat = new THREE.MeshLambertMaterial({ color: 0xffffff });
-        const textMesh = new THREE.Mesh(textGeo, textMat);
-        textMesh.geometry.center();
-        textMesh.position.copy(position);
-        textMesh.castShadow = true;
-        scene.add(textMesh);
-        gsapGlobal.to(textMesh.rotation, { y: Math.PI * 2, duration: 40, repeat: -1, ease: 'none' });
+    fontLoader.load('https://cdn.jsdelivr.net/npm/three@0.160.0/examples/fonts/helvetiker_bold.typeface.json',
+    (font) => { // Success callback
+        try { // Add try/catch around font geometry creation
+            const textGeo = new TextGeometry(text, { font: font, size: 4, height: 0.5 });
+            const textMat = new THREE.MeshLambertMaterial({ color: 0xffffff });
+            const textMesh = new THREE.Mesh(textGeo, textMat);
+            textMesh.geometry.center(); // Center geometry for easier positioning
+            textMesh.position.copy(position);
+            textMesh.castShadow = true;
+            scene.add(textMesh);
+            if (gsapGlobal) {
+                gsapGlobal.to(textMesh.rotation, { y: Math.PI * 2, duration: 40, repeat: -1, ease: 'none' });
+            } else {
+                console.warn("GSAP not loaded, cannot animate 3D text rotation.");
+            }
+        } catch(textError){
+             console.error(`Error creating 3D text "${text}":`, textError);
+        }
+    },
+    undefined, // Progress callback (optional)
+    (error) => { // Error callback
+        console.error('Error loading font for 3D text:', error);
     });
 }
 
@@ -1147,7 +1235,7 @@ function createStoppage(name, position) {
     if (name === 'Skills') {
         scene.add(g);
         interactiveZones.push(g);
-        return; 
+        return;
     }
 
     const baseMat = new THREE.MeshLambertMaterial({ color: 0xffffff });
@@ -1194,29 +1282,45 @@ function createStoppage(name, position) {
             themedObject = new THREE.Mesh(new THREE.CylinderGeometry(4, 4, 2, 16), gearMat);
             themedObject.position.y = 4;
             break;
+        // Add default case? Although all sections should be covered.
     }
-    themedObject.castShadow = true;
-    g.add(themedObject);
-    gsapGlobal.to(themedObject.rotation, { y: Math.PI * 2, x: Math.PI * 2, duration: 15, repeat: -1, ease: 'none' });
-    
+    if (themedObject) { // Ensure themedObject exists before acting on it
+        themedObject.castShadow = true;
+        g.add(themedObject);
+        if (gsapGlobal) {
+            gsapGlobal.to(themedObject.rotation, { y: Math.PI * 2, x: Math.PI * 2, duration: 15, repeat: -1, ease: 'none' });
+        } else {
+            console.warn("GSAP not loaded, cannot animate stoppage object rotation.");
+        }
+    }
+
     const ring = new THREE.Mesh(new THREE.TorusGeometry(8, 0.3, 16, 100), new THREE.MeshBasicMaterial({ color: 0xff6347 }));
     ring.rotation.x = Math.PI / 2;
     ring.position.y = 1;
     g.add(ring);
-    gsapGlobal.to(ring.rotation, { z: Math.PI * 2, duration: 10, repeat: -1, ease: 'none' });
-    
+     if (gsapGlobal) {
+        gsapGlobal.to(ring.rotation, { z: Math.PI * 2, duration: 10, repeat: -1, ease: 'none' });
+     } else {
+        console.warn("GSAP not loaded, cannot animate stoppage ring rotation.");
+     }
+
     scene.add(g);
     interactiveZones.push(g);
 }
 
 
 function createNavButton(section){
-    const btn = document.createElement('a'); 
+     // Check if navMenu and mobileNavBar elements exist
+    if (!dom.navMenu || !dom.mobileNavBar) {
+        console.error("Navigation menu elements not found in DOM.");
+        return;
+    }
+    const btn = document.createElement('a');
     btn.className='nav-btn';
-    btn.innerHTML = `<i class="${section.icon}"></i><span>${section.name}</span>`;
+    btn.innerHTML = `<i class="${section.icon || 'fa-solid fa-question'}"></i><span>${section.name || 'Unnamed'}</span>`; // Add fallbacks
     btn.onclick = (e)=> {
         e.preventDefault();
-        if(dom.infoPanel.classList.contains('visible')) {
+        if(dom.infoPanel && dom.infoPanel.classList.contains('visible')) {
             dom.infoPanel.classList.remove('visible');
         }
         navTo(section.name);
@@ -1227,7 +1331,7 @@ function createNavButton(section){
     const mobileBtn = btn.cloneNode(true);
     mobileBtn.onclick = (e) => {
         e.preventDefault();
-        if(dom.infoPanel.classList.contains('visible')) {
+        if(dom.infoPanel && dom.infoPanel.classList.contains('visible')) {
             dom.infoPanel.classList.remove('visible');
         }
         navTo(section.name);
@@ -1237,58 +1341,82 @@ function createNavButton(section){
 
 function navTo(sectionName){
     if(!car || isAutoDriving) return;
-    const zone = interactiveZones.find(z => z.name.toLowerCase() === sectionName.toLowerCase());
-    if (!zone) return;
+    const zone = interactiveZones.find(z => z.name && z.name.toLowerCase() === sectionName.toLowerCase()); // Check z.name exists
+    if (!zone) {
+        console.warn(`Navigation target not found: ${sectionName}`); // Added warning
+        return;
+    }
 
-    isAutoDriving = true; 
+
+    isAutoDriving = true;
     keys = { w:false, a:false, s:false, d:false };
-    
-    dom.chatBubble.textContent = `On my way to ${sectionName}!`;
 
-    document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.textContent.trim() === zone.name));
-    
+    if (dom.chatBubble) dom.chatBubble.textContent = `On my way to ${sectionName}!`;
+
+    document.querySelectorAll('.nav-btn').forEach(b => {
+         // More robust check for active state
+         const buttonText = b.textContent?.trim() || '';
+         const isActive = buttonText.includes(zone.name);
+         b.classList.toggle('active', isActive);
+    });
+
+
     const targetPos = zone.position.clone();
-    
+
     if (zone.name === 'Skills') {
-        targetPos.x = -50; 
-        targetPos.z = 150; 
+        targetPos.x = -50;
+        targetPos.z = 150;
     } else {
         targetPos.add(new THREE.Vector3(0, 0, 30));
     }
-        
+
     const lookAtPos = zone.position.clone();
-    
+
     const temp = new THREE.Object3D(); temp.position.copy(car.position); temp.lookAt(lookAtPos);
     const targetQuat = temp.quaternion.clone();
 
     const distance = car.position.distanceTo(targetPos);
-    
+
     if(gsapGlobal){
-        gsapGlobal.timeline({ 
-            onComplete: () => { 
-                isAutoDriving=false; 
-                displayInfo(zone.name); 
-                dom.chatBubble.textContent = `We've arrived!`;
+        gsapGlobal.timeline({
+            onComplete: () => {
+                isAutoDriving=false;
+                displayInfo(zone.name);
+                 if (dom.chatBubble) dom.chatBubble.textContent = `We've arrived!`;
                 setTimeout(() => {
-                    dom.chatBubble.textContent = "Click the mic or a button to continue the tour.";
+                     if (dom.chatBubble) dom.chatBubble.textContent = "Click the mic or a button to continue the tour.";
                 }, 4000);
                 document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            } 
+            }
         })
         .to(car.position, { x: targetPos.x, y: car.position.y, z: targetPos.z, duration: Math.max(1.5, distance / 200), ease:'power2.inOut' })
         .to(car.quaternion, { x: targetQuat.x, y: targetQuat.y, z: targetQuat.z, w: targetQuat.w, duration:1.5, ease:'power2.inOut' }, "<");
+    } else { // Fallback if GSAP fails to load
+         console.error("GSAP not loaded, cannot animate navigation.");
+         car.position.copy(targetPos);
+         car.quaternion.copy(targetQuat);
+         isAutoDriving=false;
+         displayInfo(zone.name);
+          if (dom.chatBubble) dom.chatBubble.textContent = `We've arrived!`;
     }
 }
 
 function setupUI(){
-    dom.infoContent.innerHTML = `<h2>Welcome to my Portfolio Adventure!</h2><p class="small">Use the nav menu or drive with the arrow keys to explore!</p>`;
+     if (dom.infoContent) {
+        dom.infoContent.innerHTML = `<h2>Welcome to my Portfolio Adventure!</h2><p class="small">Use the nav menu or drive with the arrow keys to explore!</p>`;
+     } else {
+         console.error("Info content element not found for initial UI setup.");
+     }
 }
 
 function setupEvents(){
-    window.addEventListener('resize', ()=> { 
-        camera.aspect = window.innerWidth/window.innerHeight; 
-        camera.updateProjectionMatrix(); 
-        renderer.setSize(window.innerWidth, window.innerHeight); 
+    window.addEventListener('resize', ()=> {
+         // Check if camera and renderer exist before using
+         if (camera && renderer) {
+            camera.aspect = window.innerWidth/window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+         }
     });
 
     const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
@@ -1298,7 +1426,7 @@ function setupEvents(){
     } else {
         window.addEventListener('keydown', (e) => {
             if(isAutoDriving) return;
-            
+
             const keyMap = { 'arrowup': 'w', 'arrowdown': 's', 'arrowleft': 'a', 'arrowright': 'd' };
             const mappedKey = keyMap[e.key.toLowerCase()] || e.key.toLowerCase();
 
@@ -1312,114 +1440,199 @@ function setupEvents(){
         });
     }
 
-    dom.closeBtn.addEventListener('click', ()=> { dom.infoPanel.classList.remove('visible'); });
+    if (dom.closeBtn) {
+        dom.closeBtn.addEventListener('click', ()=> {
+             if (dom.infoPanel) dom.infoPanel.classList.remove('visible');
+        });
+    } else {
+         console.error("Close button element not found.");
+    }
 
-    dom.musicToggleBtn.addEventListener('click', async () => {
-        if (!musicPlayer) {
-            // While I can't use the actual "Can't Stop the Feeling!" due to copyright,
-            // here's a cheerful, upbeat melody created with Tone.js that captures a similar vibe.
-            const synth = new Tone.PolySynth(Tone.Synth, {
-                oscillator: { type: "triangle8" },
-                envelope: { attack: 0.005, decay: 0.1, sustain: 0.3, release: 1 }
-            }).toDestination();
-            synth.volume.value = -12;
+    if (dom.musicToggleBtn) {
+        dom.musicToggleBtn.addEventListener('click', async () => {
+            // Check if Tone is loaded
+            if (typeof Tone === 'undefined') {
+                console.error("Tone.js library not loaded. Cannot play music.");
+                if (dom.musicToggleBtn) {
+                     dom.musicToggleBtn.style.opacity = "0.5";
+                     dom.musicToggleBtn.disabled = true;
+                     dom.musicToggleBtn.innerHTML = '<i class="fa-solid fa-volume-xmark"></i>'; // Indicate disabled
+                }
+                return;
+            }
+            try { // Add try/catch for Tone.js
+                if (!musicPlayer) {
+                    console.log("Initializing Tone.js player...");
+                    const synth = new Tone.PolySynth(Tone.Synth, {
+                        oscillator: { type: "triangle8" },
+                        envelope: { attack: 0.005, decay: 0.1, sustain: 0.3, release: 1 }
+                    }).toDestination();
+                    synth.volume.value = -12;
 
-            const melody = [
-                {'time': '0:0', 'note': 'C4', 'duration': '8n'},
-                {'time': '0:1', 'note': 'E4', 'duration': '8n'},
-                {'time': '0:2', 'note': 'G4', 'duration': '8n'},
-                {'time': '0:3', 'note': 'C5', 'duration': '8n'},
-                {'time': '1:0', 'note': 'G4', 'duration': '8n'},
-                {'time': '1:1', 'note': 'A4', 'duration': '4n'},
-                {'time': '1:3', 'note': 'G4', 'duration': '4n'},
-                {'time': '2:0', 'note': 'F4', 'duration': '8n'},
-                {'time': '2:1', 'note': 'E4', 'duration': '8n'},
-                {'time': '2:2', 'note': 'D4', 'duration': '8n'},
-                {'time': '2:3', 'note': 'C4', 'duration': '4n'}
-            ];
-            musicPlayer = new Tone.Part((time, value) => {
-                synth.triggerAttackRelease(value.note, value.duration, time);
-            }, melody).start(0);
-            musicPlayer.loop = true;
-            musicPlayer.loopEnd = '3m';
-            Tone.Transport.bpm.value = 120;
-        }
+                    const melody = [
+                        {'time': '0:0', 'note': 'C4', 'duration': '8n'},
+                        {'time': '0:1', 'note': 'E4', 'duration': '8n'},
+                        {'time': '0:2', 'note': 'G4', 'duration': '8n'},
+                        {'time': '0:3', 'note': 'C5', 'duration': '8n'},
+                        {'time': '1:0', 'note': 'G4', 'duration': '8n'},
+                        {'time': '1:1', 'note': 'A4', 'duration': '4n'},
+                        {'time': '1:3', 'note': 'G4', 'duration': '4n'},
+                        {'time': '2:0', 'note': 'F4', 'duration': '8n'},
+                        {'time': '2:1', 'note': 'E4', 'duration': '8n'},
+                        {'time': '2:2', 'note': 'D4', 'duration': '8n'},
+                        {'time': '2:3', 'note': 'C4', 'duration': '4n'}
+                    ];
+                    musicPlayer = new Tone.Part((time, value) => {
+                        // Check if synth exists before triggering
+                        if (synth && synth.triggerAttackRelease) {
+                            synth.triggerAttackRelease(value.note, value.duration, time);
+                        }
+                    }, melody).start(0);
+                    musicPlayer.loop = true;
+                    musicPlayer.loopEnd = '3m';
+                    Tone.Transport.bpm.value = 120;
+                    console.log("Tone.js player initialized.");
+                }
 
-        await Tone.start();
+                // Ensure AudioContext is running (required for user interaction)
+                if (Tone.context.state !== 'running') {
+                    console.log("Starting Tone.js AudioContext...");
+                    await Tone.start();
+                    console.log("Tone.js AudioContext started.");
+                }
 
-        if (isMusicPlaying) {
-            Tone.Transport.stop();
-            dom.musicToggleBtn.innerHTML = '<i class="fa-solid fa-music"></i>';
-            dom.musicToggleBtn.style.color = 'var(--accent)';
-        } else {
-            Tone.Transport.start();
-            dom.musicToggleBtn.innerHTML = '<i class="fa-solid fa-volume-high"></i>';
-            dom.musicToggleBtn.style.color = '#34A853'; // Green for 'on'
-        }
-        isMusicPlaying = !isMusicPlaying;
-    });
+
+                if (isMusicPlaying) {
+                    console.log("Stopping music.");
+                    Tone.Transport.stop();
+                    dom.musicToggleBtn.innerHTML = '<i class="fa-solid fa-music"></i>';
+                    dom.musicToggleBtn.style.color = 'var(--accent)';
+                } else {
+                     console.log("Starting music.");
+                    Tone.Transport.start();
+                    dom.musicToggleBtn.innerHTML = '<i class="fa-solid fa-volume-high"></i>';
+                    dom.musicToggleBtn.style.color = '#34A853'; // Green for 'on'
+                }
+                isMusicPlaying = !isMusicPlaying;
+            } catch (error) {
+                console.error("Error toggling music:", error);
+                // Maybe disable the music button if Tone.js fails badly
+                dom.musicToggleBtn.style.opacity = "0.5";
+                dom.musicToggleBtn.disabled = true;
+                 dom.musicToggleBtn.innerHTML = '<i class="fa-solid fa-volume-xmark"></i>';
+            }
+        });
+     } else {
+         console.error("Music toggle button element not found.");
+     }
 }
 
 function setupSpeechRecognition() {
+    // Check if SpeechRecognition is available
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SpeechRecognition) {
-        dom.speechBtn.style.display = 'none'; // Hide if not supported
-        dom.chatBubble.textContent = "Voice control isn't available on this browser.";
+        console.warn("Speech Recognition not supported in this browser.");
+        if(dom.speechBtn) dom.speechBtn.style.display = 'none'; // Hide if not supported
+        if(dom.chatBubble) dom.chatBubble.textContent = "Voice control isn't available on this browser.";
         return;
     }
-    
-    const recognition = new SpeechRecognition();
-    recognition.continuous = false;
-    recognition.lang = 'en-US';
-    recognition.interimResults = false;
-    recognition.maxAlternatives = 1;
+     // Check if necessary DOM elements exist
+     if (!dom.speechBtn || !dom.chatBubble) {
+          console.error("Speech button or chat bubble element not found. Cannot set up speech recognition.");
+          return;
+     }
 
-    const sections = Object.keys(portfolioData).map(s => s.toLowerCase());
+    try { // Add try/catch around speech recognition setup
+        const recognition = new SpeechRecognition();
+        recognition.continuous = false;
+        recognition.lang = 'en-US';
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
 
-    dom.speechBtn.addEventListener('click', () => {
-        if (isAutoDriving) return;
-        recognition.start();
-    });
+        const sections = Object.keys(portfolioData).map(s => s.toLowerCase());
 
-    recognition.onstart = () => {
-        dom.speechBtn.classList.add('listening');
-        dom.chatBubble.textContent = 'Listening...';
-    };
+        dom.speechBtn.addEventListener('click', () => {
+            if (isAutoDriving) return;
+            try {
+                 recognition.start();
+            } catch (startError) {
+                 console.error("Error starting speech recognition:", startError);
+                 dom.chatBubble.textContent = "Mic error. Try again?";
+            }
+        });
 
-    recognition.onspeechend = () => {
-        recognition.stop();
-        dom.speechBtn.classList.remove('listening');
-    };
-    
-    recognition.onend = () => {
-        dom.speechBtn.classList.remove('listening');
-        setTimeout(() => {
-            dom.chatBubble.textContent = 'Click the mic to give a command!';
-        }, 3000);
-    };
+        recognition.onstart = () => {
+            dom.speechBtn.classList.add('listening');
+            dom.chatBubble.textContent = 'Listening...';
+        };
 
-    recognition.onresult = (event) => {
-        const transcript = event.results[0][0].transcript.toLowerCase();
-        
-        // Simple keyword matching, remove "experience" for better matching
-        const foundSection = sections.find(section => transcript.includes(section.replace(' experience', '')));
-        
-        if (foundSection) {
-            const formattedSection = foundSection.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
-            navTo(formattedSection);
-        } else {
-            dom.chatBubble.textContent = `Sorry, I couldn't find that. Try "go to projects".`;
-        }
-    };
+        recognition.onspeechend = () => {
+             // Let onend handle UI changes for consistency
+        };
 
-    recognition.onerror = (event) => {
-        dom.speechBtn.classList.remove('listening');
-        dom.chatBubble.textContent = `Error: ${event.error}. Try again?`;
-    };
+        recognition.onend = () => {
+             try { recognition.stop(); } catch(e) {/* Ignore error if already stopped */}
+            dom.speechBtn.classList.remove('listening');
+            setTimeout(() => {
+                // Check if still listening before resetting text
+                if (dom.chatBubble && dom.chatBubble.textContent === 'Listening...') {
+                     dom.chatBubble.textContent = 'Click the mic to give a command!';
+                }
+            }, 3000);
+        };
+
+
+        recognition.onresult = (event) => {
+            const transcript = event.results?.[0]?.[0]?.transcript?.toLowerCase()?.trim(); // Safer access
+            if (!transcript) {
+                 console.warn("Could not extract transcript from speech result.");
+                 dom.chatBubble.textContent = "Didn't quite catch that. Try again?";
+                 return;
+            }
+             console.log("Speech recognized:", transcript); // Log transcript
+
+            // Simple keyword matching, remove "experience" for better matching
+            const foundSection = sections.find(section => transcript.includes(section.replace(' experience', '')));
+
+            if (foundSection) {
+                 console.log("Matching section found:", foundSection);
+                const formattedSection = foundSection.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+                navTo(formattedSection);
+            } else {
+                 console.log("No matching section found for:", transcript);
+                dom.chatBubble.textContent = `Sorry, I couldn't find "${transcript}". Try "go to projects".`;
+            }
+        };
+
+        recognition.onerror = (event) => {
+            console.error("Speech recognition error:", event.error, event.message);
+            dom.speechBtn.classList.remove('listening');
+            let errorMsg = `Mic error: ${event.error}. Try again?`;
+            if (event.error === 'not-allowed' || event.error === 'service-not-allowed') {
+                errorMsg = "Mic access denied. Please allow microphone access in browser settings.";
+            } else if (event.error === 'no-speech') {
+                 errorMsg = "Didn't hear anything. Try again?";
+            } else if (event.error === 'network') {
+                 errorMsg = "Network error. Check connection?";
+            } else if (event.error === 'audio-capture') {
+                 errorMsg = "Audio capture error. Check mic?";
+            }
+            dom.chatBubble.textContent = errorMsg;
+        };
+    } catch (setupError) {
+         console.error("Critical error setting up Speech Recognition:", setupError);
+         if(dom.speechBtn) dom.speechBtn.style.display = 'none';
+         if(dom.chatBubble) dom.chatBubble.textContent = "Voice control failed to initialize.";
+    }
 }
 
 
 function setupMobileControls() {
+     // Check if elements exist
+     if (!dom.mobileControls || !dom.mobileNavBar || !dom.mcUp || !dom.mcDown || !dom.mcLeft || !dom.mcRight || !dom.mcInteract) {
+         console.error("One or more mobile control elements are missing. Cannot set up mobile controls.");
+         return;
+     }
     dom.mobileControls.style.display = 'flex';
     dom.mobileNavBar.style.display = 'flex';
 
@@ -1434,87 +1647,134 @@ function setupMobileControls() {
     buttonMap.forEach(item => {
         item.btn.addEventListener('touchstart', (e) => { e.preventDefault(); if(!isAutoDriving) keys[item.key] = true; }, { passive: false });
         item.btn.addEventListener('touchend', (e) => { e.preventDefault(); keys[item.key] = false; }, { passive: false });
+         // Add mouse events as fallback for testing on desktop pretending to be mobile
+         item.btn.addEventListener('mousedown', (e) => { e.preventDefault(); if(!isAutoDriving) keys[item.key] = true; });
+         item.btn.addEventListener('mouseup', (e) => { e.preventDefault(); keys[item.key] = false; });
+         item.btn.addEventListener('mouseleave', (e) => { keys[item.key] = false; }); // Ensure key up if mouse leaves button while pressed
     });
 
     dom.mcInteract.addEventListener('touchstart', (e) => {
         e.preventDefault();
         if (canInteractWith) displayInfo(canInteractWith.name);
     }, { passive: false });
+    // Add mouse event fallback
+     dom.mcInteract.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (canInteractWith) displayInfo(canInteractWith.name);
+    });
 }
 
 function displayInfo(name){
+    if (!dom.infoContent || !dom.infoPanel) {
+        console.error("Info panel elements not found. Cannot display info.");
+        return;
+    }
     let html = `<h2>${name}</h2>`;
+    // Ensure portfolioData[name] exists before trying to access it
     const data = portfolioData[name];
 
-    if(!data){ html += `<p>No data available.</p>`; }
+    if(!data){ html += `<p>Details coming soon for this section.</p>`; console.warn(`No data found for section: ${name}`); } // Added warning
     else if(name === 'About'){
-        html += `<img id="profile-pic" src="${data.profilePicUrl}" alt="Ayush Dixit" onerror="this.style.display='none'"/>`;
-        html += `<p style="padding-top:10px;"><strong>${data.name}</strong><br/><span class="small">${data.title}</span></p>`;
+        // Add onerror fallback for profile pic
+        html += `<img id="profile-pic" src="${data.profilePicUrl || 'Photo.jpg'}" alt="Ayush Dixit" onerror="this.style.display='none'; console.error('Failed to load profile picture.')"/>`;
+        html += `<p style="padding-top:10px;"><strong>${data.name || 'Ayush Dixit'}</strong><br/><span class="small">${data.title || 'Student'}</span></p>`;
         html += `<div class="contact-links">`;
-        html += `   <a href="mailto:${data.email}" class="contact-link" target="_blank"><i class="fa-solid fa-envelope"></i><span>Email</span></a>`;
-        html += `   <a href="tel:${data.phone}" class="contact-link"><i class="fa-solid fa-phone"></i><span>Call</span></a>`;
-        html += `   <a href="${data.linkedin}" class="contact-link" target="_blank"><i class="fa-brands fa-linkedin"></i><span>LinkedIn</span></a>`;
-        html += `   <a href="${data.github}" class="contact-link" target="_blank"><i class="fa-brands fa-github"></i><span>GitHub</span></a>`;
+        html += `   <a href="mailto:${data.email || '#'}" class="contact-link" target="_blank"><i class="fa-solid fa-envelope"></i><span>Email</span></a>`;
+        html += `   <a href="tel:${data.phone || '#'}" class="contact-link"><i class="fa-solid fa-phone"></i><span>Call</span></a>`;
+        html += `   <a href="${data.linkedin || '#'}" class="contact-link" target="_blank"><i class="fa-brands fa-linkedin"></i><span>LinkedIn</span></a>`;
+        html += `   <a href="${data.github || '#'}" class="contact-link" target="_blank"><i class="fa-brands fa-github"></i><span>GitHub</span></a>`;
         html += `</div>`;
     } else if (name === 'Education') {
-        data.forEach(item => {
-            html += `
-                <div class="education-item">
-                    <h3>${item.degree} <strong style="font-size: 1rem;">${item.performance}</strong></h3>
-                    <div class="details-grid">
-                        <p><i class="fa-solid fa-building-columns"></i> ${item.institution}</p>
-                        <p><i class="fa-solid fa-calendar-alt"></i> ${item.year}</p>
+        if (!Array.isArray(data)) { html += '<p>Education data is incorrectly formatted.</p>'; console.error("Education data is not an array:", data); }
+        else {
+            data.forEach(item => {
+                html += `
+                    <div class="education-item">
+                        <h3>${item.degree || 'Degree'} <strong style="font-size: 1rem;">${item.performance || ''}</strong></h3>
+                        <div class="details-grid">
+                            <p><i class="fa-solid fa-building-columns"></i> ${item.institution || 'Institution'}</p>
+                            <p><i class="fa-solid fa-calendar-alt"></i> ${item.year || 'Year'}</p>
+                        </div>
                     </div>
-                </div>
-            `;
-        });
+                `;
+            });
+        }
     } else if (name === 'Achievements') {
-        html += `<div class="achievements-grid">`;
-        data.forEach(item => {
-            html += `
-                <div class="achievement-card">
-                    <div class="achievement-logo-container">
-                        <img src="${item.logo}" alt="${item.text} logo" onerror="this.onerror=null; this.src='${item.githubLogo}';"/>
+         if (!Array.isArray(data)) { html += '<p>Achievements data is incorrectly formatted.</p>'; console.error("Achievements data is not an array:", data); }
+         else {
+            html += `<div class="achievements-grid">`;
+            data.forEach(item => {
+                 // Provide default empty strings for potentially missing fields
+                 const logoUrl = item.logo || '';
+                 const fallbackLogoUrl = item.githubLogo || 'https://placehold.co/60x60/cccccc/969696?text=Logo'; // Added standard placeholder
+                html += `
+                    <div class="achievement-card">
+                        <div class="achievement-logo-container">
+                            <img src="${logoUrl}" alt="${item.text || 'Achievement'} logo" onerror="this.onerror=null; this.src='${fallbackLogoUrl}'; console.warn('Failed to load achievement logo:', '${logoUrl}')"/>
+                        </div>
+                        <div class="achievement-details">
+                            <h3>${item.text || 'Achievement Title'}</h3>
+                            <p>${item.details || ''}</p>
+                        </div>
                     </div>
-                    <div class="achievement-details">
-                        <h3>${item.text}</h3>
-                        <p>${item.details}</p>
-                    </div>
-                </div>
-            `;
-        });
-        html += `</div>`;
-    } else if (name === 'Core Experience') {
-         for (const category in data) {
-            const categoryData = data[category];
-            html += `<div class="core-exp-section theme-${categoryData.theme}">`;
-            html += `<h3>${category}</h3>`;
-            categoryData.projects.forEach(item => {
-                html += `<details><summary>${item.name}</summary>`;
-                html += `<p class="small" style="margin-top: 8px;"><em>${item.description}</em></p>`;
-                if(item.points) html += `<ul>${item.points.map(p=>`<li>${p}</li>`).join('')}</ul>`;
-                if (item.links) {
-                    html += `<div class="item-links">`;
-                    if (item.links.github) html += `<a href="${item.links.github}" target="_blank" class="item-link-btn"><i class="fa-brands fa-github"></i> GitHub</a>`;
-                    if (item.links.doc) html += `<a href="${item.links.doc}" target="_blank" class="item-link-btn"><i class="fa-solid fa-file-alt"></i> View Doc</a>`;
-                    html += `</div>`;
-                }
-                html += `</details>`;
+                `;
             });
             html += `</div>`;
         }
+    } else if (name === 'Core Experience') {
+         if (typeof data !== 'object' || data === null) { html += '<p>Core Experience data is incorrectly formatted.</p>'; console.error("Core Experience data is not an object:", data); }
+         else {
+            for (const category in data) {
+                 // Ensure category is own property before processing
+                 if (!data.hasOwnProperty(category)) continue;
+
+                const categoryData = data[category];
+                // Check if categoryData and its properties exist
+                const theme = categoryData?.theme || 'grey'; // Default theme
+                html += `<div class="core-exp-section theme-${theme}">`;
+                html += `<h3>${category}</h3>`;
+                if (Array.isArray(categoryData?.projects)) {
+                    categoryData.projects.forEach(item => {
+                         // Check item validity
+                         if (!item || typeof item !== 'object') {
+                             console.warn(`Invalid project item in Core Experience category ${category}:`, item);
+                             return; // Skip invalid item
+                         }
+                        html += `<details><summary>${item.name || 'Project Name'}</summary>`;
+                        html += `<p class="small" style="margin-top: 8px;"><em>${item.description || ''}</em></p>`;
+                        if(Array.isArray(item.points)) html += `<ul>${item.points.map(p=>`<li>${p || ''}</li>`).join('')}</ul>`; // Ensure points are strings
+                        if (item.links && typeof item.links === 'object') { // Check links type
+                            html += `<div class="item-links">`;
+                            if (item.links.github) html += `<a href="${item.links.github}" target="_blank" class="item-link-btn"><i class="fa-brands fa-github"></i> GitHub</a>`;
+                            if (item.links.doc) html += `<a href="${item.links.doc}" target="_blank" class="item-link-btn"><i class="fa-solid fa-file-alt"></i> View Doc</a>`;
+                            html += `</div>`;
+                        }
+                        html += `</details>`;
+                    });
+                } else {
+                     html += `<p>No projects listed for this category.</p>`;
+                     console.warn(`No projects array found for Core Experience category: ${category}`);
+                }
+                html += `</div>`;
+            }
+        }
     }
-    else if(Array.isArray(data)){
+    else if(Array.isArray(data)){ // Handles Work Experience, Research, Product, Projects, Hackathons
         data.forEach(item => {
+             // Check item validity
+             if (!item || typeof item !== 'object') {
+                 console.warn(`Invalid item in array data for section ${name}:`, item);
+                 return; // Skip invalid item
+             }
             const title = item.degree || item.role || item.name || 'Item';
             let subTitle = item.domain ? `<span class="small">${item.domain}</span><br/>` : '';
             subTitle += item.description || '';
 
             html += `<details><summary>${title}${item.date? ' ('+item.date+')': ''}</summary>`;
             if(subTitle) html += `<p class="small" style="margin-top: 8px;"><em>${subTitle}</em></p>`;
-            if(item.points) html += `<ul>${item.points.map(p=>`<li>${p}</li>`).join('')}</ul>`;
-            
-            if (item.links) {
+            if(Array.isArray(item.points)) html += `<ul>${item.points.map(p=>`<li>${p || ''}</li>`).join('')}</ul>`; // Ensure points are strings
+
+            if (item.links && typeof item.links === 'object') { // Check links type
                 html += `<div class="item-links">`;
                 if (item.links.github) {
                     html += `<a href="${item.links.github}" target="_blank" class="item-link-btn"><i class="fa-brands fa-github"></i> GitHub</a>`;
@@ -1530,38 +1790,76 @@ function displayInfo(name){
             html += `</details>`;
         });
     } else if(name === 'Skills') {
-        html = `<h2>Skill Park</h2><p>Welcome to the Skill Park! Drive around this area to see my technical abilities. You can also navigate to other sections using the menu.</p>`;
+         // Skills section content is mostly 3D, provide a simple message here
+        html = `<h2>Skill Park</h2><p>Welcome to the Skill Park! Drive around this area to see my technical abilities represented by the floating logos. You can also navigate to other sections using the menu.</p>`;
     } else {
-        html += `<p>${String(data)}</p>`;
+        // Fallback for any other type of data
+        html += `<p>Details coming soon.</p>`;
+         console.warn(`Data format for section '${name}' not explicitly handled:`, data);
     }
-    
-    dom.infoContent.innerHTML = html; 
+
+    dom.infoContent.innerHTML = html;
     dom.infoPanel.classList.add('visible');
 }
 
 function checkInteractions(){
     if(!car) return;
-    let closest = null, minD = 35;
+    let closest = null, minD = 35; // Interaction distance threshold
     interactiveZones.forEach(z => {
-        if (z.name === 'Skills' && car.position.distanceTo(z.position) < 30) {
-            return;
+         // Check if zone has a valid position
+         if (!z || !z.position) return;
+
+        // Skip distance check for Skills zone center point itself if car is inside the larger park area
+        if (z.name === 'Skills') {
+             // Check if car is within the broader skills park radius first
+             if (car.position.distanceTo(z.position) < 60) { // Using park radius
+                 // Don't show interaction prompt for the center point itself
+                 return;
+             }
+             // For navigation, the center point *is* the target, so allow distance check outside the park
         }
+
         const d = car.position.distanceTo(z.position);
         if(d < minD){ minD = d; closest = z; }
     });
+
+     // Check if interactionPrompt exists
+     if (!dom.interactionPrompt) return;
+
     if(closest && closest !== canInteractWith){
         canInteractWith = closest;
-        dom.interactionPrompt.innerHTML = `<strong style="background:var(--accent);color:white;padding:8px 12px;border-radius:8px;margin-right:10px">E</strong> Visit ${canInteractWith.name}`;
+        // Don't show interaction prompt for the Skills zone center point
+        if (canInteractWith.name === 'Skills') {
+             dom.interactionPrompt.style.display = 'none'; // Hide prompt if near skills center
+             return; // Exit function early
+        }
+
+        dom.interactionPrompt.innerHTML = `<strong style="background:var(--accent);color:white;padding:8px 12px;border-radius:8px;margin-right:10px">E</strong> Visit ${canInteractWith.name || 'Zone'}`; // Add fallback name
         dom.interactionPrompt.style.display = 'block';
-        if(gsapGlobal) gsapGlobal.fromTo(dom.interactionPrompt, {scale:0.8, opacity:0}, {scale:1, opacity:1, duration:0.3});
+        if(gsapGlobal) {
+             gsapGlobal.fromTo(dom.interactionPrompt, {scale:0.8, opacity:0}, {scale:1, opacity:1, duration:0.3});
+        } else {
+             dom.interactionPrompt.style.opacity = '1'; // Show immediately if GSAP fails
+             dom.interactionPrompt.style.transform = 'scale(1)';
+        }
     } else if(!closest && canInteractWith){
-        canInteractWith = null; 
-        if(gsapGlobal) gsapGlobal.to(dom.interactionPrompt, {scale:0.8, opacity:0, duration:0.2, onComplete: () => dom.interactionPrompt.style.display = 'none'});
+        canInteractWith = null;
+        if(gsapGlobal) {
+            gsapGlobal.to(dom.interactionPrompt, {scale:0.8, opacity:0, duration:0.2, onComplete: () => { if (dom.interactionPrompt) dom.interactionPrompt.style.display = 'none'; } });
+        } else {
+            dom.interactionPrompt.style.display = 'none'; // Hide immediately if GSAP fails
+        }
+    } else if (closest && closest.name === 'Skills') {
+         // Ensure prompt is hidden if the closest (and only interactable) is Skills center
+         dom.interactionPrompt.style.display = 'none';
+         canInteractWith = null; // Reset interactable state
     }
 }
 
+
 function updateCar(dt){
     if(!car || isAutoDriving) return;
+    // Initialize user data if undefined
     if(typeof car.userData.speed === 'undefined') car.userData.speed = 0;
     if(typeof car.userData.turn === 'undefined') car.userData.turn = 0;
 
@@ -1569,61 +1867,119 @@ function updateCar(dt){
     if(keys.w) car.userData.speed = Math.min(max, car.userData.speed + accel*dt);
     else if(keys.s) car.userData.speed = Math.max(-max/2, car.userData.speed - accel*dt);
     else {
-        if (car.userData.speed > 0) car.userData.speed = Math.max(0, car.userData.speed - decel*dt);
-        else car.userData.speed = Math.min(0, car.userData.speed + decel*dt);
+        // Apply deceleration
+        if (Math.abs(car.userData.speed) < 0.1) {
+             car.userData.speed = 0; // Snap to zero if very slow
+        } else if (car.userData.speed > 0) {
+             car.userData.speed = Math.max(0, car.userData.speed - decel*dt);
+        } else {
+             car.userData.speed = Math.min(0, car.userData.speed + decel*dt);
+        }
     }
 
-    if(keys.a) car.userData.turn = Math.min(1.2, car.userData.turn + 3*dt); // Turn left
-    else if(keys.d) car.userData.turn = Math.max(-1.2, car.userData.turn - 3*dt); // Turn right
-    else car.userData.turn *= (1 - dt * 4);
+    const turnRate = 3;
+    const maxTurn = 1.2;
+    if(keys.a) car.userData.turn = Math.min(maxTurn, car.userData.turn + turnRate*dt); // Turn left
+    else if(keys.d) car.userData.turn = Math.max(-maxTurn, car.userData.turn - turnRate*dt); // Turn right
+    else {
+        // Reduce turn angle gradually
+         if (Math.abs(car.userData.turn) < 0.01) {
+             car.userData.turn = 0; // Snap to zero
+         } else {
+            car.userData.turn *= (1 - dt * 4); // Damping factor
+         }
+    }
 
-    const speedFactor = Math.abs(car.userData.speed)/max;
-    car.rotation.y += car.userData.turn * dt * speedFactor * 0.7;
-    car.translateZ(-car.userData.speed * dt * 0.05);
+    // Apply rotation based on speed and turn
+    if (Math.abs(car.userData.speed) > 1) { // Only turn if moving significantly
+        const speedFactor = Math.abs(car.userData.speed)/max;
+        car.rotation.y += car.userData.turn * dt * speedFactor * 0.7;
+    }
 
+    // Apply forward/backward movement
+    car.translateZ(-car.userData.speed * dt * 0.05); // Adjusted multiplier for potentially better speed feel
+
+    // Car bounce effect
     const bounceFrequency = 15;
     const bounceAmplitude = 0.05;
-    if (Math.abs(car.userData.speed) > 5) {
-        car.position.y = 0.7 + Math.sin(clock.getElapsedTime() * bounceFrequency * speedFactor) * bounceAmplitude;
+    if (Math.abs(car.userData.speed) > 5 && clock) { // Check if clock exists
+        car.position.y = 0.7 + Math.sin(clock.getElapsedTime() * bounceFrequency * (Math.abs(car.userData.speed)/max)) * bounceAmplitude;
+    } else {
+         // Smoothly return to base height when stopped
+         // Check THREE.MathUtils exists - THREE.MathUtils is deprecated, use MathUtils directly from THREE import
+         if (THREE.MathUtils && Math.abs(car.position.y - 0.7) > 0.01) {
+             car.position.y = THREE.MathUtils.lerp(car.position.y, 0.7, dt * 5);
+         } else {
+             car.position.y = 0.7;
+         }
     }
 
 
+    // Wheel rotation
     car.children.filter(c => c.geometry && c.geometry.type === 'CylinderGeometry').forEach(w => {
-        w.rotation.x -= (car.userData.speed * dt * 0.03);
+        w.rotation.x -= (car.userData.speed * dt * 0.03); // Adjust multiplier as needed
     });
-    
-    if(roadLineTexture) roadLineTexture.offset.y -= (car.userData.speed * dt * 0.001);
+
+    // Road texture scrolling
+    if(roadLineTexture) roadLineTexture.offset.y -= (car.userData.speed * dt * 0.001); // Adjust multiplier as needed
 }
 
 function updateCamera(){
-    if(!car) return;
+    if(!car || !camera) return; // Add check for camera
 
     const isMobile = window.innerWidth < 820;
     const offsetDistance = isMobile ? 18 : 12;
     const offsetHeight = isMobile ? 7 : 4;
+    const lookAtHeight = 2; // Point slightly above the car base
+    const lerpFactor = 0.08; // Smoothing factor
 
-    const offset = new THREE.Vector3(0, offsetHeight, offsetDistance).applyQuaternion(car.quaternion);
-    const desired = car.position.clone().add(offset);
-    camera.position.lerp(desired, 0.08);
-    camera.lookAt(car.position.clone().add(new THREE.Vector3(0, 2, 0)));
+    // Calculate desired camera position relative to car
+    const offset = new THREE.Vector3(0, offsetHeight, offsetDistance);
+    offset.applyQuaternion(car.quaternion); // Rotate offset by car's rotation
+    const desiredPosition = car.position.clone().add(offset);
+
+    // Smoothly interpolate camera position
+    camera.position.lerp(desiredPosition, lerpFactor);
+
+    // Calculate desired lookAt point
+    const lookAtPoint = car.position.clone().add(new THREE.Vector3(0, lookAtHeight, 0));
+
+    // Make camera look at the point slightly above the car
+    camera.lookAt(lookAtPoint);
 }
 
 
 function animate(){
-    requestAnimationFrame(animate);
-    const dt = Math.min(0.05, clock.getDelta());
-    
-    updateCar(dt);
-    updateCamera();
-    checkInteractions();
+    requestAnimationFrame(animate); // Request next frame first
 
-    scene.children.forEach(child => {
-        if (child.userData.isBillboard) {
-            child.quaternion.copy(camera.quaternion);
-        }
-    });
+    // Check if essential variables are initialized
+    if (!scene || !camera || !renderer || !clock) {
+         console.error("Scene, camera, renderer, or clock not initialized. Stopping animation.");
+         return;
+    }
 
-    renderer.render(scene, camera);
+
+    try { // Add try/catch around animation loop internals
+        const dt = Math.min(0.05, clock.getDelta()); // Get delta time, cap it
+
+        updateCar(dt);
+        updateCamera();
+        checkInteractions();
+
+        // Update billboards
+        scene.traverse(child => { // Use traverse for efficiency if many billboards
+            if (child.userData?.isBillboard) { // Safer access to userData
+                child.quaternion.copy(camera.quaternion);
+            }
+        });
+
+        renderer.render(scene, camera);
+
+    } catch(animationError) {
+         console.error("Error in animation loop:", animationError);
+         // Consider stopping the loop if errors persist: cancelAnimationFrame?
+         // Maybe display an error to the user in the UI as well
+    }
 }
 </script>
 </body>
