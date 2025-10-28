@@ -5,12 +5,9 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Ayush Dixit — Gamified 3D Portfolio</title>
 
-<!-- Font Awesome for icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
 
-<!-- GSAP for smooth animations -->
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-<!-- Tone.js for audio -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.77/Tone.js"></script>
 
 <style>
@@ -19,413 +16,413 @@
 
 
 :root {
-    --accent: #ff6347; /* Tomato Red */
-    --accent-light: #fff0ed;
-    --panel: rgba(255, 255, 255, 0.85);
-    --text-dark: #333;
-    --muted: #555;
-    --border-color: rgba(0, 0, 0, 0.1);
-    --sky-top-day: #87CEEB;
-    --sky-bottom-day: #f0f8ff;
-    --theme-green: #34A853;
-    --theme-blue: #4285F4;
-    --theme-sandy: #d2c292; 
+    --accent: #ff6347; /* Tomato Red */
+    --accent-light: #fff0ed;
+    --panel: rgba(255, 255, 255, 0.85);
+    --text-dark: #333;
+    --muted: #555;
+    --border-color: rgba(0, 0, 0, 0.1);
+    --sky-top-day: #87CEEB;
+    --sky-bottom-day: #f0f8ff;
+    --theme-green: #34A853;
+    --theme-blue: #4285F4;
+    --theme-sandy: #d2c292; 
 }
 *{box-sizing:border-box}
 html,body{
-    height:100%;
-    margin:0;
-    font-family:'Poppins',sans-serif;
-    color: var(--text-dark);
-    overflow:hidden;
-    background: linear-gradient(180deg, var(--sky-top-day) 0%, var(--sky-bottom-day) 100%);
-    transition: background 2s ease-in-out;
+    height:100%;
+    margin:0;
+    font-family:'Poppins',sans-serif;
+    color: var(--text-dark);
+    overflow:hidden;
+    background: linear-gradient(180deg, var(--sky-top-day) 0%, var(--sky-bottom-day) 100%);
+    transition: background 2s ease-in-out;
 }
 canvas{display:block;width:100vw;height:100vh}
 
 #welcome-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 100;
-    color: white;
-    text-align: center;
-    visibility: hidden; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    color: white;
+    text-align: center;
+    visibility: hidden; 
 }
 #welcome-text {
-    font-family: 'Righteous', cursive;
-    font-size: 5rem;
-    padding: 0 20px;
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.5), 0 0 30px var(--accent);
+    font-family: 'Righteous', cursive;
+    font-size: 5rem;
+    padding: 0 20px;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.5), 0 0 30px var(--accent);
 }
 
 .ui-panel{
-    position:absolute;
-    background:var(--panel);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-radius:14px;
-    padding:14px;
-    border: 2px solid white;
-    box-shadow:0 10px 30px rgba(0,0,0,0.12);
-    color:var(--text-dark);
+    position:absolute;
+    background:var(--panel);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius:14px;
+    padding:14px;
+    border: 2px solid white;
+    box-shadow:0 10px 30px rgba(0,0,0,0.12);
+    color:var(--text-dark);
 }
 #loader{
-    left:50%;
-    top:50%;
-    transform:translate(-50%,-50%);
-    font-weight:700;
-    font-size:1.2rem;
-    padding:16px 22px;
-    z-index:50;
-    background: white;
-    border: 2px solid var(--accent);
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    font-weight:700;
+    font-size:1.2rem;
+    padding:16px 22px;
+    z-index:50;
+    background: white;
+    border: 2px solid var(--accent);
 }
 #nav-menu{
-    right:20px;
-    top:24px;
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-    padding:10px;
-    z-index:40
+    right:20px;
+    top:24px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    padding:10px;
+    z-index:40
 }
 .nav-btn{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    padding:10px 16px;
-    border-radius:12px;
-    background: rgba(255,255,255,0.2);
-    border:1px solid var(--border-color);
-    cursor:pointer;
-    color: var(--muted);
-    font-weight:600;
-    transition: all 0.25s ease-in-out;
-    text-decoration: none;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:10px 16px;
+    border-radius:12px;
+    background: rgba(255,255,255,0.2);
+    border:1px solid var(--border-color);
+    cursor:pointer;
+    color: var(--muted);
+    font-weight:600;
+    transition: all 0.25s ease-in-out;
+    text-decoration: none;
 }
 .nav-btn i{
-    width:22px;
-    text-align:center;
-    font-size: 1.2rem;
-    color: var(--accent);
+    width:22px;
+    text-align:center;
+    font-size: 1.2rem;
+    color: var(--accent);
 }
 .nav-btn:hover{
-    transform:translateY(-4px) scale(1.03);
-    background: var(--accent-light);
-    color:var(--accent);
-    box-shadow: 0 6px 20px rgba(255, 99, 71, 0.2);
+    transform:translateY(-4px) scale(1.03);
+    background: var(--accent-light);
+    color:var(--accent);
+    box-shadow: 0 6px 20px rgba(255, 99, 71, 0.2);
 }
 .nav-btn.active{
-    background:var(--accent);
-    color:white;
-    box-shadow:0 10px 30px rgba(255, 99, 71, 0.3);
+    background:var(--accent);
+    color:white;
+    box-shadow:0 10px 30px rgba(255, 99, 71, 0.3);
 }
 .nav-btn.active i { color: white; }
 
 #hud{
-    left:18px;
-    bottom:18px;
-    padding:12px 16px;
-    border-radius:12px;
-    font-weight:600;
-    z-index:40
+    left:18px;
+    bottom:18px;
+    padding:12px 16px;
+    border-radius:12px;
+    font-weight:600;
+    z-index:40
 }
 #interaction-prompt{
-    position:absolute;
-    left:50%;
-    transform:translateX(-50%);
-    bottom:20%;
-    padding:12px 20px;
-    border-radius:999px;
-    display:none;
-    z-index:40;
-    font-weight: 600;
-    font-size: 1.1rem;
-    border: 2px solid white;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:20%;
+    padding:12px 20px;
+    border-radius:999px;
+    display:none;
+    z-index:40;
+    font-weight: 600;
+    font-size: 1.1rem;
+    border: 2px solid white;
 }
 #info-panel{
-    left:18px;
-    top:50%;
-    transform:translateY(-50%) translateX(-120%);
-    width:420px;
-    max-height:85vh;
-    overflow:auto;
-    border-left:5px solid var(--accent);
-    z-index:50;
-    visibility: hidden;
-    opacity: 0;
-    transition: transform 0.4s ease-out, opacity 0.4s ease-out, visibility 0.4s;
+    left:18px;
+    top:50%;
+    transform:translateY(-50%) translateX(-120%);
+    width:420px;
+    max-height:85vh;
+    overflow:auto;
+    border-left:5px solid var(--accent);
+    z-index:50;
+    visibility: hidden;
+    opacity: 0;
+    transition: transform 0.4s ease-out, opacity 0.4s ease-out, visibility 0.4s;
 }
 #info-panel.visible {
-    transform: translateY(-50%) translateX(0);
-    visibility: visible;
-    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+    visibility: visible;
+    opacity: 1;
 }
 #info-panel h2{margin:0 0 10px 0;color:var(--accent);font-size:1.6rem}
 #info-panel strong { color: var(--accent); }
 #profile-pic {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    border: 4px solid var(--accent);
-    float: left;
-    margin-right: 15px;
-    margin-bottom: 5px;
-    object-fit: cover;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 4px solid var(--accent);
+    float: left;
+  _B_R_   margin-right: 15px;
+    margin-bottom: 5px;
+    object-fit: cover;
 }
 #info-content details{
-    background:rgba(0,0,0,0.02);
-    margin-bottom:12px;
-    padding:14px;
-    border-radius:10px;
-    border: 1px solid var(--border-color);
-    clear: both;
+    background:rgba(0,0,0,0.02);
+    margin-bottom:12px;
+    padding:14px;
+    border-radius:10px;
+    border: 1px solid var(--border-color);
+    clear: both;
 }
 #info-content summary{cursor:pointer;font-weight:700;outline: none; display: flex; align-items: center; justify-content: space-between; gap: 10px;}
 #info-content summary::after {
-    content: '▼';
-    font-size: 0.8em;
-    color: var(--accent);
-    transition: transform 0.2s;
+    content: '▼';
+    font-size: 0.8em;
+    color: var(--accent);
+    transition: transform 0.2s;
 }
 #info-content details[open] > summary::after {
-    transform: rotate(180deg);
+    transform: rotate(180deg);
 }
 .close-btn{position:absolute;right:14px;top:12px;cursor:pointer;color:#aaa;font-size:26px;z-index:51; transition: transform 0.2s;}
 .close-btn:hover { transform: scale(1.2); }
 
 .contact-links {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-top: 15px;
-    clear: both; 
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 15px;
+    clear: both; 
 }
 .contact-link {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 15px 10px;
-    background: var(--accent-light);
-    border-radius: 12px;
-    text-decoration: none;
-    color: var(--accent);
-    font-weight: 600;
-    transition: all 0.25s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 10px;
+    background: var(--accent-light);
+    border-radius: 12px;
+    text-decoration: none;
+    color: var(--accent);
+    font-weight: 600;
+    transition: all 0.25s ease;
 }
 .contact-link:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    background: var(--accent);
-    color: white;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    background: var(--accent);
+    color: white;
 }
 .contact-link i {
-    font-size: 1.8rem;
-    margin-bottom: 8px;
+    font-size: 1.8rem;
+    margin-bottom: 8px;
 }
 .contact-link span {
-    font-size: 0.9rem;
+    font-size: 0.9rem;
 }
 
 .item-links {
-    display: flex;
-    gap: 10px;
-    margin-top: 12px;
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
 }
 .item-link-btn {
-    flex-grow: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 10px;
-    background: #f0f0f0;
-    border-radius: 8px;
-    text-decoration: none;
-    color: var(--muted);
-    font-weight: 600;
-    font-size: 0.9rem;
-    transition: all 0.25s ease;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px;
+    background: #f0f0f0;
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--muted);
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.25s ease;
 }
 .item-link-btn:hover {
-    background: var(--accent);
-    color: white;
-    transform: translateY(-3px);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    background: var(--accent);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 .item-link-btn i {
-    font-size: 1.1rem;
+    font-size: 1.1rem;
 }
 
 #music-toggle {
-    position: fixed;
-    top: 24px;
-    left: 20px;
-    z-index: 60;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: var(--panel);
-    border-radius: 50%;
-    font-size: 1.2rem;
-    color: var(--accent);
-    border: 2px solid white;
-    cursor: pointer;
-    transition: color 0.3s;
+    position: fixed;
+    top: 24px;
+    left: 20px;
+    z-index: 60;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--panel);
+    border-radius: 50%;
+    font-size: 1.2rem;
+    color: var(--accent);
+    border: 2px solid white;
+    cursor: pointer;
+    transition: color 0.3s;
 }
 
 
-#mobile-controls, #mobile-nav-bar { display: none; } 
+#mobile-controls, #mobile-nav-bar { display: none; } 
 
 #driver-chat-container {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    z-index: 45;
-    transition: opacity 0.5s;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 45;
+    transition: opacity 0.5s;
 }
 .chat-bubble {
-    background: var(--panel);
-    backdrop-filter: blur(10px);
-    padding: 12px 18px;
-    border-radius: 20px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    font-weight: 600;
-    color: var(--text-dark);
-    max-width: 300px;
-    text-align: center;
+    background: var(--panel);
+    backdrop-filter: blur(10px);
+    padding: 12px 18px;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    font-weight: 600;
+    color: var(--text-dark);
+    max-width: 300px;
+    text-align: center;
 }
 #speech-btn {
-    background: var(--accent);
-    color: white;
-    border: none;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: all 0.2s;
-    flex-shrink: 0;
+    background: var(--accent);
+    color: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    flex-shrink: 0;
 }
 #speech-btn:hover {
-    transform: scale(1.1);
+    transform: scale(1.1);
 }
 #speech-btn.listening {
-    animation: pulse 1.5s infinite;
+    animation: pulse 1.5s infinite;
 }
 @keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(255, 99, 71, 0.7); }
-    70% { box-shadow: 0 0 0 15px rgba(255, 99, 71, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(255, 99, 71, 0); }
+    0% { box-shadow: 0 0 0 0 rgba(255, 99, 71, 0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(255, 99, 71, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 99, 71, 0); }
 }
 
 /* Updated Info Panel Styles */
 .education-item {
-    padding: 15px;
-    margin-bottom: 12px;
-    border-radius: 10px;
-    border: 1px solid var(--border-color);
-    background: rgba(255,255,255,0.5);
-    border-left: 4px solid var(--accent);
+    padding: 15px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    background: rgba(255,255,255,0.5);
+    border-left: 4px solid var(--accent);
 }
 .education-item h3 {
-    margin: 0 0 8px 0;
-    color: var(--text-dark);
-    font-size: 1.1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    margin: 0 0 8px 0;
+    color: var(--text-dark);
+    font-size: 1.1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 .education-item .details-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 8px;
-    font-size: 0.9rem;
-    color: var(--muted);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    font-size: 0.9rem;
+    color: var(--muted);
 }
 .education-item .details-grid p {
-    margin: 0;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 .education-item .details-grid i {
-    color: var(--accent);
+    color: var(--accent);
 }
 
 .achievements-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 15px;
-    margin-top: 15px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+    margin-top: 15px;
 }
 .achievement-card {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    background: rgba(255,255,255,0.4);
-    padding: 15px;
-    border-radius: 12px;
-    border: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: rgba(255,255,255,0.4);
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
 }
 .achievement-logo-container {
-    flex-shrink: 0;
-    width: 60px;
-    height: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: white;
-    border-radius: 8px;
-    padding: 5px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    border: 1px solid var(--border-color);
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    border-radius: 8px;
+    padding: 5px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border: 1px solid var(--border-color);
 }
 .achievement-logo-container img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
 }
 .achievement-details h3 {
-    margin: 0 0 5px 0;
-    font-size: 1.05rem;
-    font-weight: 600;
-    color: var(--text-dark);
+    margin: 0 0 5px 0;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text-dark);
 }
 .achievement-details p {
-    margin: 0;
-    font-size: 0.9rem;
-    color: var(--muted);
-    line-height: 1.4;
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.4;
 }
 
 .core-exp-section {
-    padding: 15px;
-    margin-bottom: 15px;
-    border-radius: 10px;
-    border: 1px solid var(--border-color);
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
 }
 .core-exp-section.theme-green { border-left: 4px solid var(--theme-green); }
 .core-exp-section.theme-blue { border-left: 4px solid var(--theme-blue); }
 .core-exp-section.theme-sandy { border-left: 4px solid var(--theme-sandy); }
 
 .core-exp-section h3 {
-    margin: 0 0 10px 0;
-    font-size: 1.2rem;
+    margin: 0 0 10px 0;
+    font-size: 1.2rem;
 }
 .core-exp-section.theme-green h3 { color: var(--theme-green); }
 .core-exp-section.theme-blue h3 { color: var(--theme-blue); }
@@ -442,144 +439,151 @@ canvas{display:block;width:100vw;height:100vh}
 
 /* Tablet Layout */
 @media (max-width: 1024px) and (min-width: 821px) {
-    #info-panel {
-        width: 380px;
-    }
-    .nav-btn {
-        padding: 8px 12px;
-        gap: 10px;
-    }
-    #welcome-text {
-        font-size: 4rem;
-    }
+    #info-panel {
+        width: 380px;
+    }
+    .nav-btn {
+        padding: 8px 12px;
+        gap: 10px;
+    }
+    #welcome-text {
+        font-size: 4rem;
+    }
 }
 
 
 /* Mobile Layout */
 @media (max-width:820px){
-    #welcome-text { font-size: 2.5rem; }
-    #music-toggle { top: 15px; left: 15px; width: 45px; height: 45px; }
+    #welcome-text { font-size: 2.5rem; }
+    #music-toggle { top: 15px; left: 15px; width: 45px; height: 45px; }
 
-    #info-panel{
-        left: 0;
-        top: auto;
-        bottom: 0;
-        width: 100%;
-        height: 65vh;
-        max-height: 65vh;
-        border-radius: 20px 20px 0 0;
-        border-left: none;
-        border-top: 3px solid var(--accent);
-        transform: translateY(110%);
-        padding: 45px 15px 80px 15px; /* Add padding to bottom */
-    }
-    #info-panel.visible { 
-        transform: translateY(0); 
-    }
-    .close-btn {
-        top: 15px;
-        right: 15px;
-        font-size: 32px;
-    }
+    #info-panel{
+        left: 0;
+        top: auto;
+        bottom: 0;
+        width: 100%;
+        height: 65vh;
+        max-height: 65vh;
+        border-radius: 20px 20px 0 0;
+        border-left: none;
+        border-top: 3px solid var(--accent);
+        transform: translateY(110%);
+        padding: 45px 15px 80px 15px; /* Add padding to bottom */
+    }
+    #info-panel.visible { 
+        transform: translateY(0); 
+    }
+    .close-btn {
+        top: 15px;
+        right: 15px;
+        font-size: 32px;
+    }
 
-    #nav-menu { display: none; } 
-    
-    #mobile-nav-bar {
-        display: flex;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        background: var(--panel);
-        backdrop-filter: blur(10px);
-        padding: 5px;
-        justify-content: space-around;
-        align-items: center;
-        z-index: 60;
-        border-top: 1px solid var(--border-color);
-    }
-    
-    #mobile-nav-bar .nav-btn {
-        flex-direction: column;
-        gap: 4px;
-        padding: 5px;
-        font-size: 0.7rem;
-        background: transparent;
-        border: none;
-        width: 60px;
-        color: var(--muted);
-    }
-     #mobile-nav-bar .nav-btn.active {
-        color: var(--accent);
-        background: transparent;
-        box-shadow: none;
-     }
-      #mobile-nav-bar .nav-btn.active i {
-        color: var(--accent);
-       }
-    #mobile-nav-bar .nav-btn span {
-        display: block;
-    }
+    #nav-menu { display: none; } 
+    
+    /* --- UPDATED MOBILE NAV BAR --- */
+    #mobile-nav-bar {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: var(--panel);
+        backdrop-filter: blur(10px);
+        padding: 5px 0; /* Changed */
+        justify-content: flex-start; /* Changed */
+        align-items: center;
+        z-index: 60;
+        border-top: 1px solid var(--border-color);
+        overflow-x: auto; /* Added */
+        white-space: nowrap; /* Added */
+    }
+    
+    #mobile-nav-bar .nav-btn {
+        flex-direction: column;
+        gap: 4px;
+        padding: 5px 8px; /* Changed */
+        font-size: 0.7rem;
+        background: transparent;
+        border: none;
+        width: 70px; /* Changed */
+        color: var(--muted);
+        display: inline-flex; /* Added */
+        flex-shrink: 0; /* Added */
+    }
+    /* --- END OF UPDATES --- */
+    
+     #mobile-nav-bar .nav-btn.active {
+        color: var(--accent);
+        background: transparent;
+        box-shadow: none;
+     }
+      #mobile-nav-bar .nav-btn.active i {
+        color: var(--accent);
+       }
+    #mobile-nav-bar .nav-btn span {
+        display: block;
+    }
 
 
-    #hud, #driver-chat-container { display: none; }
+    #hud, #driver-chat-container { display: none; }
 
-    #interaction-prompt {
-        bottom: 150px;
-        font-size: 1rem;
-    }
-    
-    #mobile-controls {
-        position: fixed;
-        bottom: 80px;
-        left: 15px;
-        right: 15px;
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-end;
-        z-index: 48;
-        pointer-events: none; 
-    }
+    #interaction-prompt {
+        bottom: 150px;
+        font-size: 1rem;
+    }
+    
+    #mobile-controls {
+        position: fixed;
+        bottom: 80px;
+        left: 15px;
+        right: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        z-index: 48;
+        pointer-events: none; 
+    }
 
-    .mc-dpad {
-        position: relative;
-        width: 120px;
-        height: 120px;
-    }
+    .mc-dpad {
+        position: relative;
+        width: 120px;
+        height: 120px;
+    }
 
-    .mc-btn {
-        position: absolute;
-        width: 50px;
-        height: 50px;
-        background: rgba(255, 255, 255, 0.5);
-        border: 2px solid white;
-        border-radius: 50%;
-        color: var(--text-dark);
-        font-size: 1.5rem;
-        font-weight: bold;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        user-select: none;
-        pointer-events: all;
-        -webkit-tap-highlight-color: transparent;
-    }
+    .mc-btn {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        background: rgba(255, 255, 255, 0.5);
+        border: 2px solid white;
+        border-radius: 50%;
+        color: var(--text-dark);
+        font-size: 1.5rem;
+        font-weight: bold;
+        display: flex;
+  t_B_R_       justify-content: center;
+        align-items: center;
+        user-select: none;
+        pointer-events: all;
+        -webkit-tap-highlight-color: transparent;
+    }
 
-    .mc-btn:active {
-        background: var(--accent);
-        color: white;
-    }
+    .mc-btn:active {
+        background: var(--accent);
+        color: white;
+    }
 
-    #mc-up { top: 0; left: 50%; transform: translateX(-50%); }
-    #mc-left { top: 50%; left: 0; transform: translateY(-50%); }
-    #mc-down { bottom: 0; left: 50%; transform: translateX(-50%); }
-    #mc-right { top: 50%; right: 0; transform: translateY(-50%); }
+    #mc-up { top: 0; left: 50%; transform: translateX(-50%); }
+    #mc-left { top: 50%; left: 0; transform: translateY(-50%); }
+    #mc-down { bottom: 0; left: 50%; transform: translateX(-50%); }
+    #mc-right { top: 50%; right: 0; transform: translateY(-50%); }
 
-    #mc-interact {
-        position: relative;
-        width: 70px;
-        height: 70px;
-    }
+    #mc-interact {
+        position: relative;
+        width: 70px;
+        height: 70px;
+    }
 }
 .small{font-size:0.9rem;color:var(--muted)}
 </style>
@@ -587,7 +591,7 @@ canvas{display:block;width:100vw;height:100vh}
 <body>
 
 <div id="welcome-overlay">
-    <div id="welcome-text">Welcome to AD's World</div>
+    <div id="welcome-text">Welcome to AD's World</div>
 </div>
 
 <div id="loader" class="ui-panel">Building</div>
@@ -597,36 +601,33 @@ canvas{display:block;width:100vw;height:100vh}
 <button id="music-toggle"><i class="fa-solid fa-music"></i></button>
 
 <div id="hud" class="ui-panel">
-    <div class="small">Controls: <span style="font-weight:700; color: var(--accent);">↑ ← ↓ →</span> • <span style="font-weight:700; color: var(--accent);">E</span> to interact</div>
+    <div class="small">Controls: <span style="font-weight:700; color: var(--accent);">↑ ← ↓ →</span> • <span style="font-weight:700; color: var(--accent);">E</span> to interact</div>
 </div>
 <div id="interaction-prompt" class="ui-panel"></div>
 <div id="info-panel" class="ui-panel">
-    <span class="close-btn" title="Close">&times;</span>
-    <div id="info-content"></div>
+    <span class="close-btn" title="Close">&times;</span>
+    <div id="info-content"></div>
 </div>
 
-<!-- VIRTUAL DRIVER CHAT UI -->
 <div id="driver-chat-container">
-    <div class="chat-bubble" id="chat-bubble-text">Hi, I'm Stormy! Click the mic to start our tour.</div>
-    <button id="speech-btn"><i class="fa-solid fa-microphone"></i></button>
+    <div class="chat-bubble" id="chat-bubble-text">Hi, I'm Stormy! Click the mic to start our tour.</div>
+    <button id="speech-btn"><i class="fa-solid fa-microphone"></i></button>
 </div>
 
-<!-- MOBILE CONTROLS -->
 <div id="mobile-controls">
-    <div class="mc-dpad">
-        <button id="mc-up" class="mc-btn"><i class="fa-solid fa-arrow-up"></i></button>
-        <button id="mc-left" class="mc-btn"><i class="fa-solid fa-arrow-left"></i></button>
-        <button id="mc-down" class="mc-btn"><i class="fa-solid fa-arrow-down"></i></button>
-        <button id="mc-right" class="mc-btn"><i class="fa-solid fa-arrow-right"></i></button>
-    </div>
-    <button id="mc-interact" class="mc-btn">E</button>
+    <div class="mc-dpad">
+        <button id="mc-up" class="mc-btn"><i class="fa-solid fa-arrow-up"></i></button>
+        <button id="mc-left" class="mc-btn"><i class="fa-solid fa-arrow-left"></i></button>
+        <button id="mc-down" class="mc-btn"><i class="fa-solid fa-arrow-down"></i></button>
+        <button id="mc-right" class="mc-btn"><i class="fa-solid fa-arrow-right"></i></button>
+    </div>
+    <button id="mc-interact" class="mc-btn">E</button>
 </div>
 
-<!-- three.js import map -->
 <script type="importmap">
 { "imports": {
-    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
-    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
 }}
 </script>
 
@@ -641,223 +642,240 @@ const gsapGlobal = window.gsap || null;
 const textureLoader = new THREE.TextureLoader();
 
 const portfolioData = {
-    "About": { 
-        name: "AYUSH DIXIT", 
-        title: "Final Year Undergraduate • Department of Civil Engineering • IIT Kanpur", 
-        email: "dayush22@iitk.ac.in", 
-        phone: "+91-8503878119", 
-        linkedin: "https://www.linkedin.com/in/ayush-dixit-6b284125b/", 
-        github: "https://github.com/dayush3104", 
-        website: "https://ayush-dixit-portfolio.netlify.app/",
-        profilePicUrl: "Photo.jpg"
-    },
-    "Education": [
-        {degree:"B.Tech.", institution:"Indian Institute of Technology Kanpur", year:"2022-Present", performance:"7.9/10.0"}, 
-        {degree:"Class XII (CBSE)", institution:"Apala School of Education, Nohar", year:"2021", performance:"95.4%"}, 
-        {degree:"Class X (CBSE)", institution:"Apala School of Education, Nohar", year:"2019", performance:"97.0%"}
-    ],
-    "Work Experience": [{role:"Founder's Office Intern - Masai | Bengaluru", duration:"May'25 - Jul'25", description:"Honored with <strong>Masai's Best Team Award 2025</strong>.", points:["Programmed AI pipelines integrating PRAW & LLM APIs; automated sentiment analysis across 1,500+ discussions (<strong>90% reduction</strong> in manual monitoring).","Built analytics workflows in Python, SQL, Tableau & Google Data Studio; boosted YT impressions by <strong>65%</strong> & CTR by <strong>50%</strong>."]}, {role:"Core Team Member - Counselling Service, IIT Kanpur", duration:"Apr'24 - Apr'25", description:"Received <strong>Certificate Of Appreciation</strong>.", points:["Organized 10-day Orientation for <strong>1250+ freshers</strong>, managed <strong>15L+ budget</strong>.","Directed programs on Mental Health; impacted <strong>10K+ students</strong>."]}],
-    "Research Experience": [
-        {
-            role: "High-Fidelity Spatial Audio Modeling",
-            duration: "Jan'25 - Apr'25",
-            description: "Undergraduate Researcher | Mentor: Prof. Rajesh M. Hegde","Project in collaboration with <strong>Samsung R&D</strong>","Awarded <strong>'A' Grade</strong> for research of Highest Academic Standard",
-            points: [
-                "Engineered a <strong>50+ hour</strong>, 4-Channel Spatial Audio Dataset (57 scenarios) with RIR Simulation and Convolution, validated via quantitative SNR metrics.",
-                "Automated room acoustics modeling, convolving resampled signals into Multi-Channel Reverberant Audio for Samsung R&D datasets.",
-                "Enhanced dataset integrity by resolving gain/loudness calibration issues, integrating Zero-padding, and ensuring <strong>100% reproducibility</strong> with Python cross-validation.",
-                "Built MATLAB simulation pipelines, reducing preprocessing time by <strong>80%</strong> and minimizing hardware prototyping costs by <strong>40%</strong>."
-            ],
-            links: { github: "https://github.com/dayush3104/High-Fidelity-Spatial-Audio-Modeling-for-Samsung-Smart-Glasses" }
-        }
-    ],
-    "Product & Strategy": [
-        {
-            name: "Kids Brand - Go-To Market Strategy",
-            date: "Mar'25",
-            description: "Self-Project focused on designing an end-to-end GTM plan for a kids-focused brand on Indian e-commerce platforms.",
-            points: [
-                "Built a <strong>marketplace evaluation framework</strong> using 5 criteria to prioritize Amazon, Flipkart, Meesho, and FirstCry.",
-                "Designed a <strong>phased launch roadmap</strong> incorporating influencer campaigns, press releases, and targeted digital ads to maximize brand visibility.",
-                "Projected a <strong>25–40% sales uplift</strong> in the first launch cycle by leveraging platform-specific promotional campaigns."
-            ],
-            links: { doc: "https://drive.google.com/file/d/1fSmQ5LKgDX_cdGhZh6cxOheFK3N5OhGJ/view?usp=drive_link" }
-        },
-        {
-            name: "Nothing AtmosCore - Product Design",
-            date: "Aug'25",
-            description: "Nothing Incubator project to conceptualize a modular and sustainable charging ecosystem.",
-            points: [
-                "Designed <strong>AtmosCore hub with stackable magnetic blocks</strong> (Qi/USB-C, battery, solar) to replace multiple chargers.",
-                "Introduced <strong>gamified charging interactions</strong> (glyph lights, retro mini-games) to convert passive charging into an engaging ritual.",
-                "Delivered a product vision that <strong>cuts accessory waste</strong> by enabling upgrades over replacements, aligning with circular design principles."
-            ],
-            links: { doc: "https://drive.google.com/file/d/1zyWj3RICBoxv7VrmUDtOpdChH1hKXL-h/view?usp=drive_link" }
-        },
-        {
-            name: "MindCare – Digital Mental Health Platform",
-            date: "Aug'25",
-            description: "Self-Project designing a trust-first, hybrid digital mental health platform for the Indian market.",
-            points: [
-                "Conducted <strong>ecosystem mapping and user research</strong> to prioritize must-haves via RICE scoring.",
-                "Built and deployed a working <strong>prototype</strong> with journaling, AI nudges, and a therapist risk-alert dashboard.",
-                "Validated prototype demonstrating potential to cut therapy costs by <strong>40–60%</strong> via hybrid access models."
-            ],
-            links: { live: "https://trusty-mind-path.lovable.app", doc: "https://drive.google.com/file/d/1pA7MCMH7i4tv89vJ-451V10v5jrcnd35/view?usp=sharing" }
-        },
-        {
-            name: "Zomato - Product Enhancement",
-            date: "Aug'25",
-            description: "Project with AcceleratorX & Product Club, IITK to address choice overload in Zomato using PM frameworks.",
-            points: [
-                "Applied MoSCoW framework for feature prioritization, highlighting must-haves like conversational search and AI-summarized reviews.",
-                "Authored a PRD with wireframes and success metrics, defining product scope and feature specifications.",
-                "Created structured user personas and journey maps, informing recommendations projected to improve conversion rate by <strong>4x</strong>."
-            ],
-            links: { doc: "https://drive.google.com/file/d/1lD2yMrKl8hHM6kJd8aERmHV-iSrM3fZP/view?usp=sharing" }
-        }
-    ],
-    "Projects": [
-        {
-            name: "Remote Sensing Classification Engine",
-            date: "Feb'25 - Mar'25",
-            description: "Course Project | Mentor: Prof. Onkar Dikshit | IIT Kanpur",
-            points: [
-                "Developed a <strong>Gradio</strong> app using <strong>Sentinel-2</strong> multispectral data, reducing manual annotation time by <strong>60%</strong>.",
-                "Achieved <strong>96.8% accuracy</strong> with an optimized <strong>Random Forest classifier</strong> trained on spatially preprocessed inputs.",
-                "Validated model robustness for scalable geospatial analytics using <strong>Kappa statistics (0.96)</strong> and class-wise metrics.",
-                "Enhanced model interpretability through spectral band analysis and real-time metric visualization."
-            ],
-            links: { github: "https://github.com/dayush3104/Land-Cover-Classification-and-Accuracy-Analysis" }
-        },
-        {
-            name: "ML Based Arbiter PUF Modeling",
-            date: "Jan'25 - Feb'25",
-            description: "Course Project | Mentor: Prof. Purushottam Kar | IIT Kanpur",
-            points: [
-                "Architected an ML pipeline to model <strong>Arbiter PUFs</strong> by mapping 8-bit challenges into 255 parity features.",
-                "Achieved over <strong>95% accuracy</strong> in modeling challenge-response behavior using optimized linear classifiers.",
-                "Reverse-engineered <strong>64-stage</strong> delay parameters from model weights for precise hardware vulnerability characterization."
-            ]
-        },
-        {
-            name: "Dynamic Inventory Platform",
-            date: "Sep'24 - Oct'24",
-            description: "A personal full-stack web development project.",
-            points: [
-                "Developed an end-to-end <strong>MERN</strong> stack application by building a Node.js REST API to power a dynamic client-side React SPA.",
-                "Engineered a secure Node.js REST API for CRUD operations and token-based user authentication with MongoDB.",
-                "Built a dynamic React UI using component-based architecture, managing state and routing for a seamless single-page application experience."
-            ],
-            links: { github: "https://github.com/dayush3104/Product-Management-System" }
-        }
-    ],
-    "Core Experience": {
-        "Environment & Sustainability": {
-            theme: "green",
-            projects: [
-                { 
-                    name: "Resource Management Strategies",
-                    description: "Research & Literature Review | Mentor: Prof. Anubha Goel",
-                    points: [
-                        "Reviewed literature on soil degradation, groundwater over-extraction & biodiversity loss.",
-                        "Analyzed state-level datasets and global benchmarks to assess sustainable management systems.",
-                        "Synthesized findings into a framework for <strong>Climate-Smart Agriculture (CSA)</strong>."
-                    ],
-                    links: { doc: "https://www.canva.com/design/DAGyyYixS_w/AB5gcH0e1AXkDr9j3FrXUA/edit?utm_content=DAGyyYixS_w&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" }
-                }
-            ]
-        },
-        "Hydrology": {
-            theme: "blue",
-            projects: [
-                { 
-                    name: "Optimization Modeling for Resource Management",
-                    description: "Course Project | Mentor: Prof. Tushar Apurv",
-                    points: [
-                        "Architected <strong>5+ LINGO models</strong> for irrigation scheduling, lifting reservoir operations efficiency by <strong>15%</strong>.",
-                        "Fused <strong>10+ years of rainfall–ET–soil</strong> moisture records into hydrologic simulations, raising forecast skill by <strong>20%</strong>.",
-                        "Processed <strong>1,000+ simulations</strong> to set allocation rules, reducing projected yield loss by <strong>15%</strong>."
-                    ]
-                }
-            ]
-        },
-        "Geoinformatics": {
-            theme: "sandy",
-            projects: [
-                { 
-                    name: "Geospatial Survey and Mapping using QGIS",
-                    description: "Course Project | Mentor: Prof. Salil Goel",
-                    points: [
-                        "Executed <strong>10+ control surveys</strong> (Auto Level, Total Station, GNSS) with <strong>1:10,000</strong> closure.",
-                        "Processed <strong>400+ observations</strong> via transforms and least-squares, achieving <strong>95%</strong> positional reliability.",
-                        "Delivered <strong>5+ georeferenced maps</strong> with optimized contours, lifting drainage design accuracy by <strong>20%</strong>."
-                    ]
-                },
-                { 
-                    name: "Land Cover Classification & Accuracy Analysis",
-                    description: "Course Project | Mentor: Prof. Onkar Dikshit",
-                    points: [
-                        "Developed a platform consolidating ML workflows for supervised land cover classification.",
-                        "Deployed a <strong>Gradio interface</strong> improving efficiency for non-technical stakeholders by <strong>70%</strong>.",
-                        "Delivered <strong>96.8% accuracy (Kappa 0.96)</strong> with exportable dashboards for various applications."
-                    ],
-                    links: { github: "https://github.com/dayush3104/Land-Cover-Classification-and-Accuracy-Analysis" }
-                }
-            ]
-        }
-    },
-    "Hackathons": [
-        {
-            name: "CredTech - Credit Intelligence Platform",
-            date: "Aug'25",
-            description: "Hosted by Deeproot Investments & Programming Club, IITK. <br> Ranked in <strong>Top-8 Nationwide</strong> & awarded with <strong>Certificate of Excellence</strong>.",
-            points: [
-                "Engineered a Credit Risk Intelligence platform integrating market returns, macro indices, and news sentiment.",
-                "Boosted predictive accuracy by <strong>15–20%</strong> via advanced time-series features and optimized LightGBM models.",
-                "Applied Explainable AI with SHAP, reducing black-box opacity by <strong>70%</strong>.",
-                "Deployed a Sentiment Analysis Pipeline (FinBERT, VADER) on <strong>5K+</strong> financial articles, surfaced via a Streamlit Dashboard."
-            ],
-            links: { 
-                github: "https://github.com/dayush3104/CredTech-Explainable-Credit-Intelligence-Platform",
-                live: "https://dayush3104-credtech-explainable-credit-intelli-dashboard-rhy8rw.streamlit.app/"
-            }
-        }
-    ],
-    "Skills": {
-        "Languages": [
-            { name: "C++", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/cplusplus/cplusplus-original.svg" },
-            { name: "Python", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" },
-            { name: "JavaScript", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" },
-            { name: "SQL", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original-wordmark.svg" },
-            { name: "MATLAB", logo: "https://upload.wikimedia.org/wikipedia/commons/2/21/Matlab_Logo.png" },
-            { name: "HTML", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original.svg" },
-            { name: "CSS", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original.svg" },
-        ],
-        "Software & Tools": [
-            { name: "Jupyter", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/jupyter/jupyter-original-wordmark.svg" },
-            { name: "VS Code", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/vscode/vscode-original.svg" },
-            { name: "GitHub", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/github/github-original.svg" },
-            { name: "MongoDB", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original.svg" },
-            { name: "QGIS", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/QGIS_logo_new.svg/1200px-QGIS_logo_new.svg.png" }
-        ],
-        "Libraries & Frameworks": [
-            { name: "TensorFlow", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/tensorflow/tensorflow-original.svg" },
-            { name: "Scikit-Learn", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Scikit_learn_logo_small.svg/2560px-Scikit_learn_logo_small.svg.png" },
-            { name: "NumPy", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/numpy/numpy-original.svg" },
-            { name: "Pandas", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/pandas/pandas-original.svg" },
-            { name: "Node.js", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original.svg" },
-        ]
-    },
-    "Achievements": [ 
-        { text: "JEE Advanced 2022", details: "<strong>All India Rank 5893</strong> among 1.65 Lakh candidates.", logo: "https://home.iitk.ac.in/~kamalkk/index/logo_black.png", githubLogo: "https://raw.githubusercontent.com/user/repo/main/jee-adv-logo.png" },
-        { text: "JEE Mains 2022", details: "<strong>All India Rank 6132</strong> among 10.3 Lakh aspirants.", logo: "https://home.iitk.ac.in/~kamalkk/index/logo_black.png", githubLogo: "https://raw.githubusercontent.com/user/repo/main/jee-main-logo.png" },
-        { text: "TATA Imagination Challenge", details: "Recognized as a <strong>National Semi-Finalist</strong> among 3.1 Lakh candidates.", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Tata_logo.svg/523px-Tata_logo.svg.png", githubLogo: "https://raw.githubusercontent.com/user/repo/main/tata-logo.png" },
-        { text: "Flipkart Grid 7.0", details: "Emerged as a <strong>National Semi-Finalist</strong> from a pool of 4 Lakh candidates.", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRmoLzF1FA_rPgBLwohs989O_z-b6YCETUmg&s", githubLogo: "https://raw.githubusercontent.com/user/repo/main/flipkart-logo.png"},
-        { text: "Amazon ML Summer School", details: "Distinguished among the <strong>Top 3,000</strong> of 50K+ applicants to join Amazon MLSS.", logo: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg", githubLogo: "https://raw.githubusercontent.com/user/repo/main/amazon-logo.png" },
-        { text: "Neural Sprint Competition", details: "Achieved <strong>All India Rank 4</strong>, organized by IIM Rohtak.", logo: "https://www.iimrohtak.ac.in/assets/images/Indian_Institute_of_Management_Rohtak_logo.jpg", githubLogo: "https://raw.githubusercontent.com/user/repo/main/iim-rohtak-logo.png"},
-        { text: "Accenture Strategy Connect", details: "Shortlisted among <strong>Top 300</strong> of 9K+ teams for Round 2.", logo: "https://upload.wikimedia.org/wikipedia/commons/c/cd/Accenture.svg", githubLogo: "https://raw.githubusercontent.com/user/repo/main/accenture-logo.png" },
-        { text: "CredTech Hackathon", details: "Secured a <strong>Nationwide Top 8 Rank</strong>, hosted by DeepRoot Investments \& Pclub, IITK.", logo: "https://pclub.in/images/pclub.png", githubLogo: "https://raw.githubusercontent.com/user/repo/main/accenture-logo.png" }  ]
+    "About": { 
+        name: "AYUSH DIXIT", 
+        title: "Final Year Undergraduate • Department of Civil Engineering • IIT Kanpur", 
+        email: "dayush22@iitk.ac.in", 
+        phone: "+91-8503878119", 
+        linkedin: "https://www.linkedin.com/in/ayush-dixit-6b284125b/", 
+        github: "https://github.com/dayush3104", 
+        website: "https://ayush-dixit-portfolio.netlify.app/",
+        profilePicUrl: "Photo.jpg"
+    },
+    "Education": [
+        {degree:"B.Tech.", institution:"Indian Institute of Technology Kanpur", year:"2022-Present", performance:"7.9/10.0"}, 
+        {degree:"Class XII (CBSE)", institution:"Apala School of Education, Nohar", year:"2021", performance:"95.4%"}, 
+        {degree:"Class X (CBSE)", institution:"Apala School of Education, Nohar", year:"2019", performance:"97.0%"}
+    ],
+    "Work Experience": [{role:"Founder's Office Intern - Masai | Bengaluru", duration:"May'25 - Jul'25", description:"Honored with <strong>Masai's Best Team Award 2025</strong>.", points:["Programmed AI pipelines integrating PRAW & LLM APIs; automated sentiment analysis across 1,500+ discussions (<strong>90% reduction</strong> in manual monitoring).","Built analytics workflows in Python, SQL, Tableau & Google Data Studio; boosted YT impressions by <strong>65%</strong> & CTR by <strong>50%</strong>."]}, {role:"Core Team Member - Counselling Service, IIT Kanpur", duration:"Apr'24 - Apr'25", description:"Received <strong>Certificate Of Appreciation</strong>.", points:["Organized 10-day Orientation for <strong>1250+ freshers</strong>, managed <strong>15L+ budget</strong>.","Directed programs on Mental Health; impacted <strong>10K+ students</strong>."]}],
+    "Research Experience": [
+        {
+            role: "High-Fidelity Spatial Audio Modeling",
+            duration: "Jan'25 - Apr'25",
+            description: "Undergraduate Researcher | Mentor: Prof. Rajesh M. Hegde","Project in collaboration with <strong>Samsung R&D</strong>","Awarded <strong>'A' Grade</strong> for research of Highest Academic Standard",
+            points: [
+                "Engineered a <strong>50+ hour</strong>, 4-Channel Spatial Audio Dataset (57 scenarios) with RIR Simulation and Convolution, validated via quantitative SNR metrics.",
+                "Automated room acoustics modeling, convolving resampled signals into Multi-Channel Reverberant Audio for Samsung R&D datasets.",
+                "Enhanced dataset integrity by resolving gain/loudness calibration issues, integrating Zero-padding, and ensuring <strong>100% reproducibility</strong> with Python cross-validation.",
+                "Built MATLAB simulation pipelines, reducing preprocessing time by <strong>80%</strong> and minimizing hardware prototyping costs by <strong>40%</strong>."
+            ],
+            links: { github: "https://github.com/dayush3104/High-Fidelity-Spatial-Audio-Modeling-for-Samsung-Smart-Glasses" }
+        }
+    ],
+    "Product & Strategy": [
+        {
+            name: "Kids Brand - Go-To Market Strategy",
+            date: "Mar'25",
+            description: "Self-Project focused on designing an end-to-end GTM plan for a kids-focused brand on Indian e-commerce platforms.",
+            points: [
+                "Built a <strong>marketplace evaluation framework</strong> using 5 criteria to prioritize Amazon, Flipkart, Meesho, and FirstCry.",
+                "Designed a <strong>phased launch roadmap</strong> incorporating influencer campaigns, press releases, and targeted digital ads to maximize brand visibility.",
+                "Projected a <strong>25–40% sales uplift</strong> in the first launch cycle by leveraging platform-specific promotional campaigns."
+            ],
+            links: { doc: "https://drive.google.com/file/d/1fSmQ5LKgDX_cdGhZh6cxOheFK3N5OhGJ/view?usp=drive_link" }
+        },
+        {
+            name: "Nothing AtmosCore - Product Design",
+            date: "Aug'25",
+            description: "Nothing Incubator project to conceptualize a modular and sustainable charging ecosystem.",
+            points: [
+                "Designed <strong>AtmosCore hub with stackable magnetic blocks</strong> (Qi/USB-C, battery, solar) to replace multiple chargers.",
+                "Introduced <strong>gamified charging interactions</strong> (glyph lights, retro mini-games) to convert passive charging into an engaging ritual.",
+                "Delivered a product vision that <strong>cuts accessory waste</strong> by enabling upgrades over replacements, aligning with circular design principles."
+            ],
+            links: { doc: "https://drive.google.com/file/d/1zyWj3RICBoxv7VrmUDtOpdChH1hKXL-h/view?usp=drive_link" }
+        },
+        {
+            name: "MindCare – Digital Mental Health Platform",
+            date: "Aug'25",
+            description: "Self-Project designing a trust-first, hybrid digital mental health platform for the Indian market.",
+            points: [
+                "Conducted <strong>ecosystem mapping and user research</strong> to prioritize must-haves via RICE scoring.",
+                "Built and deployed a working <strong>prototype</strong> with journaling, AI nudges, and a therapist risk-alert dashboard.",
+                "Validated prototype demonstrating potential to cut therapy costs by <strong>40–60%</strong> via hybrid access models."
+            ],
+            links: { live: "https://trusty-mind-path.lovable.app", doc: "https://drive.google.com/file/d/1pA7MCMH7i4tv89vJ-451V10v5jrcnd35/view?usp=sharing" }
+        },
+        {
+            name: "Zomato - Product Enhancement",
+            date: "Aug'25",
+            description: "Project with AcceleratorX & Product Club, IITK to address choice overload in Zomato using PM frameworks.",
+            points: [
+                "Applied MoSCoW framework for feature prioritization, highlighting must-haves like conversational search and AI-summarized reviews.",
+                "Authored a PRD with wireframes and success metrics, defining product scope and feature specifications.",
+                "Created structured user personas and journey maps, informing recommendations projected to improve conversion rate by <strong>4x</strong>."
+            ],
+            links: { doc: "https://drive.google.com/file/d/1lD2yMrKl8hHM6kJd8aERmHV-iSrM3fZP/view?usp=sharing" }
+        }
+    ],
+    "Projects": [
+        {
+            name: "Remote Sensing Classification Engine",
+            date: "Feb'25 - Mar'25",
+            description: "Course Project | Mentor: Prof. Onkar Dikshit | IIT Kanpur",
+            points: [
+                "Developed a <strong>Gradio</strong> app using <strong>Sentinel-2</strong> multispectral data, reducing manual annotation time by <strong>60%</strong>.",
+                "Achieved <strong>96.8% accuracy</strong> with an optimized <strong>Random Forest classifier</strong> trained on spatially preprocessed inputs.",
+                "Validated model robustness for scalable geospatial analytics using <strong>Kappa statistics (0.96)</strong> and class-wise metrics.",
+                "Enhanced model interpretability through spectral band analysis and real-time metric visualization."
+            ],
+            links: { github: "https://github.com/dayush3104/Land-Cover-Classification-and-Accuracy-Analysis" }
+        },
+        {
+            name: "ML Based Arbiter PUF Modeling",
+            date: "Jan'25 - Feb'25",
+            description: "Course Project | Mentor: Prof. Purushottam Kar | IIT Kanpur",
+            points: [
+                "Architected an ML pipeline to model <strong>Arbiter PUFs</strong> by mapping 8-bit challenges into 255 parity features.",
+Next line.               "Achieved over <strong>95% accuracy</strong> in modeling challenge-response behavior using optimized linear classifiers.",
+                "Reverse-engineered <strong>64-stage</strong> delay parameters from model weights for precise hardware vulnerability characterization."
+            ]
+        },
+        {
+            name: "Dynamic Inventory Platform",
+            date: "Sep'24 - Oct'24",
+            description: "A personal full-stack web development project.",
+            points: [
+                "Developed an end-to-end <strong>MERN</strong> stack application by building a Node.js REST API to power a dynamic client-side React SPA.",
+                "Engineered a secure Node.js REST API for CRUD operations and token-based user authentication with MongoDB.",
+                "Built a dynamic React UI using component-based architecture, managing state and routing for a seamless single-page application experience."
+            ],
+            links: { github: "https://github.com/dayush3104/Product-Management-System" }
+        }
+    ],
+    "Core Experience": {
+        "Environment & Sustainability": {
+            theme: "green",
+            projects: [
+                { 
+                    name: "Resource Management Strategies",
+                    description: "Research & Literature Review | Mentor: Prof. Anubha Goel",
+                    points: [
+                        "Reviewed literature on soil degradation, groundwater over-extraction & biodiversity loss.",
+                        "Analyzed state-level datasets and global benchmarks to assess sustainable management systems.",
+                        "Synthesized findings into a framework for <strong>Climate-Smart Agriculture (CSA)</strong>."
+                    ],
+                    links: { doc: "https://www.canva.com/design/DAGyyYixS_w/AB5gcH0e1AXkDr9j3FrXUA/edit?utm_content=DAGyyYixS_w&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" }
+                }
+            ]
+        },
+        "Hydrology": {
+            theme: "blue",
+            projects: [
+                { 
+                    name: "Optimization Modeling for Resource Management",
+                    description: "Course Project | Mentor: Prof. Tushar Apurv",
+                    points: [
+                        "Architected <strong>5+ LINGO models</strong> for irrigation scheduling, lifting reservoir operations efficiency by <strong>15%</strong>.",
+                        "Fused <strong>10+ years of rainfall–ET–soil</strong> moisture records into hydrologic simulations, raising forecast skill by <strong>20%</strong>.",
+                        "Processed <strong>1,000+ simulations</strong> to set allocation rules, reducing projected yield loss by <strong>15%</strong>."
+                    ]
+                }
+            ]
+        },
+        "Geoinformatics": {
+            theme: "sandy",
+            projects: [
+                { 
+                    name: "Geospatial Survey and Mapping using QGIS",
+image                   description: "Course Project | Mentor: Prof. Salil Goel",
+                    points: [
+                        "Executed <strong>10+ control surveys</strong> (Auto Level, Total Station, GNSS) with <strong>1:10,000</strong> closure.",
+                        "Processed <strong>400+ observations</strong> via transforms and least-squares, achieving <strong>95%</strong> positional reliability.",
+                        "Delivered <strong>5+ georeferenced maps</strong> with optimized contours, lifting drainage design accuracy by <strong>20%</strong>."
+A new line.                   ]
+                },
+                { 
+                    name: "Land Cover Classification & Accuracy Analysis",
+Indented.                   description: "Course Project | Mentor: Prof. Onkar Dikshit",
+                    points: [
+                        "Developed a platform consolidating ML workflows for supervised land cover classification.",
+                        "Deployed a <strong>Gradio interface</strong> improving efficiency for non-technical stakeholders by <strong>70%</strong>.",
+section                       "Delivered <strong>96.8% accuracy (Kappa 0.96)</strong> with exportable dashboards for various applications."
+                    ],
+                    links: { github: "https://github.com/dayush3104/Land-Cover-Classification-and-Accuracy-Analysis" }
+                }
+            ]
+        }
+    },
+    "Hackathons": [
+        /* --- NEW HACKATHON ENTRY --- */
+        {
+            name: "KavachX - Zero Trust Security Platform",
+            date: "Sep'25",
+            description: "Emerged as <strong>one of the Winners</strong> at the Bank of Baroda Hackathon 2025. <br> Awarded Merit Certificate & <strong>cash prize of ₹1 Lakh</strong> by the CTO.",
+            points: [
+                "Built a <strong>Zero Trust</strong> security framework in <strong>JavaScript & Firebase</strong>, modeling user behavior (typing cadence, mouse dynamics) via a 'Digital DNA' engine.",
+                "Developed a <strong>3-Layered adaptive security model</strong> to defeat Deepfakes (<strong>Gemini API</strong>), and validate Audio Liveness (<strong>Azure SDK, Meyda.js, MFCC</strong>), routing threats to a Sandbox.",
+A new line.               "Formulated a <strong>B2B SaaS</strong> Go-To-Market strategy and financial model, projecting a <strong>286% ROI</strong> by preventing <strong>₹45 Cr</strong> in fraud and creating <strong>₹39.8 Cr</strong> in operational value."
+            ],
+            links: { 
+                github: "https://github.com/dayush3104/Bank-Of-Baroda-Hackathon",
+                live: "https://bob-kavachx.netlify.app/",
+                doc: "https://drive.google.com/file/d/1rRGYAFagKCA8s35vzxDo-prd04PqKnVf/view?usp=sharing"
+Next line.             }
+        },
+        /* --- END OF NEW HACKATHON ENTRY --- */
+        {
+            name: "CredTech - Credit Intelligence Platform",
+            date: "Aug'25",
+            description: "Hosted by Deeproot Investments & Programming Club, IITK. <br> Ranked in <strong>Top-8 Nationwide</strong> & awarded with <strong>Certificate of Excellence</strong>.",
+            points: [
+                "Engineered a Credit Risk Intelligence platform integrating market returns, macro indices, and news sentiment.",
+                "Boosted predictive accuracy by <strong>15–20%</strong> via advanced time-series features and optimized LightGBM models.",
+                "Applied Explainable AI with SHAP, reducing black-box opacity by <strong>70%</strong>.",
+                "Deployed a Sentiment Analysis Pipeline (FinBERT, VADER) on <strong>5K+</strong> financial articles, surfaced via a Streamlit Dashboard."
+            ],
+            links: { 
+                github: "https://github.com/dayush3104/CredTech-Explainable-Credit-Intelligence-Platform",
+                live: "https://dayush3104-credtech-explainable-credit-intelli-dashboard-rhy8rw.streamlit.app/"
+A new line.             }
+        }
+    ],
+    "Skills": {
+        "Languages": [
+            { name: "C++", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/cplusplus/cplusplus-original.svg" },
+            { name: "Python", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" },
+            { name: "JavaScript", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" },
+            { name: "SQL", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original-wordmark.svg" },
+            { name: "MATLAB", logo: "https://upload.wikimedia.org/wikipedia/commons/2/21/Matlab_Logo.png" },
+            { name: "HTML", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original.svg" },
+            { name: "CSS", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original.svg" },
+        ],
+        "Software & Tools": [
+            { name: "Jupyter", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/jupyter/jupyter-original-wordmark.svg" },
+            { name: "VS Code", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/vscode/vscode-original.svg" },
+            { name: "GitHub", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/github/github-original.svg" },
+            { name: "MongoDB", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original.svg" },
+            { name: "QGIS", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/QGIS_logo_new.svg/1200px-QGIS_logo_new.svg.png" }
+        ],
+        "Libraries & Frameworks": [
+            { name: "TensorFlow", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/tensorflow/tensorflow-original.svg" },
+            { name: "Scikit-Learn", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Scikit_learn_logo_small.svg/2560px-Scikit_learn_logo_small.svg.png" },
+            { name: "NumPy", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/numpy/numpy-original.svg" },
+            { name: "Pandas", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/pandas/pandas-original.svg" },
+            { name: "Node.js", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original.svg" },
+        ]
+    },
+    "Achievements": [ 
+        { text: "JEE Advanced 2022", details: "<strong>All India Rank 5893</strong> among 1.65 Lakh candidates.", logo: "https://home.iitk.ac.in/~kamalkk/index/logo_black.png", githubLogo: "https://raw.githubusercontent.com/user/repo/main/jee-adv-logo.png" },
+        { text: "JEE Mains 2022", details: "<strong>All India Rank 6132</strong> among 10.3 Lakh aspirants.", logo: "httpss://home.iitk.ac.in/~kamalkk/index/logo_black.png", githubLogo: "https://raw.githubusercontent.com/user/repo/main/jee-main-logo.png" },
+        { text: "TATA Imagination Challenge", details: "Recognized as a <strong>National Semi-Finalist</strong> among 3.1 Lakh candidates.", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Tata_logo.svg/523px-Tata_logo.svg.png", githubLogo: "https://raw.githubusercontent.com/user/repo/main/tata-logo.png" },
+        { text: "Flipkart Grid 7.0", details: "Emerged as a <strong>National Semi-Finalist</strong> from a pool of 4 Lakh candidates.", logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRmoLzF1FA_rPgBLwohs989O_z-b6YCETUmg&s", githubLogo: "https://raw.githubusercontent.com/user/repo/main/flipkart-logo.png"},
+        { text: "Amazon ML Summer School", details: "Distinguished among the <strong>Top 3,000</strong> of 50K+ applicants to join Amazon MLSS.", logo: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg", githubLogo: "https://raw.githubusercontent.com/user/repo/main/amazon-logo.png" },
+        { text: "Neural Sprint Competition", details: "Achieved <strong>All India Rank 4</strong>, organized by IIM Rohtak.", logo: "https://www.iimrohtak.ac.in/assets/images/Indian_Institute_of_Management_Rohtak_logo.jpg", githubLogo: "https://raw.githubusercontent.com/user/repo/main/iim-rohtak-logo.png"},
+        { text: "Accenture Strategy Connect", details: "Shortlisted among <strong>Top 300</strong> of 9K+ teams for Round 2.", logo: "httpss://upload.wikimedia.org/wikipedia/commons/c/cd/Accenture.svg", githubLogo: "https://raw.githubusercontent.com/user/repo/main/accenture-logo.png" },
+        { text: "CredTech Hackathon", details: "Secured a <strong>Nationwide Top 8 Rank</strong>, hosted by DeepRoot Investments \& Pclub, IITK.", logo: "httpss://pclub.in/images/pclub.png", githubLogo: "https://raw.githubusercontent.com/user/repo/main/accenture-logo.png" }  ]
 };
 
 /* ----- Scene Variables ----- */
@@ -871,756 +889,756 @@ let musicPlayer = null;
 let isMusicPlaying = false;
 
 
-const dom = { 
-    loader: document.getElementById('loader'), 
-    navMenu: document.getElementById('nav-menu'), 
-    infoPanel: document.getElementById('info-panel'), 
-    infoContent: document.getElementById('info-content'), 
-    interactionPrompt: document.getElementById('interaction-prompt'), 
-    closeBtn: document.querySelector('.close-btn'),
-    welcomeOverlay: document.getElementById('welcome-overlay'),
-    welcomeText: document.getElementById('welcome-text'),
-    mobileControls: document.getElementById('mobile-controls'),
-    mcUp: document.getElementById('mc-up'),
-    mcDown: document.getElementById('mc-down'),
-    mcLeft: document.getElementById('mc-left'),
-    mcRight: document.getElementById('mc-right'),
-    mcInteract: document.getElementById('mc-interact'),
-    mobileNavToggle: document.getElementById('mobile-nav-toggle'),
-    mobileNavBar: document.getElementById('mobile-nav-bar'),
-    musicToggleBtn: document.getElementById('music-toggle'),
-    speechBtn: document.getElementById('speech-btn'),
-    chatBubble: document.getElementById('chat-bubble-text')
+const dom = { 
+    loader: document.getElementById('loader'), 
+    navMenu: document.getElementById('nav-menu'), 
+    infoPanel: document.getElementById('info-panel'), 
+    infoContent: document.getElementById('info-content'), 
+    interactionPrompt: document.getElementById('interaction-prompt'), 
+    closeBtn: document.querySelector('.close-btn'),
+    welcomeOverlay: document.getElementById('welcome-overlay'),
+    welcomeText: document.getElementById('welcome-text'),
+    mobileControls: document.getElementById('mobile-controls'),
+    mcUp: document.getElementById('mc-up'),
+    mcDown: document.getElementById('mc-down'),
+    mcLeft: document.getElementById('mc-left'),
+    mcRight: document.getElementById('mc-right'),
+    mcInteract: document.getElementById('mc-interact'),
+    mobileNavToggle: document.getElementById('mobile-nav-toggle'),
+    mobileNavBar: document.getElementById('mobile-nav-bar'),
+    musicToggleBtn: document.getElementById('music-toggle'),
+    speechBtn: document.getElementById('speech-btn'),
+    chatBubble: document.getElementById('chat-bubble-text')
 };
 
 init();
 
 function init(){
-    scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x87CEEB);
-    scene.fog = new THREE.Fog(0x87CEEB, 200, 1000);
-    clock = new THREE.Clock();
+    scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x87CEEB);
+    scene.fog = new THREE.Fog(0x87CEEB, 200, 1000);
+    clock = new THREE.Clock();
 
-    camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 2000);
-    camera.position.set(0, 5, 15);
+    camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 2000);
+    camera.position.set(0, 5, 15);
 
-    renderer = new THREE.WebGLRenderer({antialias:true});
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
-    renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    document.body.appendChild(renderer.domElement);
-    
-    setupLights();
-    setupCartoonWorld();
-    createCartoonCar();
-    createStoppagesAndNav();
-    createSkillsPark();
-    setupUI();
-    setupEvents();
-    setupSpeechRecognition();
-    
-    setTimeout(() => {
-        dom.loader.style.display = 'none';
-        createWelcomeAnimation();
-        animate();
-    }, 500);
+    renderer = new THREE.WebGLRenderer({antialias:true});
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    document.body.appendChild(renderer.domElement);
+    
+    setupLights();
+    setupCartoonWorld();
+    createCartoonCar();
+    createStoppagesAndNav();
+    createSkillsPark();
+    setupUI();
+    setupEvents();
+    setupSpeechRecognition();
+    
+    setTimeout(() => {
+        dom.loader.style.display = 'none';
+Next line.         createWelcomeAnimation();
+        animate();
+    }, 500);
 }
 
 function createWelcomeAnimation() {
-    dom.welcomeOverlay.style.visibility = 'visible';
-    const tl = gsapGlobal.timeline({
-        onComplete: () => {
-            dom.welcomeOverlay.style.display = 'none';
-        }
-    });
-    tl.from(dom.welcomeText, { duration: 1.5, y: -50, opacity: 0, ease: "bounce.out" })
-      .to(dom.welcomeText, { duration: 1.5, opacity: 0, ease: "power1.in" }, "+=1.5");
+    dom.welcomeOverlay.style.visibility = 'visible';
+    const tl = gsapGlobal.timeline({
+        onComplete: () => {
+            dom.welcomeOverlay.style.display = 'none';
+        }
+    });
+    /* --- UPDATED ANIMATION TIMING --- */
+    tl.from(dom.welcomeText, { duration: 1.0, y: -50, opacity: 0, ease: "bounce.out" })
+      .to(dom.welcomeText, { duration: 0.8, opacity: 0, ease: "power1.in" }, "+=0.7");
 }
 
 function setupLights(){
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
-    scene.add(ambientLight);
-    const dirLight = new THREE.DirectionalLight(0xffffff, 1.5);
-    dirLight.position.set(200, 250, 200);
-    dirLight.castShadow = true;
-    dirLight.shadow.mapSize.width = 2048;
-    dirLight.shadow.mapSize.height = 2048;
-    dirLight.shadow.camera.left = -300;
-    dirLight.shadow.camera.right = 300;
-    dirLight.shadow.camera.top = 300;
-    dirLight.shadow.camera.bottom = -300;
-    scene.add(dirLight);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+    scene.add(ambientLight);
+    const dirLight = new THREE.DirectionalLight(0xffffff, 1.5);
+    dirLight.position.set(200, 250, 200);
+    dirLight.castShadow = true;
+    dirLight.shadow.mapSize.width = 2048;
+    dirLight.shadow.mapSize.height = 2048;
+    dirLight.shadow.camera.left = -300;
+    dirLight.shadow.camera.right = 300;
+    dirLight.shadow.camera.top = 300;
+    dirLight.shadow.camera.bottom = -300;
+    scene.add(dirLight);
 }
 
 function setupCartoonWorld() {
-    const groundMat = new THREE.MeshLambertMaterial({ color: 0x5cb85c });
-    const ground = new THREE.Mesh(new THREE.PlaneGeometry(3000, 3000), groundMat);
-    ground.rotation.x = -Math.PI / 2;
-    ground.receiveShadow = true;
-    scene.add(ground);
+    const groundMat = new THREE.MeshLambertMaterial({ color: 0x5cb85c });
+    const ground = new THREE.Mesh(new THREE.PlaneGeometry(3000, 3000), groundMat);
+    ground.rotation.x = -Math.PI / 2;
+    ground.receiveShadow = true;
+    scene.add(ground);
 
-    const roadMat = new THREE.MeshLambertMaterial({ color: 0x4c4c4c });
-    const road = new THREE.Mesh(new THREE.PlaneGeometry(25, 3000), roadMat);
-    road.rotation.x = -Math.PI / 2;
-    road.position.y = 0.01;
-    road.receiveShadow = true;
-    scene.add(road);
+    const roadMat = new THREE.MeshLambertMaterial({ color: 0x4c4c4c });
+    const road = new THREE.Mesh(new THREE.PlaneGeometry(25, 3000), roadMat);
+    road.rotation.x = -Math.PI / 2;
+    road.position.y = 0.01;
+    road.receiveShadow = true;
+    scene.add(road);
 
-    roadLineTexture = textureLoader.load('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAGCAYAAAACEPQxAAAAAXNSR0IArs4c6QAAABJJREFUCB1j+P//PwM26OanA5gAAPN9Av9N0QqLAAAAAElFTkSuQmCC');
-    roadLineTexture.wrapS = THREE.RepeatWrapping;
-    roadLineTexture.wrapT = THREE.RepeatWrapping;
-    roadLineTexture.repeat.set(1, 500);
-    const lineMat = new THREE.MeshBasicMaterial({ map: roadLineTexture, transparent: true });
-    const line = new THREE.Mesh(new THREE.PlaneGeometry(0.5, 3000), lineMat);
-    line.rotation.x = -Math.PI / 2;
-    line.position.y = 0.02;
-    scene.add(line);
+    roadLineTexture = textureLoader.load('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAGCAYAAAACEPQxAAAAAXNSR0IArs4c6QAAABJJREFUCB1j+P//PwM26OanA5gAAPN9Av9N0QqLAAAAAElFTkSuQmCC');
+    roadLineTexture.wrapS = THREE.RepeatWrapping;
+    roadLineTexture.wrapT = THREE.RepeatWrapping;
+    roadLineTexture.repeat.set(1, 500);
+    const lineMat = new THREE.MeshBasicMaterial({ map: roadLineTexture, transparent: true });
+    const line = new THREE.Mesh(new THREE.PlaneGeometry(0.5, 3000), lineMat);
+    line.rotation.x = -Math.PI / 2;
+    line.position.y = 0.02;
+    scene.add(line);
 
-    const sun = new THREE.Mesh(new THREE.SphereGeometry(50, 32, 32), new THREE.MeshBasicMaterial({ color: 0xffdd33, toneMapped: false }));
-    sun.position.set(-800, 400, -800);
-    scene.add(sun);
-    
-    const cloudMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
-    for(let i=0; i<30; i++) {
-        const cloud = new THREE.Group();
-        const puff1 = new THREE.Mesh(new THREE.SphereGeometry(10 + Math.random() * 5, 8, 8), cloudMat);
-        const puff2 = new THREE.Mesh(new THREE.SphereGeometry(15 + Math.random() * 8, 8, 8), cloudMat);
-        puff2.position.set(10, -5, 5);
-        const puff3 = new THREE.Mesh(new THREE.SphereGeometry(12 + Math.random() * 6, 8, 8), cloudMat);
-        puff3.position.set(-12, -2, -2);
-        cloud.add(puff1, puff2, puff3);
-        cloud.position.set((Math.random() - 0.5) * 2000, 150 + Math.random() * 50, (Math.random() - 0.5) * 2000);
-        scene.add(cloud);
-    }
-    
-    const trunkMat = new THREE.MeshLambertMaterial({ color: 0x8B4513 });
-    const leafMat = new THREE.MeshLambertMaterial({ color: 0x228B22 });
-    const rockMat = new THREE.MeshLambertMaterial({ color: 0x8d8d8d });
-    for(let i=0; i<150; i++) {
-        const px = (Math.random() > 0.5 ? 1 : -1) * (30 + Math.random() * 200);
-        const pz = (Math.random() - 0.5) * 3000;
-        if(Math.random() > 0.3) { 
-            const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.7, 5, 8), trunkMat);
-            trunk.castShadow = true;
-            const leaves = new THREE.Mesh(new THREE.SphereGeometry(4 + Math.random() * 2, 8, 6), leafMat);
-            leaves.castShadow = true;
-            trunk.position.set(px, 2.5, pz);
-            leaves.position.set(px, 7, pz);
-            scene.add(trunk, leaves);
-        } else { 
-            const rock = new THREE.Mesh(new THREE.DodecahedronGeometry(1.5 + Math.random() * 2, 0), rockMat);
-            rock.castShadow = true;
-            rock.position.set(px, 1, pz);
-            rock.rotation.set(Math.random(), Math.random(), Math.random());
-            scene.add(rock);
-        }
-    }
+    const sun = new THREE.Mesh(new THREE.SphereGeometry(50, 32, 32), new THREE.MeshBasicMaterial({ color: 0xffdd33, toneMapped: false }));
+    sun.position.set(-800, 400, -800);
+    scene.add(sun);
+    
+    const cloudMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+    for(let i=0; i<30; i++) {
+        const cloud = new THREE.Group();
+        const puff1 = new THREE.Mesh(new THREE.SphereGeometry(10 + Math.random() * 5, 8, 8), cloudMat);
+        const puff2 = new THREE.Mesh(new THREE.SphereGeometry(15 + Math.random() * 8, 8, 8), cloudMat);
+        puff2.position.set(10, -5, 5);
+        const puff3 = new THREE.Mesh(new THREE.SphereGeometry(12 + Math.random() * 6, 8, 8), cloudMat);
+        puff3.position.set(-12, -2, -2);
+        cloud.add(puff1, puff2, puff3);
+        cloud.position.set((Math.random() - 0.5) * 2000, 150 + Math.random() * 50, (Math.random() - 0.5) * 2000);
+        scene.add(cloud);
+    }
+    
+    const trunkMat = new THREE.MeshLambertMaterial({ color: 0x8B4513 });
+    const leafMat = new THREE.MeshLambertMaterial({ color: 0x228B22 });
+    const rockMat = new THREE.MeshLambertMaterial({ color: 0x8d8d8d });
+    for(let i=0; i<150; i++) {
+        const px = (Math.random() > 0.5 ? 1 : -1) * (30 + Math.random() * 200);
+        const pz = (Math.random() - 0.5) * 3000;
+        if(Math.random() > 0.3) { 
+            const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.7, 5, 8), trunkMat);
+            trunk.castShadow = true;
+            const leaves = new THREE.Mesh(new THREE.SphereGeometry(4 + Math.random() * 2, 8, 6), leafMat);
+            leaves.castShadow = true;
+            trunk.position.set(px, 2.5, pz);
+            leaves.position.set(px, 7, pz);
+            scene.add(trunk, leaves);
+        } else { 
+            const rock = new THREE.Mesh(new THREE.DodecahedronGeometry(1.5 + Math.random() * 2, 0), rockMat);
+            rock.castShadow = true;
+            rock.position.set(px, 1, pz);
+            rock.rotation.set(Math.random(), Math.random(), Math.random());
+            scene.add(rock);
+        }
+    }
 }
 
 function createCartoonCar(){
-    car = new THREE.Group();
-    car.position.set(0, 0.7, 50);
+    car = new THREE.Group();
+    car.position.set(0, 0.7, 50);
 
-    const carBodyMat = new THREE.MeshLambertMaterial({ color: 0xef4444 });
-    const windowsMat = new THREE.MeshLambertMaterial({ color: 0xa1e0ff });
-    const wheelMat = new THREE.MeshLambertMaterial({ color: 0x333333 });
+    const carBodyMat = new THREE.MeshLambertMaterial({ color: 0xef4444 });
+    const windowsMat = new THREE.MeshLambertMaterial({ color: 0xa1e0ff });
+    const wheelMat = new THREE.MeshLambertMaterial({ color: 0x333333 });
 
-    const body = new THREE.Mesh(new THREE.BoxGeometry(3, 1.5, 5.5), carBodyMat);
-    body.position.y = 0.5;
-    body.castShadow = true;
+    const body = new THREE.Mesh(new THREE.BoxGeometry(3, 1.5, 5.5), carBodyMat);
+    body.position.y = 0.5;
+    body.castShadow = true;
 
-    const cabin = new THREE.Mesh(new THREE.BoxGeometry(2.5, 1.2, 3), windowsMat);
-    cabin.position.set(0, 1.8, -0.5);
+    const cabin = new THREE.Mesh(new THREE.BoxGeometry(2.5, 1.2, 3), windowsMat);
+    cabin.position.set(0, 1.8, -0.5);
 
-    const wheelGeo = new THREE.CylinderGeometry(0.7, 0.7, 0.5, 16);
-    const wheels = [
-        new THREE.Mesh(wheelGeo, wheelMat), new THREE.Mesh(wheelGeo, wheelMat),
-        new THREE.Mesh(wheelGeo, wheelMat), new THREE.Mesh(wheelGeo, wheelMat)
-    ];
-    wheels[0].position.set(-1.6, 0, 2);
-    wheels[1].position.set(1.6, 0, 2);
-    wheels[2].position.set(-1.6, 0, -2);
-    wheels[3].position.set(1.6, 0, -2);
-    wheels.forEach(w => { w.rotation.z = Math.PI / 2; w.castShadow = true; car.add(w); });
-    
-    car.add(body, cabin);
-    scene.add(car);
+    const wheelGeo = new THREE.CylinderGeometry(0.7, 0.7, 0.5, 16);
+    const wheels = [
+        new THREE.Mesh(wheelGeo, wheelMat), new THREE.Mesh(wheelGeo, wheelMat),
+        new THREE.Mesh(wheelGeo, wheelMat), new THREE.Mesh(wheelGeo, wheelMat)
+    ];
+    wheels[0].position.set(-1.6, 0, 2);
+    wheels[1].position.set(1.6, 0, 2);
+    wheels[2].position.set(-1.6, 0, -2);
+    wheels[3].position.set(1.6, 0, -2);
+    wheels.forEach(w => { w.rotation.z = Math.PI / 2; w.castShadow = true; car.add(w); });
+    
+    car.add(body, cabin);
+    scene.add(car);
 }
 
 function createSkillsPark() {
-    const parkCenter = new THREE.Vector3(-80, 0, 150);
-    const parkPlatformMat = new THREE.MeshLambertMaterial({ color: 0x78a082 });
-    const parkPlatform = new THREE.Mesh(new THREE.CircleGeometry(60, 64), parkPlatformMat);
-    parkPlatform.rotation.x = -Math.PI / 2;
-    parkPlatform.position.copy(parkCenter).y = 0.05;
-    parkPlatform.receiveShadow = true;
-    scene.add(parkPlatform);
+    const parkCenter = new THREE.Vector3(-80, 0, 150);
+    const parkPlatformMat = new THREE.MeshLambertMaterial({ color: 0x78a082 });
+  t_B_R_ const parkPlatform = new THREE.Mesh(new THREE.CircleGeometry(60, 64), parkPlatformMat);
+    parkPlatform.rotation.x = -Math.PI / 2;
+    parkPlatform.position.copy(parkCenter).y = 0.05;
+    parkPlatform.receiveShadow = true;
+    scene.add(parkPlatform);
 
-    const monumentMat = new THREE.MeshLambertMaterial({ color: 0xffffff });
-    const monument = new THREE.Mesh(new THREE.CylinderGeometry(2, 5, 15, 8), monumentMat);
-    monument.position.copy(parkCenter).y = 7.5;
-    monument.castShadow = true;
-    scene.add(monument);
-    gsapGlobal.to(monument.rotation, { y: Math.PI * 2, duration: 25, repeat: -1, ease: 'none' });
+    const monumentMat = new THREE.MeshLambertMaterial({ color: 0xffffff });
+    const monument = new THREE.Mesh(new THREE.CylinderGeometry(2, 5, 15, 8), monumentMat);
+    monument.position.copy(parkCenter).y = 7.5;
+    monument.castShadow = true;
+    scene.add(monument);
+    gsapGlobal.to(monument.rotation, { y: Math.PI * 2, duration: 25, repeat: -1, ease: 'none' });
 
-    let angle = 0;
-    let radius = 15;
-    const skills = portfolioData.Skills;
+    let angle = 0;
+    let radius = 15;
+    const skills = portfolioData.Skills;
 
-    for (const category in skills) {
-        create3DText(category, parkCenter.clone().add(new THREE.Vector3(0, 12, -radius - 12)));
-        skills[category].forEach(skill => {
-            const logoMaterial = new THREE.MeshBasicMaterial({
-                map: textureLoader.load(skill.logo),
-                transparent: true,
-                alphaTest: 0.5
-            });
-            const logoMesh = new THREE.Mesh(new THREE.PlaneGeometry(6, 6), logoMaterial);
-            logoMesh.position.set(
-                parkCenter.x + Math.sin(angle) * radius,
-                5,
-                parkCenter.z + Math.cos(angle) * radius
-            );
-            logoMesh.userData.isBillboard = true; 
-            
-            gsapGlobal.to(logoMesh.position, { 
-                y: 6, 
-                duration: 2 + Math.random() * 1.5, 
-                yoyo: true, 
-                repeat: -1, 
-                ease: 'sine.inOut' 
-            });
+    for (const category in skills) {
+        create3DText(category, parkCenter.clone().add(new THREE.Vector3(0, 12, -radius - 12)));
+        skills[category].forEach(skill => {
+            const logoMaterial = new THREE.MeshBasicMaterial({
+                map: textureLoader.load(skill.logo),
+                transparent: true,
+                alphaTest: 0.5
+            });
+            const logoMesh = new THREE.Mesh(new THREE.PlaneGeometry(6, 6), logoMaterial);
+            logoMesh.position.set(
+                parkCenter.x + Math.sin(angle) * radius,
+                5,
+                parkCenter.z + Math.cos(angle) * radius
+            );
+            logoMesh.userData.isBillboard = true; 
+            
+            gsapGlobal.to(logoMesh.position, { 
+                y: 6, 
+                duration: 2 + Math.random() * 1.5, 
+                yoyo: true, 
+                repeat: -1, 
+                ease: 'sine.inOut' 
+            });
 
-            scene.add(logoMesh);
-            angle += Math.PI / (skills[category].length / 2);
-        });
-        radius += 20;
-        angle = 0;
-    }
+            scene.add(logoMesh);
+            angle += Math.PI / (skills[category].length / 2);
+        });
+        radius += 20;
+        angle = 0;
+    }
 }
 
 function create3DText(text, position) {
-    const fontLoader = new FontLoader();
-    fontLoader.load('https://cdn.jsdelivr.net/npm/three@0.160.0/examples/fonts/helvetiker_bold.typeface.json', (font) => {
-        const textGeo = new TextGeometry(text, { font: font, size: 4, height: 0.5 });
-        const textMat = new THREE.MeshLambertMaterial({ color: 0xffffff });
-        const textMesh = new THREE.Mesh(textGeo, textMat);
-        textMesh.geometry.center();
-        textMesh.position.copy(position);
-        textMesh.castShadow = true;
-        scene.add(textMesh);
-        gsapGlobal.to(textMesh.rotation, { y: Math.PI * 2, duration: 40, repeat: -1, ease: 'none' });
-    });
+    const fontLoader = new FontLoader();
+    fontLoader.load('https://cdn.jsdelivr.net/npm/three@0.160.0/examples/fonts/helvetiker_bold.typeface.json', (font) => {
+        const textGeo = new TextGeometry(text, { font: font, size: 4, height: 0.5 });
+        const textMat = new THREE.MeshLambertMaterial({ color: 0xffffff });
+        const textMesh = new THREE.Mesh(textGeo, textMat);
+        textMesh.geometry.center();
+        textMesh.position.copy(position);
+        textMesh.castShadow = true;
+        scene.add(textMesh);
+        gsapGlobal.to(textMesh.rotation, { y: Math.PI * 2, duration: 40, repeat: -1, ease: 'none' });
+    });
 }
 
 function createStoppagesAndNav() {
-    const sections = [
-        { name: "About", pos: new THREE.Vector3(30, 0, -750), icon: "fa-solid fa-user-tie" },
-        { name: "Work Experience", pos: new THREE.Vector3(-30, 0, -550), icon: "fa-solid fa-briefcase" },
-        { name: "Research Experience", pos: new THREE.Vector3(30, 0, -350), icon: "fa-solid fa-flask" },
-        { name: "Product & Strategy", pos: new THREE.Vector3(-40, 0, -150), icon: "fa-solid fa-lightbulb" },
-        { name: "Projects", pos: new THREE.Vector3(30, 0, 50), icon: "fa-solid fa-rocket" },
-        { name: "Core Experience", pos: new THREE.Vector3(-30, 0, 250), icon: "fa-solid fa-cogs" },
-        { name: "Hackathons", pos: new THREE.Vector3(30, 0, 450), icon: "fa-solid fa-laptop-code" },
-        { name: "Skills", pos: new THREE.Vector3(-80, 0, 150), icon: "fa-solid fa-star" },
-        { name: "Education", pos: new THREE.Vector3(-30, 0, 600), icon: "fa-solid fa-graduation-cap" },
-        { name: "Achievements", pos: new THREE.Vector3(30, 0, 750), icon: "fa-solid fa-trophy" }
-    ];
+    const sections = [
+        { name: "About", pos: new THREE.Vector3(30, 0, -750), icon: "fa-solid fa-user-tie" },
+        { name: "Work Experience", pos: new THREE.Vector3(-30, 0, -550), icon: "fa-solid fa-briefcase" },
+        { name: "Research Experience", pos: new THREE.Vector3(30, 0, -350), icon: "fa-solid fa-flask" },
+        { name: "Product & Strategy", pos: new THREE.Vector3(-40, 0, -150), icon: "fa-solid fa-lightbulb" },
+        { name: "Projects", pos: new THREE.Vector3(30, 0, 50), icon: "fa-solid fa-rocket" },
+        { name: "Core Experience", pos: new THREE.Vector3(-30, 0, 250), icon: "fa-solid fa-cogs" },
+        { name: "Hackathons", pos: new THREE.Vector3(30, 0, 450), icon: "fa-solid fa-laptop-code" },
+        { name: "Skills", pos: new THREE.Vector3(-80, 0, 150), icon: "fa-solid fa-star" },
+        { name: "Education", pos: new THREE.Vector3(-30, 0, 600), icon: "fa-solid fa-graduation-cap" },
+        { name: "Achievements", pos: new THREE.Vector3(30, 0, 750), icon: "fa-solid fa-trophy" }
+    ];
 
-    sections.forEach(s => {
-        createStoppage(s.name, s.pos);
-        createNavButton(s);
-    });
+    sections.forEach(s => {
+        createStoppage(s.name, s.pos);
+        createNavButton(s);
+    });
 }
 
 function createStoppage(name, position) {
-    const g = new THREE.Group();
-    g.name = name;
-    g.position.copy(position);
+    const g = new THREE.Group();
+    g.name = name;
+    g.position.copy(position);
 
-    if (name === 'Skills') {
-        scene.add(g);
-        interactiveZones.push(g);
-        return; 
-    }
+    if (name === 'Skills') {
+        scene.add(g);
+        interactiveZones.push(g);
+        return; 
+    }
 
-    const baseMat = new THREE.MeshLambertMaterial({ color: 0xffffff });
-    const base = new THREE.Mesh(new THREE.CylinderGeometry(12, 12, 0.5, 32), baseMat);
-    base.receiveShadow = true;
-    g.add(base);
+    const baseMat = new THREE.MeshLambertMaterial({ color: 0xffffff });
+    const base = new THREE.Mesh(new THREE.CylinderGeometry(12, 12, 0.5, 32), baseMat);
+    base.receiveShadow = true;
+    g.add(base);
 
-    let themedObject;
-    switch(name) {
-        case "About":
-            themedObject = new THREE.Mesh(new THREE.OctahedronGeometry(5, 0), new THREE.MeshLambertMaterial({color: 0x4285F4}));
-            themedObject.position.y = 5;
-            break;
-        case "Work Experience":
-            themedObject = new THREE.Mesh(new THREE.BoxGeometry(4, 8, 4), new THREE.MeshLambertMaterial({color: 0x34A853}));
-            themedObject.position.y = 4;
-            break;
-        case "Projects":
-            themedObject = new THREE.Mesh(new THREE.ConeGeometry(3, 8, 8), new THREE.MeshLambertMaterial({color: 0xEA4335}));
-            themedObject.position.y = 4;
-            break;
-        case "Education":
-            themedObject = new THREE.Mesh(new THREE.BoxGeometry(6,4,4), new THREE.MeshLambertMaterial({color: 0xFBBC05}));
-            themedObject.position.y = 2;
-            break;
-        case "Achievements":
-            themedObject = new THREE.Mesh(new THREE.TorusKnotGeometry(4, 1, 100, 16), new THREE.MeshLambertMaterial({color: 0xFFD700}));
-            themedObject.position.y = 6;
-            break;
-        case "Research Experience":
-            themedObject = new THREE.Mesh(new THREE.IcosahedronGeometry(5, 0), new THREE.MeshLambertMaterial({ color: 0x9c27b0 }));
-            themedObject.position.y = 5;
-            break;
-        case "Hackathons":
-            themedObject = new THREE.Mesh(new THREE.DodecahedronGeometry(5, 0), new THREE.MeshLambertMaterial({ color: 0x00bcd4 }));
-            themedObject.position.y = 5;
-            break;
-        case "Product & Strategy":
-            themedObject = new THREE.Mesh(new THREE.TorusGeometry(4, 1.5, 16, 100), new THREE.MeshLambertMaterial({ color: '#ff5722' }));
-            themedObject.position.y = 5;
-            break;
-        case "Core Experience":
-            const gearMat = new THREE.MeshLambertMaterial({ color: '#607d8b' });
-            themedObject = new THREE.Mesh(new THREE.CylinderGeometry(4, 4, 2, 16), gearMat);
-            themedObject.position.y = 4;
-            break;
-    }
-    themedObject.castShadow = true;
-    g.add(themedObject);
-    gsapGlobal.to(themedObject.rotation, { y: Math.PI * 2, x: Math.PI * 2, duration: 15, repeat: -1, ease: 'none' });
-    
-    const ring = new THREE.Mesh(new THREE.TorusGeometry(8, 0.3, 16, 100), new THREE.MeshBasicMaterial({ color: 0xff6347 }));
-    ring.rotation.x = Math.PI / 2;
-    ring.position.y = 1;
-    g.add(ring);
-    gsapGlobal.to(ring.rotation, { z: Math.PI * 2, duration: 10, repeat: -1, ease: 'none' });
-    
-    scene.add(g);
-    interactiveZones.push(g);
+    let themedObject;
+    switch(name) {
+        case "About":
+            themedObject = new THREE.Mesh(new THREE.OctahedronGeometry(5, 0), new THREE.MeshLambertMaterial({color: 0x4285F4}));
+            themedObject.position.y = 5;
+            break;
+        case "Work Experience":
+            themedObject = new THREE.Mesh(new THREE.BoxGeometry(4, 8, 4), new THREE.MeshLambertMaterial({color: 0x34A853}));
+            themedObject.position.y = 4;
+            break;
+        case "Projects":
+            themedObject = new THREE.Mesh(new THREE.ConeGeometry(3, 8, 8), new THREE.MeshLambertMaterial({color: 0xEA4335}));
+            themedObject.position.y = 4;
+            break;
+        case "Education":
+            themedObject = new THREE.Mesh(new THREE.BoxGeometry(6,4,4), new THREE.MeshLambertMaterial({color: 0xFBBC05}));
+            themedObject.position.y = 2;
+            break;
+        case "Achievements":
+            themedObject = new THREE.Mesh(new THREE.TorusKnotGeometry(4, 1, 100, 16), new THREE.MeshLambertMaterial({color: 0xFFD700}));
+            themedObject.position.y = 6;
+            break;
+    t_B_R_ case "Research Experience":
+            themedObject = new THREE.Mesh(new THREE.IcosahedronGeometry(5, 0), new THREE.MeshLambertMaterial({ color: 0x9c27b0 }));
+            themedObject.position.y = 5;
+            break;
+        case "Hackathons":
+            themedObject = new THREE.Mesh(new THREE.DodecahedronGeometry(5, 0), new THREE.MeshLambertMaterial({ color: 0x00bcd4 }));
+            themedObject.position.y = 5;
+            break;
+        case "Product & Strategy":
+            themedObject = new THREE.Mesh(new THREE.TorusGeometry(4, 1.5, 16, 100), new THREE.MeshLambertMaterial({ color: '#ff5722' }));
+            themedObject.position.y = 5;
+            break;
+        case "Core Experience":
+            const gearMat = new THREE.MeshLambertMaterial({ color: '#607d8b' });
+            themedObject = new THREE.Mesh(new THREE.CylinderGeometry(4, 4, 2, 16), gearMat);
+            themedObject.position.y = 4;
+            break;
+    }
+    themedObject.castShadow = true;
+    g.add(themedObject);
+    gsapGlobal.to(themedObject.rotation, { y: Math.PI * 2, x: Math.PI * 2, duration: 15, repeat: -1, ease: 'none' });
+    
+    const ring = new THREE.Mesh(new THREE.TorusGeometry(8, 0.3, 16, 100), new THREE.MeshBasicMaterial({ color: 0xff6347 }));
+    ring.rotation.x = Math.PI / 2;
+    ring.position.y = 1;
+    g.add(ring);
+    gsapGlobal.to(ring.rotation, { z: Math.PI * 2, duration: 10, repeat: -1, ease: 'none' });
+    
+    scene.add(g);
+    interactiveZones.push(g);
 }
 
 
 function createNavButton(section){
-    const btn = document.createElement('a'); 
-    btn.className='nav-btn';
-    btn.innerHTML = `<i class="${section.icon}"></i><span>${section.name}</span>`;
-    btn.onclick = (e)=> {
-        e.preventDefault();
-        if(dom.infoPanel.classList.contains('visible')) {
-            dom.infoPanel.classList.remove('visible');
-        }
-        navTo(section.name);
-    };
+    const btn = document.createElement('a'); 
+    btn.className='nav-btn';
+    btn.innerHTML = `<i class="${section.icon}"></i><span>${section.name}</span>`;
+    btn.onclick = (e)=> {
+        e.preventDefault();
+        if(dom.infoPanel.classList.contains('visible')) {
+            dom.infoPanel.classList.remove('visible');
+        }
+        navTo(section.name);
+    };
 
-    dom.navMenu.appendChild(btn);
-    // Clone for mobile menu
-    const mobileBtn = btn.cloneNode(true);
-    mobileBtn.onclick = (e) => {
-        e.preventDefault();
-        if(dom.infoPanel.classList.contains('visible')) {
-            dom.infoPanel.classList.remove('visible');
-        }
-        navTo(section.name);
-    };
-    dom.mobileNavBar.appendChild(mobileBtn);
+    dom.navMenu.appendChild(btn);
+    // Clone for mobile menu
+    const mobileBtn = btn.cloneNode(true);
+    mobileBtn.onclick = (e) => {
+        e.preventDefault();
+        if(dom.infoPanel.classList.contains('visible')) {
+            dom.infoPanel.classList.remove('visible');
+        }
+        navTo(section.name);
+    };
+    dom.mobileNavBar.appendChild(mobileBtn);
 }
 
 function navTo(sectionName){
-    if(!car || isAutoDriving) return;
-    const zone = interactiveZones.find(z => z.name.toLowerCase() === sectionName.toLowerCase());
-    if (!zone) return;
+    if(!car || isAutoDriving) return;
+    const zone = interactiveZones.find(z => z.name.toLowerCase() === sectionName.toLowerCase());
+    if (!zone) return;
 
-    isAutoDriving = true; 
-    keys = { w:false, a:false, s:false, d:false };
-    
-    dom.chatBubble.textContent = `On my way to ${sectionName}!`;
+    isAutoDriving = true; 
+    keys = { w:false, a:false, s:false, d:false };
+    
+    dom.chatBubble.textContent = `On my way to ${sectionName}!`;
 
-    document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.textContent.trim() === zone.name));
-    
-    const targetPos = zone.position.clone();
-    
-    if (zone.name === 'Skills') {
-        targetPos.x = -50; 
-        targetPos.z = 150; 
-    } else {
-        targetPos.add(new THREE.Vector3(0, 0, 30));
-    }
-        
-    const lookAtPos = zone.position.clone();
-    
-    const temp = new THREE.Object3D(); temp.position.copy(car.position); temp.lookAt(lookAtPos);
-    const targetQuat = temp.quaternion.clone();
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.textContent.trim() === zone.name));
+    
+    const targetPos = zone.position.clone();
+    
+    if (zone.name === 'Skills') {
+        targetPos.x = -50; 
+        targetPos.z = 150; 
+    } else {
+        targetPos.add(new THREE.Vector3(0, 0, 30));
+    }
+        
+    const lookAtPos = zone.position.clone();
+    
+    const temp = new THREE.Object3D(); temp.position.copy(car.position); temp.lookAt(lookAtPos);
+    const targetQuat = temp.quaternion.clone();
 
-    const distance = car.position.distanceTo(targetPos);
-    
-    if(gsapGlobal){
-        gsapGlobal.timeline({ 
-            onComplete: () => { 
-                isAutoDriving=false; 
-                displayInfo(zone.name); 
-                dom.chatBubble.textContent = `We've arrived!`;
-                setTimeout(() => {
-                    dom.chatBubble.textContent = "Click the mic or a button to continue the tour.";
-                }, 4000);
-                document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            } 
-        })
-        .to(car.position, { x: targetPos.x, y: car.position.y, z: targetPos.z, duration: Math.max(1.5, distance / 200), ease:'power2.inOut' })
-        .to(car.quaternion, { x: targetQuat.x, y: targetQuat.y, z: targetQuat.z, w: targetQuat.w, duration:1.5, ease:'power2.inOut' }, "<");
-    }
+    const distance = car.position.distanceTo(targetPos);
+    
+    if(gsapGlobal){
+        gsapGlobal.timeline({ 
+            onComplete: () => { 
+                isAutoDriving=false; 
+                displayInfo(zone.name); 
+                dom.chatBubble.textContent = `We've arrived!`;
+                setTimeout(() => {
+                    dom.chatBubble.textContent = "Click the mic or a button to continue the tour.";
+t_B_R_               }, 4000);
+                document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            } 
+        })
+        .to(car.position, { x: targetPos.x, y: car.position.y, z: targetPos.z, duration: Math.max(1.5, distance / 200), ease:'power2.inOut' })
+        .to(car.quaternion, { x: targetQuat.x, y: targetQuat.y, z: targetQuat.z, w: targetQuat.w, duration:1.5, ease:'power2.inOut' }, "<");
+    }
 }
 
 function setupUI(){
-    dom.infoContent.innerHTML = `<h2>Welcome to my Portfolio Adventure!</h2><p class="small">Use the nav menu or drive with the arrow keys to explore!</p>`;
+    dom.infoContent.innerHTML = `<h2>Welcome to my Portfolio Adventure!</h2><p class="small">Use the nav menu or drive with the arrow keys to explore!</p>`;
 }
 
 function setupEvents(){
-    window.addEventListener('resize', ()=> { 
-        camera.aspect = window.innerWidth/window.innerHeight; 
-        camera.updateProjectionMatrix(); 
-        renderer.setSize(window.innerWidth, window.innerHeight); 
-    });
+    window.addEventListener('resize', ()=> { 
+        camera.aspect = window.innerWidth/window.innerHeight; 
+        camera.updateProjectionMatrix(); 
+        renderer.setSize(window.innerWidth, window.innerHeight); 
+    });
 
-    const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+    const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
-    if (isTouchDevice) {
-        setupMobileControls();
-    } else {
-        window.addEventListener('keydown', (e) => {
-            if(isAutoDriving) return;
-            
-            const keyMap = { 'arrowup': 'w', 'arrowdown': 's', 'arrowleft': 'a', 'arrowright': 'd' };
-            const mappedKey = keyMap[e.key.toLowerCase()] || e.key.toLowerCase();
+    if (isTouchDevice) {
+        setupMobileControls();
+    } else {
+        window.addEventListener('keydown', (e) => {
+            if(isAutoDriving) return;
+            
+            const keyMap = { 'arrowup': 'w', 'arrowdown': 's', 'arrowleft': 'a', 'arrowright': 'd' };
+            const mappedKey = keyMap[e.key.toLowerCase()] || e.key.toLowerCase();
 
-            if (['w', 'a', 's', 'd'].includes(mappedKey)) keys[mappedKey] = true;
-            if ((e.key === 'e' || e.key === 'E') && canInteractWith) displayInfo(canInteractWith.name);
-        });
-        window.addEventListener('keyup', (e) => {
-            const keyMap = { 'arrowup': 'w', 'arrowdown': 's', 'arrowleft': 'a', 'arrowright': 'd' };
-            const mappedKey = keyMap[e.key.toLowerCase()] || e.key.toLowerCase();
-            if (['w', 'a', 's', 'd'].includes(mappedKey)) keys[mappedKey] = false;
-        });
-    }
+            if (['w', 'a', 's', 'd'].includes(mappedKey)) keys[mappedKey] = true;
+            if ((e.key === 'e' || e.key === 'E') && canInteractWith) displayInfo(canInteractWith.name);
+        });
+        window.addEventListener('keyup', (e) => {
+            const keyMap = { 'arrowup': 'w', 'arrowdown': 's', 'arrowleft': 'a', 'arrowright': 'd' };
+            const mappedKey = keyMap[e.key.toLowerCase()] || e.key.toLowerCase();
+            if (['w', 'a', 's', 'd'].includes(mappedKey)) keys[mappedKey] = false;
+        });
+    }
 
-    dom.closeBtn.addEventListener('click', ()=> { dom.infoPanel.classList.remove('visible'); });
+    dom.closeBtn.addEventListener('click', ()=> { dom.infoPanel.classList.remove('visible'); });
 
-    dom.musicToggleBtn.addEventListener('click', async () => {
-        if (!musicPlayer) {
-            // While I can't use the actual "Can't Stop the Feeling!" due to copyright,
-            // here's a cheerful, upbeat melody created with Tone.js that captures a similar vibe.
-            const synth = new Tone.PolySynth(Tone.Synth, {
-                oscillator: { type: "triangle8" },
-                envelope: { attack: 0.005, decay: 0.1, sustain: 0.3, release: 1 }
-            }).toDestination();
-            synth.volume.value = -12;
+    dom.musicToggleBtn.addEventListener('click', async () => {
+        if (!musicPlayer) {
+            // While I can't use the actual "Can't Stop the Feeling!" due to copyright,
+            // here's a cheerful, upbeat melody created with Tone.js that captures a similar vibe.
+            const synth = new Tone.PolySynth(Tone.Synth, {
+                oscillator: { type: "triangle8" },
+  t_B_R_           envelope: { attack: 0.005, decay: 0.1, sustain: 0.3, release: 1 }
+            }).toDestination();
+            synth.volume.value = -12;
 
-            const melody = [
-                {'time': '0:0', 'note': 'C4', 'duration': '8n'},
-                {'time': '0:1', 'note': 'E4', 'duration': '8n'},
-                {'time': '0:2', 'note': 'G4', 'duration': '8n'},
-                {'time': '0:3', 'note': 'C5', 'duration': '8n'},
-                {'time': '1:0', 'note': 'G4', 'duration': '8n'},
-                {'time': '1:1', 'note': 'A4', 'duration': '4n'},
-                {'time': '1:3', 'note': 'G4', 'duration': '4n'},
-                {'time': '2:0', 'note': 'F4', 'duration': '8n'},
-                {'time': '2:1', 'note': 'E4', 'duration': '8n'},
-                {'time': '2:2', 'note': 'D4', 'duration': '8n'},
-                {'time': '2:3', 'note': 'C4', 'duration': '4n'}
-            ];
-            musicPlayer = new Tone.Part((time, value) => {
-                synth.triggerAttackRelease(value.note, value.duration, time);
-            }, melody).start(0);
-            musicPlayer.loop = true;
-            musicPlayer.loopEnd = '3m';
-            Tone.Transport.bpm.value = 120;
-        }
+            const melody = [
+                {'time': '0:0', 'note': 'C4', 'duration': '8n'},
+                {'time': '0:1', 'note': 'E4', 'duration': '8n'},
+                {'time': '0:2', 'note': 'G4', 'duration': '8n'},
+                {'time': '0:3', 'note': 'C5', 'duration': '8n'},
+                {'time': '1:0', 'note': 'G4', 'duration': '8n'},
+                {'time': '1:1', 'note': 'A4', 'duration': '4n'},
+                {'time': '1:3', 'note': 'G4', 'duration': '4n'},
+                {'time': '2:0', 'note': 'F4', 'duration': '8n'},
+                {'time': '2:1', 'note': 'E4', 'duration': '8n'},
+                {'time': '2:2', 'note': 'D4', 'duration': '8n'},
+                {'time': '2:3', 'note': 'C4', 'duration': '4n'}
+            ];
+            musicPlayer = new Tone.Part((time, value) => {
+t_B_R_               synth.triggerAttackRelease(value.note, value.duration, time);
+            }, melody).start(0);
+            musicPlayer.loop = true;
+            musicPlayer.loopEnd = '3m';
+            Tone.Transport.bpm.value = 120;
+        }
 
-        await Tone.start();
+        await Tone.start();
 
-        if (isMusicPlaying) {
-            Tone.Transport.stop();
-            dom.musicToggleBtn.innerHTML = '<i class="fa-solid fa-music"></i>';
-            dom.musicToggleBtn.style.color = 'var(--accent)';
-        } else {
-            Tone.Transport.start();
-            dom.musicToggleBtn.innerHTML = '<i class="fa-solid fa-volume-high"></i>';
-            dom.musicToggleBtn.style.color = '#34A853'; // Green for 'on'
-        }
-        isMusicPlaying = !isMusicPlaying;
-    });
+        if (isMusicPlaying) {
+            Tone.Transport.stop();
+            dom.musicToggleBtn.innerHTML = '<i class="fa-solid fa-music"></i>';
+            dom.musicToggleBtn.style.color = 'var(--accent)';
+        } else {
+            Tone.Transport.start();
+            dom.musicToggleBtn.innerHTML = '<i class="fa-solid fa-volume-high"></i>';
+            dom.musicToggleBtn.style.color = '#34A853'; // Green for 'on'
+        }
+        isMusicPlaying = !isMusicPlaying;
+    });
 }
 
 function setupSpeechRecognition() {
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!SpeechRecognition) {
-        dom.speechBtn.style.display = 'none'; // Hide if not supported
-        dom.chatBubble.textContent = "Voice control isn't available on this browser.";
-        return;
-    }
-    
-    const recognition = new SpeechRecognition();
-    recognition.continuous = false;
-    recognition.lang = 'en-US';
-    recognition.interimResults = false;
-    recognition.maxAlternatives = 1;
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+        dom.speechBtn.style.display = 'none'; // Hide if not supported
+        dom.chatBubble.textContent = "Voice control isn't available on this browser.";
+        return;
+    }
+    
+    const recognition = new SpeechRecognition();
+    recognition.continuous = false;
+A new line.     recognition.lang = 'en-US';
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
 
-    const sections = Object.keys(portfolioData).map(s => s.toLowerCase());
+    const sections = Object.keys(portfolioData).map(s => s.toLowerCase());
 
-    dom.speechBtn.addEventListener('click', () => {
-        if (isAutoDriving) return;
-        recognition.start();
-    });
+    dom.speechBtn.addEventListener('click', () => {
+        if (isAutoDriving) return;
+        recognition.start();
+    });
 
-    recognition.onstart = () => {
-        dom.speechBtn.classList.add('listening');
-        dom.chatBubble.textContent = 'Listening...';
-    };
+    recognition.onstart = () => {
+        dom.speechBtn.classList.add('listening');
+        dom.chatBubble.textContent = 'Listening...';
+    };
 
-    recognition.onspeechend = () => {
-        recognition.stop();
-        dom.speechBtn.classList.remove('listening');
-    };
-    
-    recognition.onend = () => {
-        dom.speechBtn.classList.remove('listening');
-        setTimeout(() => {
-            dom.chatBubble.textContent = 'Click the mic to give a command!';
-        }, 3000);
-    };
+    recognition.onspeechend = () => {
+        recognition.stop();
+        dom.speechBtn.classList.remove('listening');
+    };
+    
+    recognition.onend = () => {
+        dom.speechBtn.classList.remove('listening');
+        setTimeout(() => {
+            dom.chatBubble.textContent = 'Click the mic to give a command!';
+        }, 3000);
+    };
 
-    recognition.onresult = (event) => {
-        const transcript = event.results[0][0].transcript.toLowerCase();
-        
-        // Simple keyword matching, remove "experience" for better matching
-        const foundSection = sections.find(section => transcript.includes(section.replace(' experience', '')));
-        
-        if (foundSection) {
-            const formattedSection = foundSection.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
-            navTo(formattedSection);
-        } else {
-            dom.chatBubble.textContent = `Sorry, I couldn't find that. Try "go to projects".`;
-        }
-    };
+    recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript.toLowerCase();
+        
+        // Simple keyword matching, remove "experience" for better matching
+        const foundSection = sections.find(section => transcript.includes(section.replace(' experience', '')));
+        
+        if (foundSection) {
+            const formattedSection = foundSection.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+            navTo(formattedSection);
+        } else {
+            dom.chatBubble.textContent = `Sorry, I couldn't find that. Try "go to projects".`;
+        }
+    };
 
-    recognition.onerror = (event) => {
-        dom.speechBtn.classList.remove('listening');
-        dom.chatBubble.textContent = `Error: ${event.error}. Try again?`;
-    };
+    recognition.onerror = (event) => {
+        dom.speechBtn.classList.remove('listening');
+        dom.chatBubble.textContent = `Error: ${event.error}. Try again?`;
+    };
 }
 
 
 function setupMobileControls() {
-    dom.mobileControls.style.display = 'flex';
-    dom.mobileNavBar.style.display = 'flex';
+    dom.mobileControls.style.display = 'flex';
+    dom.mobileNavBar.style.display = 'flex';
 
 
-    const buttonMap = [
-        { btn: dom.mcUp, key: 'w' },
-        { btn: dom.mcDown, key: 's' },
-        { btn: dom.mcLeft, key: 'a' },
-        { btn: dom.mcRight, key: 'd' },
-    ];
+Image     const buttonMap = [
+        { btn: dom.mcUp, key: 'w' },
+        { btn: dom.mcDown, key: 's' },
+        { btn: dom.mcLeft, key: 'a' },
+        { btn: dom.mcRight, key: 'd' },
+    ];
 
-    buttonMap.forEach(item => {
-        item.btn.addEventListener('touchstart', (e) => { e.preventDefault(); if(!isAutoDriving) keys[item.key] = true; }, { passive: false });
-        item.btn.addEventListener('touchend', (e) => { e.preventDefault(); keys[item.key] = false; }, { passive: false });
-    });
+    buttonMap.forEach(item => {
+        item.btn.addEventListener('touchstart', (e) => { e.preventDefault(); if(!isAutoDriving) keys[item.key] = true; }, { passive: false });
+        item.btn.addEventListener('touchend', (e) => { e.preventDefault(); keys[item.key] = false; }, { passive: false });
+    });
 
-    dom.mcInteract.addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        if (canInteractWith) displayInfo(canInteractWith.name);
-    }, { passive: false });
+    dom.mcInteract.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        if (canInteractWith) displayInfo(canInteractWith.name);
+    }, { passive: false });
 }
 
 function displayInfo(name){
-    let html = `<h2>${name}</h2>`;
-    const data = portfolioData[name];
+    let html = `<h2>${name}</h2>`;
+    const data = portfolioData[name];
 
-    if(!data){ html += `<p>No data available.</p>`; }
-    else if(name === 'About'){
-        html += `<img id="profile-pic" src="${data.profilePicUrl}" alt="Ayush Dixit" onerror="this.style.display='none'"/>`;
-        html += `<p style="padding-top:10px;"><strong>${data.name}</strong><br/><span class="small">${data.title}</span></p>`;
-        html += `<div class="contact-links">`;
-        html += `   <a href="mailto:${data.email}" class="contact-link" target="_blank"><i class="fa-solid fa-envelope"></i><span>Email</span></a>`;
-        html += `   <a href="tel:${data.phone}" class="contact-link"><i class="fa-solid fa-phone"></i><span>Call</span></a>`;
-        html += `   <a href="${data.linkedin}" class="contact-link" target="_blank"><i class="fa-brands fa-linkedin"></i><span>LinkedIn</span></a>`;
-        html += `   <a href="${data.github}" class="contact-link" target="_blank"><i class="fa-brands fa-github"></i><span>GitHub</span></a>`;
-        html += `</div>`;
-    } else if (name === 'Education') {
-        data.forEach(item => {
-            html += `
-                <div class="education-item">
-                    <h3>${item.degree} <strong style="font-size: 1rem;">${item.performance}</strong></h3>
-                    <div class="details-grid">
-                        <p><i class="fa-solid fa-building-columns"></i> ${item.institution}</p>
-                        <p><i class="fa-solid fa-calendar-alt"></i> ${item.year}</p>
-                    </div>
-                </div>
-            `;
-        });
-    } else if (name === 'Achievements') {
-        html += `<div class="achievements-grid">`;
-        data.forEach(item => {
-            html += `
-                <div class="achievement-card">
-                    <div class="achievement-logo-container">
-                        <img src="${item.logo}" alt="${item.text} logo" onerror="this.onerror=null; this.src='${item.githubLogo}';"/>
-                    </div>
-                    <div class="achievement-details">
-                        <h3>${item.text}</h3>
-                        <p>${item.details}</p>
-                    </div>
-                </div>
-            `;
-        });
-        html += `</div>`;
-    } else if (name === 'Core Experience') {
-         for (const category in data) {
-            const categoryData = data[category];
-            html += `<div class="core-exp-section theme-${categoryData.theme}">`;
-            html += `<h3>${category}</h3>`;
-            categoryData.projects.forEach(item => {
-                html += `<details><summary>${item.name}</summary>`;
-                html += `<p class="small" style="margin-top: 8px;"><em>${item.description}</em></p>`;
-                if(item.points) html += `<ul>${item.points.map(p=>`<li>${p}</li>`).join('')}</ul>`;
-                if (item.links) {
-                    html += `<div class="item-links">`;
-                    if (item.links.github) html += `<a href="${item.links.github}" target="_blank" class="item-link-btn"><i class="fa-brands fa-github"></i> GitHub</a>`;
-                    if (item.links.doc) html += `<a href="${item.links.doc}" target="_blank" class="item-link-btn"><i class="fa-solid fa-file-alt"></i> View Doc</a>`;
-                    html += `</div>`;
-                }
-                html += `</details>`;
-            });
-            html += `</div>`;
-        }
-    }
-    else if(Array.isArray(data)){
-        data.forEach(item => {
-            const title = item.degree || item.role || item.name || 'Item';
-            let subTitle = item.domain ? `<span class="small">${item.domain}</span><br/>` : '';
-            subTitle += item.description || '';
+    if(!data){ html += `<p>No data available.</p>`; }
+    else if(name === 'About'){
+        html += `<img id="profile-pic" src="${data.profilePicUrl}" alt="Ayush Dixit" onerror="this.style.display='none'"/>`;
+        html += `<p style="padding-top:10px;"><strong>${data.name}</strong><br/><span class="small">${data.title}</span></p>`;
+        html += `<div class="contact-links">`;
+        html += `   <a href="mailto:${data.email}" class="contact-link" target="_blank"><i class="fa-solid fa-envelope"></i><span>Email</span></a>`;
+        html += `   <a href="tel:${data.phone}" class="contact-link"><i class="fa-solid fa-phone"></i><span>Call</span></a>`;
+        html += `   <a href="${data.linkedin}" class="contact-link" target="_blank"><i class="fa-brands fa-linkedin"></i><span>LinkedIn</span></a>`;
+        html += `   <a href="${data.github}" class="contact-link" target="_blank"><i class="fa-brands fa-github"></i><span>GitHub</span></a>`;
+        html += `</div>`;
+    } else if (name === 'Education') {
+        data.forEach(item => {
+            html += `
+                <div class="education-item">
+indented                     <h3>${item.degree} <strong style="font-size: 1rem;">${item.performance}</strong></h3>
+                    <div class="details-grid">
+                        <p><i class="fa-solid fa-building-columns"></i> ${item.institution}</p>
+                        <p><i class="fa-solid fa-calendar-alt"></i> ${item.year}</p>
+                    </div>
+                </div>
+            `;
+        });
+    } else if (name === 'Achievements') {
+        html += `<div class="achievements-grid">`;
+        data.forEach(item => {
+            html += `
+                <div class="achievement-card">
+                    <div class="achievement-logo-container">
+                        <img src="${item.logo}" alt="${item.text} logo" onerror="this.onerror=null; this.src='${item.githubLogo}';"/>
+content                     </div>
+                    <div class="achievement-details">
+                        <h3>${item.text}</h3>
+                        <p>${item.details}</p>
+                    </div>
+                </div>
+            `;
+        });
+        html += `</div>`;
+    } else if (name === 'Core Experience') {
+         for (const category in data) {
+            const categoryData = data[category];
+S           html += `<div class="core-exp-section theme-${categoryData.theme}">`;
+            html += `<h3>${category}</h3>`;
+            categoryData.projects.forEach(item => {
+                html += `<details><summary>${item.name}</summary>`;
+                html += `<p class="small" style="margin-top: 8px;"><em>${item.description}</em></p>`;
+S               if(item.points) html += `<ul>${item.points.map(p=>`<li>${p}</li>`).join('')}</ul>`;
+                if (item.links) {
+                    html += `<div class="item-links">`;
+Indented.                     if (item.links.github) html += `<a href="${item.links.github}" target="_blank" class="item-link-btn"><i class="fa-brands fa-github"></i> GitHub</a>`;
+                    if (item.links.doc) html += `<a href="${item.links.doc}" target="_blank" class="item-link-btn"><i class="fa-solid fa-file-alt"></i> View Doc</a>`;
+                    html += `</div>`;
+                }
+                html += `</details>`;
+            });
+            html += `</div>`;
+        }
+    }
+    else if(Array.isArray(data)){
+        data.forEach(item => {
+            const title = item.degree || item.role || item.name || 'Item';
+            let subTitle = item.domain ? `<span class="small">${item.domain}</span><br/>` : '';
+            subTitle += item.description || '';
 
-            html += `<details><summary>${title}${item.date? ' ('+item.date+')': ''}</summary>`;
-            if(subTitle) html += `<p class="small" style="margin-top: 8px;"><em>${subTitle}</em></p>`;
-            if(item.points) html += `<ul>${item.points.map(p=>`<li>${p}</li>`).join('')}</ul>`;
-            
-            if (item.links) {
-                html += `<div class="item-links">`;
-                if (item.links.github) {
-                    html += `<a href="${item.links.github}" target="_blank" class="item-link-btn"><i class="fa-brands fa-github"></i> GitHub</a>`;
-                }
-                if (item.links.live) {
-                    html += `<a href="${item.links.live}" target="_blank" class="item-link-btn"><i class="fa-solid fa-external-link-alt"></i> Live Demo</a>`;
-                }
-                if (item.links.doc) {
-                    html += `<a href="${item.links.doc}" target="_blank" class="item-link-btn"><i class="fa-solid fa-file-alt"></i> View Doc</a>`;
-                }
-                html += `</div>`;
-            }
-            html += `</details>`;
-        });
-    } else if(name === 'Skills') {
-        html = `<h2>Skill Park</h2><p>Welcome to the Skill Park! Drive around this area to see my technical abilities. You can also navigate to other sections using the menu.</p>`;
-    } else {
-        html += `<p>${String(data)}</p>`;
-    }
-    
-    dom.infoContent.innerHTML = html; 
-    dom.infoPanel.classList.add('visible');
+            html += `<details><summary>${title}${item.date? ' ('+item.date+')': ''}</summary>`;
+            if(subTitle) html += `<p class="small" style="margin-top: 8px;"><em>${subTitle}</em></p>`;
+            if(item.points) html += `<ul>${item.points.map(p=>`<li>${p}</li>`).join('')}</ul>`;
+            
+            if (item.links) {
+                html += `<div class="item-links">`;
+                if (item.links.github) {
+                    html += `<a href="${item.links.github}" target="_blank" class="item-link-btn"><i class="fa-brands fa-github"></i> GitHub</a>`;
+                }
+                if (item.links.live) {
+                    html += `<a href="${item.links.live}" target="_blank" class="item-link-btn"><i class="fa-solid fa-external-link-alt"></i> Live Demo</a>`;
+indented                 }
+                if (item.links.doc) {
+                    html += `<a href="${item.links.doc}" target="_blank" class="item-link-btn"><i class="fa-solid fa-file-alt"></i> View Doc</a>`;
+Note.                 }
+                html += `</div>`;
+            }
+            html += `</details>`;
+        });
+    } else if(name === 'Skills') {
+        html = `<h2>Skill Park</h2><p>Welcome to the Skill Park! Drive around this area to see my technical abilities. You can also navigate to other sections using the menu.</p>`;
+s     } else {
+        html += `<p>${String(data)}</p>`;
+    }
+    
+    dom.infoContent.innerHTML = html; 
+    dom.infoPanel.classList.add('visible');
 }
 
 function checkInteractions(){
-    if(!car) return;
-    let closest = null, minD = 35;
-    interactiveZones.forEach(z => {
-        if (z.name === 'Skills' && car.position.distanceTo(z.position) < 30) {
-            return;
-        }
-        const d = car.position.distanceTo(z.position);
-        if(d < minD){ minD = d; closest = z; }
-    });
-    if(closest && closest !== canInteractWith){
-        canInteractWith = closest;
-        dom.interactionPrompt.innerHTML = `<strong style="background:var(--accent);color:white;padding:8px 12px;border-radius:8px;margin-right:10px">E</strong> Visit ${canInteractWith.name}`;
-        dom.interactionPrompt.style.display = 'block';
-        if(gsapGlobal) gsapGlobal.fromTo(dom.interactionPrompt, {scale:0.8, opacity:0}, {scale:1, opacity:1, duration:0.3});
-    } else if(!closest && canInteractWith){
-        canInteractWith = null; 
-        if(gsapGlobal) gsapGlobal.to(dom.interactionPrompt, {scale:0.8, opacity:0, duration:0.2, onComplete: () => dom.interactionPrompt.style.display = 'none'});
-    }
+Indented.     if(!car) return;
+    let closest = null, minD = 35;
+    interactiveZones.forEach(z => {
+        if (z.name === 'Skills' && car.position.distanceTo(z.position) < 30) {
+            return;
+        }
+        const d = car.position.distanceTo(z.position);
+        if(d < minD){ minD = d; closest = z; }
+    });
+    if(closest && closest !== canInteractWith){
+        canInteractWith = closest;
+        dom.interactionPrompt.innerHTML = `<strong style="background:var(--accent);color:white;padding:8px 12px;border-radius:8px;margin-right:10px">E</strong> Visit ${canInteractWith.name}`;
+        dom.interactionPrompt.style.display = 'block';
+        if(gsapGlobal) gsapGlobal.fromTo(dom.interactionPrompt, {scale:0.8, opacity:0}, {scale:1, opacity:1, duration:0.3});
+    } else if(!closest && canInteractWith){
+        canInteractWith = null; 
+        if(gsapGlobal) gsapGlobal.to(dom.interactionPrompt, {scale:0.8, opacity:0, duration:0.2, onComplete: () => dom.interactionPrompt.style.display = 'none'});
+    }
 }
 
 function updateCar(dt){
-    if(!car || isAutoDriving) return;
-    if(typeof car.userData.speed === 'undefined') car.userData.speed = 0;
-    if(typeof car.userData.turn === 'undefined') car.userData.turn = 0;
+    if(!car || isAutoDriving) return;
+    if(typeof car.userData.speed === 'undefined') car.userData.speed = 0;
+    if(typeof car.userData.turn === 'undefined') car.userData.turn = 0;
 
-    const accel = 120, decel = 80, max = 200;
-    if(keys.w) car.userData.speed = Math.min(max, car.userData.speed + accel*dt);
-    else if(keys.s) car.userData.speed = Math.max(-max/2, car.userData.speed - accel*dt);
-    else {
-        if (car.userData.speed > 0) car.userData.speed = Math.max(0, car.userData.speed - decel*dt);
-        else car.userData.speed = Math.min(0, car.userData.speed + decel*dt);
-    }
+    const accel = 120, decel = 80, max = 200;
+    if(keys.w) car.userData.speed = Math.min(max, car.userData.speed + accel*dt);
+i     else if(keys.s) car.userData.speed = Math.max(-max/2, car.userData.speed - accel*dt);
+    else {
+        if (car.userData.speed > 0) car.userData.speed = Math.max(0, car.userData.speed - decel*dt);
+        else car.userData.speed = Math.min(0, car.userData.speed + decel*dt);
+    }
 
-    if(keys.a) car.userData.turn = Math.min(1.2, car.userData.turn + 3*dt); // Turn left
-    else if(keys.d) car.userData.turn = Math.max(-1.2, car.userData.turn - 3*dt); // Turn right
-    else car.userData.turn *= (1 - dt * 4);
+    if(keys.a) car.userData.turn = Math.min(1.2, car.userData.turn + 3*dt); // Turn left
+    else if(keys.d) car.userData.turn = Math.max(-1.2, car.userData.turn - 3*dt); // Turn right
+    else car.userData.turn *= (1 - dt * 4);
 
-    const speedFactor = Math.abs(car.userData.speed)/max;
-    car.rotation.y += car.userData.turn * dt * speedFactor * 0.7;
-    car.translateZ(-car.userData.speed * dt * 0.05);
+    const speedFactor = Math.abs(car.userData.speed)/max;
+    car.rotation.y += car.userData.turn * dt * speedFactor * 0.7;
+    car.translateZ(-car.userData.speed * dt * 0.05);
 
-    const bounceFrequency = 15;
-    const bounceAmplitude = 0.05;
-    if (Math.abs(car.userData.speed) > 5) {
-        car.position.y = 0.7 + Math.sin(clock.getElapsedTime() * bounceFrequency * speedFactor) * bounceAmplitude;
-    }
+    const bounceFrequency = 15;
+    const bounceAmplitude = 0.05;
+    if (Math.abs(car.userData.speed) > 5) {
+nbsp       car.position.y = 0.7 + Math.sin(clock.getElapsedTime() * bounceFrequency * speedFactor) * bounceAmplitude;
+    }
 
 
-    car.children.filter(c => c.geometry && c.geometry.type === 'CylinderGeometry').forEach(w => {
-        w.rotation.x -= (car.userData.speed * dt * 0.03);
-    });
-    
-    if(roadLineTexture) roadLineTexture.offset.y -= (car.userData.speed * dt * 0.001);
+    car.children.filter(c => c.geometry && c.geometry.type === 'CylinderGeometry').forEach(w => {
+        w.rotation.x -= (car.userData.speed * dt * 0.03);
+    });
+    
+    if(roadLineTexture) roadLineTexture.offset.y -= (car.userData.speed * dt * 0.001);
 }
 
 function updateCamera(){
-    if(!car) return;
+    if(!car) return;
 
-    const isMobile = window.innerWidth < 820;
-    const offsetDistance = isMobile ? 18 : 12;
-    const offsetHeight = isMobile ? 7 : 4;
+    const isMobile = window.innerWidth < 820;
+    const offsetDistance = isMobile ? 18 : 12;
+    const offsetHeight = isMobile ? 7 : 4;
 
-    const offset = new THREE.Vector3(0, offsetHeight, offsetDistance).applyQuaternion(car.quaternion);
-    const desired = car.position.clone().add(offset);
-    camera.position.lerp(desired, 0.08);
-    camera.lookAt(car.position.clone().add(new THREE.Vector3(0, 2, 0)));
+    const offset = new THREE.Vector3(0, offsetHeight, offsetDistance).applyQuaternion(car.quaternion);
+    const desired = car.position.clone().add(offset);
+    camera.position.lerp(desired, 0.08);
+    camera.lookAt(car.position.clone().add(new THREE.Vector3(0, 2, 0)));
 }
 
 
 function animate(){
-    requestAnimationFrame(animate);
-    const dt = Math.min(0.05, clock.getDelta());
-    
-    updateCar(dt);
-    updateCamera();
-    checkInteractions();
+    requestAnimationFrame(animate);
+    const dt = Math.min(0.05, clock.getDelta());
+    
+    updateCar(dt);
+    updateCamera();
+    checkInteractions();
 
-    scene.children.forEach(child => {
-        if (child.userData.isBillboard) {
-            child.quaternion.copy(camera.quaternion);
-        }
-    });
+    scene.children.forEach(child => {
+        if (child.userData.isBillboard) {
+            child.quaternion.copy(camera.quaternion);
+        }
+    });
 
-    renderer.render(scene, camera);
+    renderer.render(scene, camera);
 }
 </script>
 </body>
 </html>
-
